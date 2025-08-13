@@ -3,13 +3,25 @@ import RoleSelectionPage from "../components/Auth/RoleSelectionPage";
 import SignUp from "../components/Auth/SignUp";
 import VerificationPage from "../components/Auth/VarificationPage";
 import Login from "../components/Auth/Login";
+import ForgotPassword from "../components/Auth/ForgotPassword";
+import ResetPassword from "../components/Auth/ResetPassword";
+import PasswordResetSuccess from "../components/Auth/PasswordResetSuccess";
+import CommonLayout from "../components/Layout/CommonLayout";
+import LandingPage from "../pages/PublicPages/LandingPage";
 
 const router = createBrowserRouter([
 
 // Public Routes
   {
     path: "/",
-    element: <div>This is home</div>,
+    element: <CommonLayout />,
+    children: [
+      {
+        path: "/",
+        element: <LandingPage />,
+
+      }
+    ],
   },
 
 
@@ -32,6 +44,22 @@ const router = createBrowserRouter([
   {
     path: "/auth/login",
     element: <Login/>,
+  },
+  {
+    path: "/auth/forgot-password",
+    element: <ForgotPassword/>,
+  },
+  {
+    path: "/auth/otp",
+    element: <VerificationPage to="/auth/reset-password" />,
+  },
+  {
+    path: "/auth/reset-password",
+    element: <ResetPassword />,
+  },
+  {
+    path: "/auth/reset/success",
+    element: <PasswordResetSuccess/>,
   },
 
 ]);

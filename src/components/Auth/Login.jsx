@@ -22,16 +22,6 @@ export default function Login() {
     }))
   }
 
-  
-  const handleSubmit = async (event) => {
-  event.preventDefault();
-  setLoading(true);
-
-  setTimeout(() => {
-    console.log("Login submitted:", formData);
-    setLoading(false);
-  }, 2000);
-};
 
 
   
@@ -43,7 +33,7 @@ export default function Login() {
       <AuthCloseButton />
 
       {/* Form */}
-      <Box component="form" onSubmit={handleSubmit} sx={{ width: "100%" }}>
+      <Box component="form"  sx={{ width: "100%" }}>
         {/* Email Input */}
         <InputEmail value={formData.email} onChange={handleInputChange("email")} label="Email Address" />
 
@@ -53,7 +43,7 @@ export default function Login() {
         {/* Forgot Password Link */}
         <div className="flex justify-end mb-10">
            <p className="text-[#468F9D]">
-             <Link> Forgot Your Password?</Link>
+             <Link to="/auth/forgot-password"> Forgot Your Password?</Link>
            </p>
         </div>
 
@@ -61,7 +51,7 @@ export default function Login() {
 
        <div className="mb-4">
 
-         <TealButton text="Sign In" onClick={handleSubmit}></TealButton>
+         <TealButton text="Sign In" onClick={() => localStorage.setItem("user", "user")}></TealButton>
 
        </div>
 

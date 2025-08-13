@@ -7,7 +7,7 @@ import TealButton from "../common/TealButton";
 import AuthHeaderIcon from "../Shared/AuthHeaderIcon";
 
 
-export default function VerificationPage() {
+export default function VerificationPage({ to="/auth/login" }) {
     
     const [resendLoading, setResendLoading] = useState(false)
     const values = ['2', '8', '4', ' ', ' '];
@@ -29,7 +29,7 @@ export default function VerificationPage() {
     return (
         <div>
             
-            <AuthPageWrapper text="Verify Your Email" icon={<AuthHeaderIcon icon={Email}/>}>
+            <AuthPageWrapper text="Check Your Email" icon={<AuthHeaderIcon icon={Email}/>}>
                 {/* Email Icon */}
 
               
@@ -49,7 +49,7 @@ export default function VerificationPage() {
                 </div>
 
               <div className='mb-4'>
-                 <Link to="/login"><TealButton text="Verify" ></TealButton></Link>
+                 <Link to={to}><TealButton text="Verify" ></TealButton></Link>
               </div>
 
                 {/* Rersend Email Link */}

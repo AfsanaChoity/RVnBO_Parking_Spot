@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link as RouterLink, NavLink } from 'react-router-dom';
+import { Link as RouterLink, NavLink, Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -171,8 +171,8 @@ function Navbar({
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, justifySelf: 'end' }}>
             {!isAuthenticated ? (
               <>
-                <GradientButton text="Log In" />
-                <GradientButton text="Sign Up" />
+                <Link to="/auth/login"><GradientButton text="Log In" /></Link>
+                <Link to="/onboarding/role"><GradientButton text="Sign Up" /></Link>
               </>
             ) : (
               <>

@@ -28,7 +28,7 @@ export default function Login() {
 
 
   return (
-    <AuthPageWrapper text="Login">
+    <AuthPageWrapper text="Login Here!">
       {/* Close Button */}
       <AuthCloseButton />
 

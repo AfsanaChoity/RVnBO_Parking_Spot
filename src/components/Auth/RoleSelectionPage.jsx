@@ -6,8 +6,12 @@ import logo from "/logo.png"
 import AuthHeaderImage from "../Shared/AuthHeaderImage";
 import CenterParagraph from "../common/CenterParagraph";
 import AuthCloseButton from "../Shared/AuthCloseButton";
+import { setRole } from "../../redux/slices/userRoleSlice";
+import { useDispatch } from "react-redux";
 
 export default function RoleSelectionPage() {
+    const dispatch = useDispatch();
+
     return (
         <>
             <AuthPageWrapper text={"Welcome To "} icon={<AuthHeaderImage img={logo} />}>
@@ -27,12 +31,12 @@ export default function RoleSelectionPage() {
                </div>
 
                 <div className='flex flex-col gap-4'>
-                    <Link to="/auth/signup" onClick={() => localStorage.setItem("userRole", "traveler")}>
-                        <TealButton text="Traveler"></TealButton>
+                    <Link to="/auth/signup" onClick={() => {dispatch(setRole("traveler"))}}>
+                        <TealButton  text="Traveler" type="Submit"></TealButton>
                     </Link>
 
-                    <Link to="/auth/signup" onClick={() => localStorage.setItem("userRole", "landowner")}>
-                       <MintButton text="Land Owner"></MintButton>
+                    <Link to="/auth/signup" onClick={() => {dispatch(setRole("landowner"))}}>
+                       <MintButton text="Land Owner" type="Submit"></MintButton>
                     </Link>
                 </div>
 

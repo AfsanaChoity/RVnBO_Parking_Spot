@@ -6,14 +6,18 @@ import InputEmail from "../common/InputEmail";
 import InputPassword from "../common/InputPassword";
 import TealButton from "../common/TealButton";
 import { Link } from "react-router";
+import { useLoginMutation } from "../../redux/api/authApi";
+import { useAuth } from "../../redux/hooks";
 
 export default function Login() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   })
-  ;
+    ;
   const [loading, setLoading] = useState(false)
+  const [login] = useLoginMutation();
+  const { setCredentials } = useAuth();
 
   const handleInputChange = (field) => (event) => {
     setFormData((prev) => ({
@@ -24,7 +28,10 @@ export default function Login() {
 
 
 
-  
+  const handleLogin = async () => {
+    const response = await login({ email, password }).unwrap();
+    setCredentials({ user: response.user, token: response.token });
+  };
 
 
   return (
@@ -33,7 +40,7 @@ export default function Login() {
       <AuthCloseButton />
 
       {/* Form */}
-      <Box component="form"  sx={{ width: "100%" }}>
+      <Box component="form" sx={{ width: "100%" }}>
         {/* Email Input */}
         <InputEmail value={formData.email} onChange={handleInputChange("email")} label="Email Address" />
 
@@ -42,18 +49,18 @@ export default function Login() {
 
         {/* Forgot Password Link */}
         <div className="flex justify-end mb-10">
-           <p className="text-[#468F9D]">
-             <Link to="/auth/forgot-password"> Forgot Your Password?</Link>
-           </p>
+          <p className="text-[#468F9D]">
+            <Link to="/auth/forgot-password"> Forgot Your Password?</Link>
+          </p>
         </div>
 
         {/* Sign In Button */}
 
-       <div className="mb-4">
+        <div className="mb-4">
 
-         <TealButton text="Sign In" onClick={() => localStorage.setItem("user", "user")}></TealButton>
+         <Link to= "/" onSubmit={handleLogin}><TealButton text="Sign In"></TealButton></Link>
 
-       </div>
+        </div>
 
         {/* Sign Up Link */}
         <Typography

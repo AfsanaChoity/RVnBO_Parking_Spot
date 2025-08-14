@@ -1,11 +1,11 @@
 import { Button } from "@mui/material"
 
 
-export default function MintButton({ text, onClick, icon = null }) {
+export default function MintButton({ text, type="button", onClick, icon = null }) {
     return (
         <div>
             <Button
-                type="submit"
+                type={type}
                 fullWidth
                 variant="contained"
                 onClick={onClick}

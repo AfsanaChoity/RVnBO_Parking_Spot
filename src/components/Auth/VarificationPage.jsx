@@ -10,7 +10,7 @@ import AuthHeaderIcon from "../Shared/AuthHeaderIcon";
 export default function VerificationPage({ to="/auth/login" }) {
     
     const [resendLoading, setResendLoading] = useState(false)
-    const values = ['2', '8', '4', ' ', ' '];
+    const values = [' ', ' ', ' ', ' ', ' ', ' '];
 
     // This would typically come from props or route params
     const userEmail = "loremipsum@gmail.com"

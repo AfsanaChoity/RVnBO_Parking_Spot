@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Checkbox, FormControlLabel, Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -10,9 +10,24 @@ import InputPassword from "../common/InputPassword";
 import TealButton from "../common/TealButton";
 
 import { useSignupMutation } from "../../redux/api/authApi";
-import { useAuth, useUserRole } from "../../redux/hooks";
+import { useAuth, useUserRole } from "../../redux/hooks"; // Don't redeclare 'role'
+import { useDispatch } from "react-redux";
+import { setRole } from "../../redux/slices/userRoleSlice";
 
 export default function SignUp() {
+  const dispatch = useDispatch();
+  const { role } = useUserRole(); // Get role from Redux (Don't declare role again)
+  
+  // If the role is not set in Redux, get it from localStorage
+  useEffect(() => {
+    if (!role) {
+      const savedRole = localStorage.getItem('userRole');
+      if (savedRole) {
+        dispatch(setRole(savedRole));  // Dispatch role from localStorage
+      }
+    }
+  }, [dispatch, role]);  // Only dispatch if role is not set
+
   const [formData, setFormData] = useState({
     nameAndSurname: "",
     email: "",
@@ -20,49 +35,66 @@ export default function SignUp() {
     agreeToTerms: false,
   });
 
-  const [errorMessage, setErrorMessage] = useState(""); // For backend or validation errors
+  const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false); // Loading state
 
-  const { role } = useUserRole(); // Role selected on RoleSelectionPage
-  const { setCredentials } = useAuth(); // Redux action to store user/token/role
+  const { setCredentials } = useAuth(); 
   const navigate = useNavigate();
 
-  const [signup] = useSignupMutation(); // RTK Query mutation
+  const [signup] = useSignupMutation();
 
-  // Handle form input changes
   const handleInputChange = (field) => (event) => {
     const value =
       event.target.type === "checkbox" ? event.target.checked : event.target.value;
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  // Handle form submission
   const handleSubmit = async (event) => {
-    event.preventDefault(); // Prevent page reload
-    setErrorMessage("");    // Clear previous errors
+    event.preventDefault();
+    setErrorMessage(""); 
+    setLoading(false);
 
-    // Validation: Terms & Conditions
+    if (!formData.nameAndSurname || !formData.email || !formData.password) {
+      setErrorMessage("All fields are required.");
+      return;
+    }
+
     if (!formData.agreeToTerms) {
       setErrorMessage("You must agree to Terms & Conditions.");
       return;
     }
 
-    try {
-      // Call signup API
-      const response = await signup({ ...formData, role }).unwrap();
+    // Start loading when API call begins
+    setLoading(true);
 
-      // Save user info + token + role in Redux
-      setCredentials({ user: response.user, token: response.token, role: response.role });
+    try {
+      const response = await signup({
+        name: formData.nameAndSurname,
+        email: formData.email,
+        password: formData.password,
+        role
+      }).unwrap();
+
+      localStorage.setItem("userEmail", formData.email);
+      
+      // Store credentials
+      setCredentials({ user: response.user || null, token: response.token || null, role });
 
       // Navigate to verification page
       navigate("/auth/verification");
+
     } catch (err) {
-      // Show backend error messages in UI
+      console.error("Signup error:", err);
+
+      // Stop loading if error occurs
+      setLoading(false);
+
       if (err?.data?.message) {
-        setErrorMessage(err.data.message); // Example: "Email already exists"
+        setErrorMessage(err.data.message);
       } else if (err?.error) {
-        setErrorMessage(err.error);        // Fallback error
+        setErrorMessage(err.error);
       } else {
-        setErrorMessage("Registration failed. Please try again.");
+        setErrorMessage("Registration failed. Please try again!");
       }
     }
   };
@@ -71,40 +103,22 @@ export default function SignUp() {
     <AuthPageWrapper text="Create Account">
       <AuthCloseButton />
 
-      {/* Display backend or validation errors */}
-      {errorMessage && (
-        <Typography
-          variant="body2"
-          color="error"
-          sx={{ textAlign: "center", mb: 2 }}
-        >
-          {errorMessage}
-        </Typography>
-      )}
-
-      {/* Form */}
       <Box component="form" onSubmit={handleSubmit} sx={{ width: "100%" }}>
-        {/* Name Input */}
         <InputName
           value={formData.nameAndSurname}
           onChange={handleInputChange("nameAndSurname")}
         />
-
-        {/* Email Input */}
         <InputEmail
           value={formData.email}
           onChange={handleInputChange("email")}
           label="Email Address"
         />
-
-        {/* Password Input */}
         <InputPassword
           value={formData.password}
           onChange={handleInputChange("password")}
           label="Password"
         />
 
-        {/* Terms & Conditions */}
         <Box sx={{ mb: 3 }}>
           <FormControlLabel
             control={
@@ -128,12 +142,32 @@ export default function SignUp() {
           />
         </Box>
 
-        {/* Submit Button */}
+        {/* Loading / Pending message */}
+        {loading && (
+          <Typography
+            variant="body2"
+            color="primary"
+            sx={{ textAlign: "center", mb: 2, fontSize: 18 }}
+          >
+            Done! Waiting for verification code…
+          </Typography>
+        )}
+
+        {/* Error message */}
+        {errorMessage && (
+          <Typography
+            variant="body2"
+            color="error"
+            sx={{ textAlign: "center", mb: 2, fontSize: 18 }}
+          >
+            {errorMessage}
+          </Typography>
+        )}
+
         <div className="mb-4">
-          <TealButton type="submit" text="Register" /> {/* type="submit" triggers handleSubmit */}
+          <TealButton type="submit" text={loading ? "Submitting..." : "Register"} />
         </div>
 
-        {/* Link to Login page */}
         <Typography variant="body2" sx={{ textAlign: "center", color: "text.secondary" }}>
           Already have an account?{" "}
           <Link

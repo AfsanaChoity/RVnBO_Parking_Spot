@@ -1,16 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';  // For persistent storage
+import storage from 'redux-persist/lib/storage'; 
 import authReducer from './slices/authSlice';
 import userRoleReducer from './slices/userRoleSlice';
 import { authApi } from './api/authApi';
-import passwordResetReducer from './slices/passwordResetSlice';  // Import the passwordResetReducer
+import passwordResetReducer from './slices/passwordResetSlice'; 
 
 // Redux Persist configuration
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth', 'userRole'],  // Persist auth and userRole
+  whitelist: ['auth', 'userRole'],  
 };
 
 const persistedAuthReducer = persistReducer(persistConfig, authReducer);

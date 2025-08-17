@@ -7,14 +7,13 @@ import { setEmail } from "../../redux/slices/passwordResetSlice"; // Action to s
 
 import CenterParagraph from "../common/CenterParagraph";
 import InputEmail from "../common/InputEmail";
-import AuthCloseButton from "../Shared/AuthCloseButton";
 import AuthHeaderIcon from "../Shared/AuthHeaderIcon";
 import AuthPageWrapper from "../Shared/AuthPageWrapper";
 import TealButton from "../common/TealButton";
 import BackToLogin from "../Shared/BackToLogin";
 
 export default function ForgotPassword() {
-  const [email, setEmailState] = useState(""); // Local state for email input
+  const [localEmail, setLocalEmail] = useState(""); // Renamed local state setter to avoid conflict
   const [errorMessage, setErrorMessage] = useState(""); // To store error messages
   const [loading, setLoading] = useState(false); // For loading state
 
@@ -23,9 +22,9 @@ export default function ForgotPassword() {
 
   const [forgotPassword] = useForgotPasswordMutation(); // RTK Query for forgotPassword API
 
-  // Handle email change
+  // Handle email input change
   const handleEmailChange = (event) => {
-    setEmailState(event.target.value); // Update email in local state
+    setLocalEmail(event.target.value); // Update email in local state
   };
 
   // Handle form submission (send email for password reset)
@@ -34,18 +33,22 @@ export default function ForgotPassword() {
     setErrorMessage(""); // Clear previous error messages
     setLoading(true); // Set loading to true
 
-    if (!email) {
+    if (!localEmail) {
       setErrorMessage("Please enter your email.");
       setLoading(false); // Set loading to false if validation fails
       return;
     }
 
+    if(localEmail){
+      localStorage.setItem("userEmail", localEmail);
+    }
+
     try {
       // Dispatch email to Redux (store it globally)
-      dispatch(setEmail(email)); // Store email in Redux
+      dispatch(setEmail(localEmail)); // Store email in Redux
 
       // Call the forgotPassword mutation
-      const response = await forgotPassword(email).unwrap(); // Call the API and unwrap the response
+      const response = await forgotPassword(localEmail).unwrap(); // Call the API and unwrap the response
 
       // Handle success
       setLoading(false);
@@ -65,7 +68,7 @@ export default function ForgotPassword() {
 
       <Box component="form" onSubmit={handleSubmit} sx={{ width: "100%" }}>
         {/* Email Input */}
-        <InputEmail value={email} onChange={handleEmailChange} label="Email Address" />
+        <InputEmail value={localEmail} onChange={handleEmailChange} label="Email Address" />
 
         {/* Error Message */}
         {errorMessage && (
@@ -74,15 +77,10 @@ export default function ForgotPassword() {
           </Typography>
         )}
 
-        {/* Loading / Pending message */}
-        {/* {loading && (
-          <Typography variant="body2" color="primary" sx={{ textAlign: "center", mb: 2, fontSize: 18 }}>
-            Please wait... Sending verification code...
-          </Typography>
-        )} */}
-
-        {/* Submit Button */}
-        <TealButton text="Continue" type="submit" />
+        
+        
+        {/* Submit Button with static text */}
+        <TealButton text="Continue" type="submit" /> 
 
         {/* Back to Login Link */}
         <BackToLogin />

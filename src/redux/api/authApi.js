@@ -18,6 +18,24 @@ export const authApi = createApi({
             }),
         }),
 
+         // verify email
+        verifyEmail: builder.mutation({
+            query: (data) => ({
+                url: 'auth/verify-email',
+                method: 'POST',
+                body: data,
+            }),
+        }),
+
+        // resend verification code
+        resendCode: builder.mutation({
+            query: (email) => ({
+                url: `auth/resend-verification-code`,
+                method: 'POST',
+                body: { email },
+            }),
+        }),
+
         // user login
         login: builder.mutation({
             query: (data) => ({
@@ -36,30 +54,44 @@ export const authApi = createApi({
             }),
         }),
 
-        // verify email
-        verifyEmail: builder.mutation({
+        // verify email for reset password
+        verifyResetPassword: builder.mutation({
             query: (data) => ({
-                url: 'auth/verify-email',
+                url: 'auth/verify-reset-code',
                 method: 'POST',
                 body: data,
             }),
         }),
 
-        // resend code
-        resendCode: builder.mutation({
+        // resend verification code for reset password
+        resendResetCode: builder.mutation({
             query: (email) => ({
-                url: `auth/resend-verification-code`,
+                url: `auth/resend-password-reset-code`,
                 method: 'POST',
                 body: { email },
             }),
         }),
+
+        // resetting password
+        resetPassword: builder.mutation({
+            query: (data) => ({
+                url: 'auth/reset-password',
+                method: 'POST',
+                body: data,
+            }),
+        }),
+       
     }),
 });
 
 export const {
     useSignupMutation,
-    useLoginMutation,
-    useForgotPasswordMutation,
     useVerifyEmailMutation,
     useResendCodeMutation,
+    useLoginMutation,
+    useForgotPasswordMutation,
+    useVerifyResetPasswordMutation,
+    useResendResetCodeMutation,
+    useResetPasswordMutation,
+    
 } = authApi;

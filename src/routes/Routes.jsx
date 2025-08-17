@@ -8,6 +8,7 @@ import ResetPassword from "../components/Auth/ResetPassword";
 import PasswordResetSuccess from "../components/Auth/PasswordResetSuccess";
 import CommonLayout from "../components/Layout/CommonLayout";
 import LandingPage from "../pages/PublicPages/LandingPage";
+import VerifyResetPassword from "../components/Auth/VerifyResetPassword";
 
 const router = createBrowserRouter([
 
@@ -51,7 +52,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/auth/otp",
-    element: <VerificationPage to="/auth/reset-password" />,
+    element: <VerifyResetPassword />,
   },
   {
     path: "/auth/reset-password",

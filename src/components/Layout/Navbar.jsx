@@ -17,6 +17,7 @@ import MailIcon from '@mui/icons-material/Mail';
 
 import logo from '/logo.png';
 import GradientButton from '../common/GradientButton';
+import { useGetUserQuery } from '../../redux/api/authApi';
 
 // center nav items
 const publicNav = [
@@ -51,17 +52,17 @@ const landownerMenu = [
   { label: 'Logout', path: '/logout', isLogout: true },
 ];
 
-function Navbar({
-  role = 'public',             // 'public' | 'landowner'
-  isAuthenticated = false,     // controls login/signup vs avatar
-  unread = 4,                  // badge for inbox
-  onLogout,                    // optional: callback when Logout clicked
-}) {
+function Navbar({ unread = 4, onLogout }) {
+  const { data: userData, error, isLoading } = useGetUserQuery();
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
+  const role = userData?.role;
+
   const navItems = role === 'landowner' ? landownerNav : publicNav;
-  const userItems = role === 'landowner' ? landownerMenu : travelerMenu;
+  const userItems = role === 'landowner' ? landownerMenu : role === 'traveler' ? travelerMenu : [];
+
 
   const handleOpenNavMenu = (e) => setAnchorElNav(e.currentTarget);
   const handleOpenUserMenu = (e) => setAnchorElUser(e.currentTarget);
@@ -84,11 +85,11 @@ function Navbar({
             gridTemplateColumns: 'auto 1fr auto',
             alignItems: 'center',
             gap: 1,
-            px: {  md: 3 },
+            px: { md: 3 },
           }}
         >
           {/* LEFT: hamburger + logo */}
-          <Box sx={{ display: 'flex', alignItems: 'center'  }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
             {/* mobile hamburger */}
             <IconButton
               size="large"
@@ -169,7 +170,7 @@ function Navbar({
 
           {/* RIGHT: auth actions / inbox / avatar */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, justifySelf: 'end' }}>
-            {!isAuthenticated ? (
+            {!userData ? (
               <>
                 <Link to="/auth/login"><GradientButton text="Log In" /></Link>
                 <Link to="/onboarding/role"><GradientButton text="Sign Up" /></Link>
@@ -183,7 +184,13 @@ function Navbar({
                 </IconButton>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="User avatar" src="/static/images/avatar/2.jpg" />
+                    <Avatar alt="User avatar">
+                      {userData?.image ? (
+                        <img src={userData?.image} alt="user avatar" />
+                      ) : (
+                        userData?.name?.charAt(0).toUpperCase() 
+                      )}
+                    </Avatar>
                   </IconButton>
                 </Tooltip>
               </>

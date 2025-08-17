@@ -5,8 +5,8 @@ import { Box, Typography } from "@mui/material";
 import InputEmail from "../common/InputEmail";
 import InputPassword from "../common/InputPassword";
 import TealButton from "../common/TealButton";
-import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
-import { useLoginMutation } from "../../redux/api/authApi"; // RTK query for login
+import { Link, useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../../redux/api/authApi";
 import { useAuth } from "../../redux/hooks";
 
 export default function Login() {
@@ -15,12 +15,12 @@ export default function Login() {
     password: "",
   });
 
-  const [loading, setLoading] = useState(false); // Loading state for login
-  const [errorMessage, setErrorMessage] = useState(""); // For backend errors
-  const { setCredentials } = useAuth(); // To save the user credentials in Redux
-  const navigate = useNavigate(); // To navigate after successful login
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const { setCredentials } = useAuth();
+  const navigate = useNavigate();
 
-  const [login] = useLoginMutation(); // RTK query mutation for login
+  const [login, { isLoading }] = useLoginMutation();
 
   // Handle input field changes
   const handleInputChange = (field) => (event) => {
@@ -31,35 +31,46 @@ export default function Login() {
   };
 
   // Handle form submission (login)
-  const handleLogin = async (event) => {
-    event.preventDefault(); // Prevent the default form submission
+  const handleLogin = async () => {
 
-    if (!formData.email || !formData.password) {
-      setErrorMessage("Enter your email and password first");
-      return;
+    const data = {
+      email: formData?.email,
+      password: formData?.password
     }
 
-    setLoading(true); // Set loading to true while API call is in progress
-    setErrorMessage(""); // Clear previous error message
+    login(data).unwrap()
+      .then((payload) => console.log('fulfilled', payload))
+      .catch((error) => console.error('rejected', error));
 
-    try {
-      // Send login request to the backend
-      const response = await login({
-        email: formData.email,
-        password: formData.password,
-      }).unwrap(); // Unwrap the response to get the data
 
-      // If login is successful, store user and token in Redux
-      setCredentials({ user: response.user, token: response.token });
+    // if (!formData.email || !formData.password) {
+    //   setErrorMessage("Enter your email and password first");
+    //   return;
+    // }
 
-      // Navigate to the dashboard or home page after successful login
-      navigate("/"); // You can modify this route based on your app structure
-    } catch (err) {
-      console.error("Login error:", err);
-      setErrorMessage(err?.data?.message || "Login failed. Please try again!");
-    } finally {
-      setLoading(false); // Set loading to false after the API call is finished
-    }
+
+
+    // try {
+    //   // Send login request to the backend
+    //   const response = await login({
+    //     email: formData.email,
+    //     password: formData.password,
+    //   }).unwrap(); 
+
+    //   console.log(response)
+    //   // If login is successful, store user and token in Redux
+    //   if (response.user && response.token) {
+    //   setCredentials({ user: response.user, token: response.token }); // Store user and token
+    //   console.log(response)
+    //   // navigate("/"); 
+
+    // }
+    // } catch (err) {
+    //   console.error("Login error:", err);
+    //   setErrorMessage(err?.data?.message || "Login failed. Please try again!");
+    // } finally {
+    //   setLoading(false); 
+    // }
   };
 
   return (
@@ -80,7 +91,7 @@ export default function Login() {
           </Typography>
         )}
 
-        
+
 
         {/* Forgot Password Link */}
         <div className="flex justify-end mb-10">
@@ -91,10 +102,10 @@ export default function Login() {
 
         {/* Submit Button */}
         <div className="mb-4">
-          <TealButton type="submit" text="Sign In"/>
+          <TealButton type="submit" text="Sign In" />
         </div>
 
-        
+
 
         {/* Sign Up Link */}
         <Typography variant="body2" sx={{ textAlign: "center", color: "text.secondary" }}>

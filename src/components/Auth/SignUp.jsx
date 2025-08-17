@@ -165,7 +165,7 @@ export default function SignUp() {
         )}
 
         <div className="mb-4">
-          <TealButton type="submit" text={loading ? "Submitting..." : "Register"} />
+          <TealButton type="submit" text="Register" />
         </div>
 
         <Typography variant="body2" sx={{ textAlign: "center", color: "text.secondary" }}>

@@ -80,6 +80,14 @@ export const authApi = createApi({
                 body: data,
             }),
         }),
+
+        //fetch user profile data
+        getUser: builder.query({
+            query: () => ({
+                url: 'auth/profile',
+                method: 'GET',
+            }),
+        }),
        
     }),
 });
@@ -93,5 +101,6 @@ export const {
     useVerifyResetPasswordMutation,
     useResendResetCodeMutation,
     useResetPasswordMutation,
+    useGetUserQuery,
     
 } = authApi;

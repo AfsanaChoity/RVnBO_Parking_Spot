@@ -56,7 +56,7 @@ export default function LandingPage() {
 
 
       {/* Form */}
-      {role === 'traveler' && (
+      {role !== 'landowner' && (
         <div>
           <Box className=" md:w-[70%] w-[96%] -mt-30 mx-auto  relative z-10">
             <Box
@@ -95,14 +95,3 @@ export default function LandingPage() {
 
 
 
-{/* <WorkPageBanner
-          backgroundImg={backgroundImg}
-          heading={"How Does RVnBO Work?"}
-          subheading={"Explore off-grid spots. Park with confidence. Sleep peacefully."}
-          buttonText={"Start Exploring Today"}
-          button2={
-            <Link to="/welcome">
-              <MintButton text="It's free to join" color="#468F9D" borderColor="#468F9D" />
-            </Link>
-          }
-        /> */}

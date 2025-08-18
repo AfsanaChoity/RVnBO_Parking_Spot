@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link as RouterLink, NavLink, Link } from 'react-router-dom';
+import { Link as RouterLink, NavLink, Link, useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -17,7 +17,8 @@ import MailIcon from '@mui/icons-material/Mail';
 
 import logo from '/logo.png';
 import GradientButton from '../common/GradientButton';
-import { useGetUserQuery } from '../../redux/api/authApi';
+import { useGetUserQuery, useLogoutUserMutation } from '../../redux/api/authApi';
+import { useAuth } from '../../redux/hooks';
 
 // center nav items
 const publicNav = [
@@ -28,7 +29,7 @@ const publicNav = [
 ];
 
 const landownerNav = [
-  { label: 'Home', path: '/host' },
+  { label: 'Explore', path: '/host' },
   { label: 'How It Works', path: '/host/how-it-works' },
   { label: 'Start Hosting', path: '/host/start' },
   { label: 'Contact Us', path: '/host/contact' },
@@ -52,13 +53,28 @@ const landownerMenu = [
   { label: 'Logout', path: '/logout', isLogout: true },
 ];
 
-function Navbar({ unread = 4, onLogout }) {
-  const { data: userData, error, isLoading } = useGetUserQuery();
+function Navbar({ unread = 4 }) {
+  const { token , logout: logoutAction } = useAuth();
+  const [logoutUser] = useLogoutUserMutation();
+  const navigate = useNavigate();
+  const { data: userData, error, isLoading } = useGetUserQuery(undefined, {skip: !token});
+  
+  // console.log(userData)
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const role = userData?.role;
+  React.useEffect(() => {
+    if (error?.status === 401) {
+      
+      console.error('Unauthorized access:', error);
+      
+      localStorage.removeItem('user-token');
+      window.location.href = '/auth/login';
+    }
+  }, [error]);
+
+  const role = userData?.user?.role;
 
   const navItems = role === 'landowner' ? landownerNav : publicNav;
   const userItems = role === 'landowner' ? landownerMenu : role === 'traveler' ? travelerMenu : [];
@@ -70,9 +86,21 @@ function Navbar({ unread = 4, onLogout }) {
   const handleCloseUserMenu = () => setAnchorElUser(null);
 
   const handleUserItemClick = (item) => {
-    handleCloseUserMenu();
-    if (item.isLogout && onLogout) onLogout();
-  };
+  handleCloseUserMenu();
+  if (item.isLogout) {
+    logoutUser()
+      .unwrap()
+      .then(() => {
+        logoutAction();
+        localStorage.removeItem('user-token');
+        // navigate('/auth/login', { replace: true });
+        window.location.href = '/'
+      })
+      .catch((error) => {
+        console.error('Logout failed:', error);
+      });
+  }
+};
 
   return (
     <AppBar position="static" sx={{ bgcolor: '#468F9D' }}>
@@ -185,10 +213,10 @@ function Navbar({ unread = 4, onLogout }) {
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar alt="User avatar">
-                      {userData?.image ? (
-                        <img src={userData?.image} alt="user avatar" />
+                      {userData?.user?.image ? (
+                        <img src={userData?.user?.image} alt="user avatar" />
                       ) : (
-                        userData?.name?.charAt(0).toUpperCase() 
+                        userData?.user?.name?.charAt(0).toUpperCase() 
                       )}
                     </Avatar>
                   </IconButton>

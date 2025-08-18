@@ -1,9 +1,7 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { baseApi } from './baseApi';
 
 
-export const authApi = createApi({
-    reducerPath: 'authApi',
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://10.10.20.73:5000/api/' }),
+const authApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
 
         // user registration
@@ -36,12 +34,34 @@ export const authApi = createApi({
             }),
         }),
 
+        getUser: builder.query({
+            query: () => ({
+                url: 'auth/profile',
+                method: 'GET',
+            }),
+           
+            transformErrorResponse: (response) => {
+                return { status: response.status, message: response.data?.message };
+            },
+            
+            providesTags: ['User'],
+        }),
+
         // user login
         login: builder.mutation({
             query: (data) => ({
                 url: 'auth/login',
                 method: 'POST',
                 body: data,
+            }),
+            invalidatesTags: ['User'],
+        }),
+
+        //user logout
+        logoutUser: builder.mutation({
+            query: () => ({
+                url: 'auth/logout',
+                method: 'POST',
             }),
         }),
 
@@ -81,13 +101,7 @@ export const authApi = createApi({
             }),
         }),
 
-        //fetch user profile data
-        getUser: builder.query({
-            query: () => ({
-                url: 'auth/profile',
-                method: 'GET',
-            }),
-        }),
+        
        
     }),
 });
@@ -97,6 +111,7 @@ export const {
     useVerifyEmailMutation,
     useResendCodeMutation,
     useLoginMutation,
+    useLogoutUserMutation,
     useForgotPasswordMutation,
     useVerifyResetPasswordMutation,
     useResendResetCodeMutation,

@@ -12,7 +12,7 @@ export default function PasswordResetSuccess() {
                
                <div className='mb-16'>
                  <CenterParagraph
-                    text="Your password has been successfully reset.Click below to login in magically.">
+                    text="Your password has been successfully reset.">
 
                 </CenterParagraph>
 

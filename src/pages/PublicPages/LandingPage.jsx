@@ -8,12 +8,26 @@ import TealButton from '../../components/common/TealButton';
 import { Box } from '@mui/material';
 import SpotSearchForm from '../../components/Traveler/SpotSearchForm';
 import { IoMdSearch } from 'react-icons/io';
+import ExploreStays from '../../components/Traveler/ExploreStays';
+import WhyHost from '../../components/Landowner/WhyHost';
+import WhyRVnBO from '../../components/Traveler/WhyRVnBO';
+import HowItWorkSection from '../../components/Shared/HowItWorkSection';
+import ExampleSpotsCard from '../../components/Landowner/ExampleSpotsCard';
+import { useGetAllSpotsQuery } from '../../redux/api/userApi';
+import LoadingComponent from '../../components/common/LoadingComponent';
+import HostingSection from '../../components/Shared/HostingSection';
+import SocialProofSection from '../../components/Shared/SocialProofSection';
+import Heading from '../../components/common/Heading';
 
 export default function LandingPage() {
 
-  const { data: userData, error, isLoading } = useGetUserQuery();
+  const { data: userData, error: userError, isLoading: userLoading } = useGetUserQuery();
   const role = userData?.user?.role;
-  // console.log(userData)
+
+  const { data: spotData, error: spotError, isLoading: spotLoading } = useGetAllSpotsQuery();
+  // console.log(spotData.lands)
+
+
 
   let button2;
   if (!userData) {
@@ -88,6 +102,87 @@ export default function LandingPage() {
         </div>
       )
       }
+
+      {/* /////////// */}
+      {/* Section 2 */}
+
+
+      {/* for traveler and public */}
+      {
+        role !== 'landowner' && (
+          <div>
+            <ExploreStays />
+          </div>
+        )
+
+      }
+
+      {/* for landowner */}
+      {
+        role === 'landowner' && (
+          <div>
+            <WhyHost />
+          </div>
+        )
+      }
+
+
+      {/* /////// */}
+      {/* Section 3 */}
+
+      {/* For public and traveler */}
+      {
+        role !== 'landowner' && (
+          <div>
+            <WhyRVnBO />
+          </div>
+        )
+      }
+
+      {/* section 4 */}
+      <section>
+        <div className='text-center mb-20'>
+          <Heading text="How It Works"/>
+          <HowItWorkSection role={role} />
+        </div>
+      </section>
+
+      {/* Section 5 for landowner */}
+      <section>
+        
+
+          {role === 'landowner' && (
+          <div className='text-center mt-10 mb-20'>
+          <div className='mb-16'>
+            <Heading text="Gallery of Example Spots"/>
+          </div>
+            {spotLoading ? (
+              <LoadingComponent />
+            ) : spotData?.lands?.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-4">
+                {spotData.lands.slice(0, 4).map((spot) => (
+                  <ExampleSpotsCard key={spot._id} spot={spot} />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center">
+                <h2 className="text-2xl md:text-4xl">No Spots Found</h2>
+              </div>
+            )}
+          </div>
+        )}
+
+      </section>
+
+      {/* Section 6 */}
+      <section className='mb-20'>
+        <HostingSection role = {role}/>
+      </section>
+
+      {/* section 7 - social proof */}
+        <section>
+              <SocialProofSection/>
+        </section>
 
     </div>
   )

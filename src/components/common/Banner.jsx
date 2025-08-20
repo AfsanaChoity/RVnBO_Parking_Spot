@@ -1,4 +1,4 @@
-import MintButton from "./MintButton";
+
 
 export default function Banner({ backgroundImg, heading, subheading, button1='',button2='', containerClassName = '', }) {
   return (

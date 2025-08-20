@@ -12,9 +12,21 @@ const landownerApi = baseApi.injectEndpoints({
             }),
         }),
 
+        // contact with admin
+         contactAdmin: builder.mutation({
+            query: (data) => ({
+                url: 'contact',
+                method: 'POST',
+                body: data,
+            }),
+        }),
+
         
 
     })
 })
 
-export const { useGetAllSpotsQuery } = landownerApi;
+export const { 
+    useGetAllSpotsQuery, 
+    useContactAdminMutation,
+ } = landownerApi;

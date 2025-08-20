@@ -9,6 +9,7 @@ import PasswordResetSuccess from "../components/Auth/PasswordResetSuccess";
 import CommonLayout from "../components/Layout/CommonLayout";
 import LandingPage from "../pages/PublicPages/LandingPage";
 import VerifyResetPassword from "../components/Auth/VerifyResetPassword";
+import ContactUs from "../pages/PublicPages/ContactUs";
 
 const router = createBrowserRouter([
 
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <LandingPage />,
 
+      },
+      {
+        path: "/contact",
+        element: <ContactUs/>,
       }
     ],
   },

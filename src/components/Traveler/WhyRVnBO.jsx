@@ -13,7 +13,7 @@ export default function WhyRVnBO() {
                 <SubHeading text="We’re building a movement of boondockers, landowners, and explorers. Whether you're new to RVing or a seasoned nomad, you'll find your kind of freedom here"/>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 mx-10 md:mx-20 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 mx-10 md:mx-20 gap-4 text-center">
                 <h2 className='flex text-xl md:text-2xl'><LiaCheckSolid className='text-2xl md:text-4xl' />Verified landowners</h2>
                 <h2 className='flex text-xl md:text-2xl'><LiaCheckSolid className='text-2xl md:text-4xl' />Stay off-grid or with lice</h2>
                 <h2 className='flex text-xl md:text-2xl'><LiaCheckSolid className='text-2xl md:text-4xl' />Secure GPS navigation</h2>

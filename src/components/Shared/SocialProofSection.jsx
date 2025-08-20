@@ -4,6 +4,8 @@ import people2 from "../../assets/images//avaters/people2.png"
 import Heading from "../common/Heading"
 import CenterParagraph from "../common/CenterParagraph"
 import SubHeading from "../common/SubHeading"
+import TealButton from "../common/TealButton"
+import { Link } from "react-router-dom"
 
 export default function SocialProofSection() {
     return (
@@ -63,6 +65,14 @@ export default function SocialProofSection() {
                         <h3 className="text-lg font-semibold"> — Devon Lane, <br /> Full-Time RVer</h3>
                     </div>
                 </div>
+            </div>
+
+            {/* Button */}
+
+            <div className="mb-20 px-[10%] md:px-[38%]">
+                <Link to="/onboarding/role">
+                    <TealButton text="Sign Up Free"></TealButton>
+                </Link>
             </div>
         </div>
     )

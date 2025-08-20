@@ -30,14 +30,14 @@ import { store, persistor } from './redux/store';
 import { RouterProvider } from 'react-router';
 import router from './routes/Routes';
 import LoadingComponent from './components/common/LoadingComponent';
-
-
+import { Toaster } from 'react-hot-toast';   
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>               
       <PersistGate loading={<LoadingComponent />} persistor={persistor}>
         <RouterProvider router={router} />
+        <Toaster position="top-right" reverseOrder={false} />   
       </PersistGate>
     </Provider>
   </StrictMode>

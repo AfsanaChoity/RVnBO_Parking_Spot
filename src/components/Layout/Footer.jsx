@@ -27,8 +27,9 @@ const Footer = () => {
 
             <Link to="/about-us">About Us</Link>
             <p>Features</p>
-            <p>Works</p>
-            <p>Hosting</p>
+            <Link to="/privacy-policy">Privacy Policy</Link>
+            {/* <p>Works</p> */}
+            {/* <p>Hosting</p> */}
 
           </div>
         </div>
@@ -40,7 +41,7 @@ const Footer = () => {
 
             <p>Customer Support</p>
             <Link to="/terms-conditions">Terms & Conditions</Link>
-            <Link to="/privacy-policy">Privacy Policy</Link>
+            {/* <Link to="/privacy-policy">Privacy Policy</Link> */}
             <Link to="/how-it-works">FAQ</Link>
 
           </div>

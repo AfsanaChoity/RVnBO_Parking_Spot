@@ -1,6 +1,7 @@
 
 
 import { DollarSign, Calendar, Leaf } from "lucide-react"
+import Heading from "../common/Heading"
 
 export default function WhyHost() {
   const benefits = [
@@ -28,9 +29,12 @@ export default function WhyHost() {
   ]
 
   return (
-    <div className=" p-6 my-10 md:px-20">
+    <div className=" p-6 my-20 md:px-20">
       {/* Main Heading */}
-      <h2 className="text-2xl font-semibold lg:text-4xl text-gray-900 text-center mb-8">Why Host with RVnBO</h2>
+      
+      <div className="text-center mb-20">
+        <Heading text="Why Host with RVnBO"></Heading>
+      </div>
 
       {/* Benefits List */}
       <div className="space-y-10">

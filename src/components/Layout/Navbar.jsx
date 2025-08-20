@@ -22,17 +22,17 @@ import { useAuth } from '../../redux/hooks';
 
 // center nav items
 const publicNav = [
-  { label: 'Explore', path: '/explore' },
+  { label: 'Explore', path: '/' },
   { label: 'Discover Spots', path: '/spots' },
   { label: 'How It Works', path: '/how-it-works' },
   { label: 'Contact Us', path: '/contact' },
 ];
 
 const landownerNav = [
-  { label: 'Explore', path: '/host' },
+  { label: 'Explore', path: '/' },
   { label: 'How It Works', path: '/host/how-it-works' },
   { label: 'Start Hosting', path: '/host/start' },
-  { label: 'Contact Us', path: '/host/contact' },
+  { label: 'Contact Us', path: '/contact' },
 ];
 
 // user menu items

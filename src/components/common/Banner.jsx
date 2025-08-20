@@ -14,7 +14,7 @@ export default function Banner({ backgroundImg, heading, subheading, button1='',
         <div className="absolute inset-0 bg-black opacity-50 z-0"></div>
 
         {/* Content */}
-        <div className="relative z-10  mb-4 text-center">
+        <div className="relative z-10  mb-4 text-center md:px-[6%]">
           <h1 className="text-5xl md:text-7xl font-bold mb-10">
             {heading}
           </h1>

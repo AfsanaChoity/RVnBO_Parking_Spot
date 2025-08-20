@@ -10,6 +10,8 @@ import CommonLayout from "../components/Layout/CommonLayout";
 import LandingPage from "../pages/PublicPages/LandingPage";
 import VerifyResetPassword from "../components/Auth/VerifyResetPassword";
 import ContactUs from "../pages/PublicPages/ContactUs";
+import HowItWorkPage from "../pages/PublicPages/HowItWorkPage";
+import DiscoverSpot from "../pages/PublicPages/DiscoverSpot";
 
 const router = createBrowserRouter([
 
@@ -26,6 +28,14 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <ContactUs/>,
+      },
+      {
+        path: "/how-it-works",
+        element: <HowItWorkPage/>,
+      },
+      {
+        path: "/spots",
+        element: <DiscoverSpot/>,
       }
     ],
   },

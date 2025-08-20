@@ -246,7 +246,7 @@ export default function Login() {
         >
           Don't have an account?{" "}
           <Link
-            to="/auth/signup"
+            to="/onboarding/role"
             style={{
               color: "#468F9D",
               textDecoration: "none",

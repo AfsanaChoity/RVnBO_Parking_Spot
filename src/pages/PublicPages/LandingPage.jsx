@@ -93,7 +93,7 @@ export default function LandingPage() {
 
               <div className='flex flex-col gap-4'>
                 <SpotSearchForm></SpotSearchForm>
-                <Link to=""> <TealButton text="Search" icon={<IoMdSearch />}></TealButton></Link>
+                <Link to=""> <TealButton text="Search By Location" icon={<IoMdSearch />}></TealButton></Link>
               </div>
 
             </Box>

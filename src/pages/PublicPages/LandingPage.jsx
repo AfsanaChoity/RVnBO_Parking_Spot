@@ -1,6 +1,6 @@
 
 import Banner from '../../components/common/Banner'
-import bgImg1 from '../../assets/images/BG_images/bg1.png'
+import bgImg1 from '../../assets/images/BG_images/bg5.png'
 import { useGetUserQuery } from '../../redux/api/authApi';
 import { Link } from 'react-router-dom';
 import MintButton from '../../components/common/MintButton';
@@ -33,7 +33,7 @@ export default function LandingPage() {
   if (!userData) {
     button2 = (
       <Link>
-        <TealButton text="Host Your Land"></TealButton>
+        <TealButton text="Sign In"></TealButton>
       </Link>
     );
   }
@@ -59,7 +59,7 @@ export default function LandingPage() {
                 </Link>)
               :
               <Link>
-                <MintButton text="Find Your Spot"></MintButton>
+                <MintButton text="Sign Up"></MintButton>
               </Link>
           }
 
@@ -72,7 +72,7 @@ export default function LandingPage() {
       {/* Form */}
       {role !== 'landowner' && (
         <div>
-          <Box className=" md:w-[70%] w-[96%] -mt-30 mx-auto  relative z-10">
+          <Box className=" md:w-[70%] w-[96%] -mt-24 mx-auto  relative z-10">
             <Box
               className="  p-4  md:p-8 rounded-xl bg-[#fff] shadow-md text-center"
               component="form"
@@ -92,8 +92,8 @@ export default function LandingPage() {
 
 
               <div className='flex flex-col gap-4'>
-                <SpotSearchForm></SpotSearchForm>
-                <Link to=""> <TealButton text="Search By Location" icon={<IoMdSearch />}></TealButton></Link>
+                <SpotSearchForm useLocalStorageDates={false}></SpotSearchForm>
+                <Link to="/spots"> <TealButton text="Search" icon={<IoMdSearch />}></TealButton></Link>
               </div>
 
             </Box>

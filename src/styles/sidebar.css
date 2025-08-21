@@ -1,0 +1,92 @@
+/* center the submenu item labels */
+.custom-sidebar-menu .ant-menu-submenu .ant-menu-sub .ant-menu-item {
+    padding-left: 0 !important;
+    text-align: center;
+    justify-content: center;
+    background-color: none !important;
+
+
+}
+
+/* Remove any borders */
+.custom-sidebar-menu {
+    border-right: none !important;
+    box-shadow: none !important;
+    margin-left: 0px;
+
+}
+
+/* adjust gap as needed */
+.custom-sidebar-menu .ant-menu-item,
+.custom-sidebar-menu .ant-menu-submenu {
+    margin-bottom: 12px !important;
+
+}
+
+/* Increase height of all menu items */
+.custom-sidebar-menu .ant-menu-item,
+.custom-sidebar-menu .ant-menu-submenu-title {
+    height: 48px !important;
+
+    display: flex;
+    align-items: center;
+    color: #565656 !important;
+}
+
+/*  Hover Style */
+.custom-sidebar-menu .ant-menu-item:hover,
+.custom-sidebar-menu .ant-menu-submenu-title:hover,
+.custom-sidebar-menu .ant-menu-sub .ant-menu-item:hover {
+    background-color: #dff5fa !important;
+    color: #468F9D !important;
+    border-radius: 4px !important;
+    margin-right: 0 !important;
+}
+
+/* Selected item styles  */
+.custom-sidebar-menu .ant-menu-item-selected,
+.custom-sidebar-menu .ant-menu-sub .ant-menu-item-selected,
+.custom-sidebar-menu .ant-menu-submenu-selected>.ant-menu-submenu-title {
+    background-color: #dff5fa !important;
+    color: #468F9D !important;
+    border-radius: 4px !important;
+    margin-right: 0 !important;
+
+}
+
+/* Remove left indentation from all menu items */
+.custom-sidebar-menu .ant-menu-item,
+.custom-sidebar-menu .ant-menu-submenu-title,
+.custom-sidebar-menu .ant-menu-sub .ant-menu-item {
+    margin-left: 0 !important;
+
+}
+
+/* Reduce vertical gap between submenu items */
+.custom-sidebar-menu .ant-menu-sub .ant-menu-item {
+    margin-bottom: 4px !important;
+    /* Reduce this to decrease spacing */
+
+}
+
+.logout-button {
+    background-color: "white" !important;
+    color: #565656;
+    border-radius: 4px;
+    height: 48px;
+    width: 100%;
+    margin-left: 0 !important;
+    padding-left: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+
+}
+
+.logout-button:hover,
+.logout-button:active {
+    background-color: #dff5fa !important;
+    color: #468F9D !important;
+}

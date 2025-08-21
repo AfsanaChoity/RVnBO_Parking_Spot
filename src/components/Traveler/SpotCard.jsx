@@ -188,7 +188,7 @@ const SpotCard = ({ spot }) => {
                             <div >
                                 <Box sx={{ textAlign: { xs: "center", md: "right" } }}>
                                     <Typography variant="body2" color="text.secondary" sx={{ mb: 0.4 }}>
-                                        starting from
+                                        Per Night
                                     </Typography>
                                     <Typography
                                         sx={{ fontWeight: 700, fontSize: 20, color: "#37979C", lineHeight: 1.1 }}

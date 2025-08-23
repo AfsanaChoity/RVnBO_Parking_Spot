@@ -249,7 +249,7 @@ export default function DiscoverSpot() {
     error: filteredError,
   } = useSearchSpotsQuery(mappedQueryArgs, { skip: !searchTriggered });
 
-  console.log(filteredData)
+  
 
   const spots = searchTriggered ? (filteredData?.data || []) : (allSpotsData?.lands || []);
 

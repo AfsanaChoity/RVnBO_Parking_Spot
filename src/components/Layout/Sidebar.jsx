@@ -1,89 +1,116 @@
 import { Link, useLocation } from 'react-router-dom';
-import { HiOutlineUserCircle } from "react-icons/hi2";
-import { MdOutlineCategory } from "react-icons/md";
-import { FiBox, FiLogOut } from "react-icons/fi";
-import { MdOutlineStore, MdListAlt } from "react-icons/md";
-import { IoBookmarkOutline, IoBriefcaseOutline, IoSettingsOutline } from "react-icons/io5";
-import { AppstoreOutlined } from '@ant-design/icons';
-import { Button, Menu } from 'antd';
-
-import { MdOutlineDashboard } from "react-icons/md";
-import { RiUserLine } from "react-icons/ri";
+import { Menu, message } from 'antd';
 import { GoStack } from 'react-icons/go';
+import { IoBriefcaseOutline, IoBookmarkOutline } from 'react-icons/io5';
 import { CiSettings } from 'react-icons/ci';
-import { useAuth } from '../../../Hooks/UseAuth';
+import { FiLogOut } from 'react-icons/fi';
+import { MdOutlineStore, MdOutlineStar, MdOutlineAttachMoney } from 'react-icons/md';
+import { useEffect, useCallback } from 'react';
 
-import '../../styles/sidebar.css'
+import '../../styles/sidebar.css';
+import { useGetUserQuery, useLogoutUserMutation } from '../../redux/api/authApi';
+import { useAuth } from '../../redux/hooks';
 
 export default function Sidebar() {
-    const location = useLocation();
-    const { user, logout } = useAuth();
+  const location = useLocation();
+  const [logoutUser] = useLogoutUserMutation();
+  const { token, logout: logoutAction } = useAuth();
 
-    const items = [
-    { key: '/traveler', icon: <GoStack style={{ fontSize: '24px' }} />, label: <Link to="/traveler">Dashboard</Link> },
-    { key: '/traveler/bookings', icon: <IoBriefcaseOutline size={24} />, label: <Link to="/traveler/bookings">My booking</Link> },
-    { key: '/traveler/saved-spot', icon: <IoBookmarkOutline size={24} />, label: <Link to="/traveler/saved-spot">Saved Spot</Link> },
+  const { data: userData, error } = useGetUserQuery(undefined, { skip: !token });
+
+  // Unauthorized error handling
+  useEffect(() => {
+    if (error?.status === 401) {
+      localStorage.removeItem('user-token');
+      window.location.href = '/auth/login';
+    }
+  }, [error]);
+
+  const role = userData?.user?.role;
+
+  // Logout handler
+  const handleLogout = useCallback(() => {
+    logoutUser()
+      .unwrap()
+      .then(() => {
+        logoutAction();
+        localStorage.removeItem('user-token');
+        // message.success('Logged out successfully');
+        window.location.href = '/auth/login';
+      })
+      .catch(() => {
+        message.error('Logout failed. Please try again.');
+      });
+  }, [logoutUser, logoutAction]);
+
+  // Traveler menu
+  const travelerMenu = [
+    { key: '/traveler/dashboard', icon: <GoStack size={22} />, label: <Link to="/traveler/dashboard">Dashboard</Link> },
+    { key: '/traveler/bookings', icon: <IoBriefcaseOutline size={22} />, label: <Link to="/traveler/bookings">My Bookings</Link> },
+    { key: '/traveler/saved-spots', icon: <IoBookmarkOutline size={22} />, label: <Link to="/traveler/saved-spots">Saved Spots</Link> },
     {
-        key: '/traveler/profile-setting',
-        icon: <CiSettings size={24} />,
-        label: (
-            <Link
-                to="/traveler/profile-setting"
-                onClick={() => {
-                    localStorage.removeItem("profileTab"); // 🧹 clear saved tab
-                    sessionStorage.removeItem("profileFirstOpen"); // optional: reset session flag too
-                }}
-            >
-                Profile Setting
-            </Link>
-        ),
+      key: '/traveler/profile',
+      icon: <CiSettings size={22} />,
+      label: (
+        <Link
+          to="/traveler/profile"
+          onClick={() => {
+            localStorage.removeItem('profileTab');
+            sessionStorage.removeItem('profileFirstOpen');
+          }}
+        >
+          Profile Settings
+        </Link>
+      ),
     },
     {
-        key: '/logout',
-        icon: <FiLogOut size={24} />,
-        label: (
-            <span
-                onClick={() => {
-                    logout();
-                    window.location.href = "/"; // redirect manually after logout
-                }}
-            >
-                Log out
-            </span>
-        ),
+      key: '/traveler/logout',
+      icon: <FiLogOut size={22} />,
+      label: <span onClick={handleLogout}>Logout</span>,
+      isLogout: true,
     },
+  ];
 
+  // Landowner menu
+  const landownerMenu = [
+    { key: '/landowner/dashboard', icon: <GoStack size={22} />, label: <Link to="/landowner/dashboard">Overview</Link> },
+    { key: '/landowner/listings', icon: <MdOutlineStore size={22} />, label: <Link to="/landowner/listings">My Listings</Link> },
+    { key: '/landowner/reviews', icon: <MdOutlineStar size={22} />, label: <Link to="/landowner/reviews">Reviews</Link> },
+    { key: '/landowner/earnings', icon: <MdOutlineAttachMoney size={22} />, label: <Link to="/landowner/earnings">Earnings</Link> },
+    {
+      key: '/landowner/profile',
+      icon: <CiSettings size={22} />,
+      label: (
+        <Link
+          to="/landowner/profile"
+          onClick={() => {
+            localStorage.removeItem('profileTab');
+            sessionStorage.removeItem('profileFirstOpen');
+          }}
+        >
+          Profile Settings
+        </Link>
+      ),
+    },
+    {
+      key: '/landowner/logout',
+      icon: <FiLogOut size={22} />,
+      label: <span onClick={handleLogout}>Logout</span>,
+      isLogout: true,
+    },
+  ];
 
-];
+  const items = role === 'landowner' ? landownerMenu : travelerMenu;
 
-    return (
-        <div className=' flex flex-col justify-between '>
-
-            {/* Top Section */}
-
-            <div >
-
-
-                {/* Menu */}
-                <Menu
-                    className="custom-sidebar-menu poppins-medium "
-                    selectedKeys={[location.pathname]}
-                    defaultOpenKeys={['sub1', 'sub2']}
-                    mode="inline"
-                    theme="light"
-
-                    items={items}
-                />
-
-                
-            </div>
-
-
-
-
-
-        </div>
-
-
-    )
+  return (
+    <div className="flex flex-col justify-between">
+      <Menu
+        className="custom-sidebar-menu poppins-medium"
+        selectedKeys={[location.pathname]}
+        mode="inline"
+        theme="light"
+        items={items}
+      />
+    </div>
+  );
 }

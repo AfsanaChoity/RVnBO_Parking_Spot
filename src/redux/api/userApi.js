@@ -1,6 +1,6 @@
 import { baseApi } from "./baseApi";
 
-const landownerApi = baseApi.injectEndpoints({
+const userApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
 
         // get all spots
@@ -89,4 +89,4 @@ export const {
     useFilterSpotsQuery,
     useContactAdminMutation,
 
-} = landownerApi;
+} = userApi;

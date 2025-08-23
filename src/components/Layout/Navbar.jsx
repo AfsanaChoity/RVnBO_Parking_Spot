@@ -37,10 +37,10 @@ const landownerNav = [
 
 // user menu items
 const travelerMenu = [
-  { label: 'Dashboard', path: '/dashboard' },
-  { label: 'My Booking', path: '/bookings' },
-  { label: 'Saved Spot', path: '/saved' },
-  { label: 'Profile Settings', path: '/settings/profile' },
+  { label: 'Dashboard', path: '/traveler/dashboard' },
+  { label: 'My Bookings', path: '/traveler/bookings' },
+  { label: 'Saved Spot', path: '/traveler/saved-spots' },
+  { label: 'Profile Settings', path: '/traveler/profile' },
   { label: 'Logout', path: '/logout', isLogout: true },
 ];
 
@@ -94,7 +94,7 @@ function Navbar({ unread = 4 }) {
         logoutAction();
         localStorage.removeItem('user-token');
         // navigate('/auth/login', { replace: true });
-        window.location.href = '/'
+        window.location.href = '/auth/login'
       })
       .catch((error) => {
         console.error('Logout failed:', error);
@@ -263,7 +263,7 @@ function Navbar({ unread = 4 }) {
           {userItems.map((item) => (
             <MenuItem
               key={item.label}
-              component={item.isLogout ? 'button' : RouterLink}
+              component={item.isLogout ? 'div' : RouterLink}
               to={item.isLogout ? undefined : item.path}
               onClick={() => handleUserItemClick(item)}
               sx={{ ...(item.isLogout && { color: 'error.main' }) }}

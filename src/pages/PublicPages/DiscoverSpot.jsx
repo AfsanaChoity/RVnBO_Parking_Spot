@@ -205,22 +205,24 @@ export default function DiscoverSpot() {
   const [searchTriggered, setSearchTriggered] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [sortByRating, setSortByRating] = useState(false);
-  const [visibleCount, setVisibleCount] = useState(4);
+  const [visibleCount, setVisibleCount] = useState(5);
 
   // --- helpers to map UI -> backend values ---
-  const mapAmenity = (a) => (a === 'Electricity' ? 'Electricity' : a === 'Wi-Fi' ? 'Wifi' : a);
+  // const mapAmenity = (a) => (a === 'Electricity' ? 'Electricity' : a === 'Wi-Fi' ? 'Wifi' : a);
 
   const mappedQueryArgs = useMemo(() => {
     // convert "3+ Slides" | "2 Slides" | "1 Slide" | "0 Slide" -> number (backend takes max)
-    let maxSlide = undefined;
-    const label = filters.max_slide_label;
-    if (label) {
-      if (label.startsWith('3+')) maxSlide = 3;
-      else {
-        const n = parseInt(label, 10);
-        if (!Number.isNaN(n)) maxSlide = n;
-      }
-    }
+    // let maxSlide = undefined;
+    // const label = filters.max_slide_label;
+    // if (label) {
+    //   if (label.startsWith('3+')) maxSlide = 20;
+    //   else {
+    //     const n = parseInt(label, 10);
+    //     if (!Number.isNaN(n)) maxSlide = n;
+    //   }
+    // }
+
+    
 
     return {
       location: location || undefined,
@@ -229,9 +231,11 @@ export default function DiscoverSpot() {
       minRating: filters.minRating,
       site_types: filters.site_types,
       rv_type: filters.rv_type,
-      amenities: filters.amenities.map(mapAmenity),
+      // amenities: filters.amenities.map(mapAmenity),
+      amenities: filters.amenities,
       site_length: filters.site_length || undefined,
-      max_slide: maxSlide,
+      // max_slide: maxSlide,
+      max_slide: filters.max_slide_label,
     };
   }, [location, filters]);
 
@@ -250,7 +254,7 @@ export default function DiscoverSpot() {
   const spots = searchTriggered ? (filteredData?.data || []) : (allSpotsData?.lands || []);
 
   // handlers
-  const handleShowMore = () => setVisibleCount((prev) => prev + 4);
+  const handleShowMore = () => setVisibleCount((prev) => prev + 5);
 
   const handleSearch = () => {
     if (!location.trim()) {
@@ -263,14 +267,14 @@ export default function DiscoverSpot() {
   };
 
   const handleApplyFilters = () => {
-    // filter apply korle jeno results backend theke ashe
+    
     setSearchTriggered(true);
   };
 
   const handleClearFilters = () => {
     setFilters({
       minPrice: 0,
-      maxPrice: 500,
+      maxPrice: null,
       amenities: [],
       site_types: [],
       rv_type: [],
@@ -278,8 +282,8 @@ export default function DiscoverSpot() {
       max_slide_label: '',
       minRating: 0,
     });
-    // clear korar por abar search korbe current location diye
-    setSearchTriggered(true);
+    
+    setSearchTriggered(false);
   };
 
   // loading / error

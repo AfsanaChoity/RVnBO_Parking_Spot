@@ -282,7 +282,7 @@
 
 
 // components/Traveler/FilterSidebar.jsx
-import React from 'react';
+
 import {
   Box, Typography, Slider, Accordion, AccordionSummary, AccordionDetails,
   Checkbox, FormControlLabel, FormGroup, Button, Stack,
@@ -293,7 +293,7 @@ const amenitiesList = ['Water', 'Electricity', 'Sewage Hookups', 'Firepit', 'Wi-
 const typeToSiteLists = ['Boondocking', 'RV Storage', 'Full Hookups', 'Some Hookups'];
 const typeToRV = ['Class A', 'Class B', 'Class C', '5th Wheel', 'Towable'];
 const lengthOptions = ['25 ft', '35 ft', '45 ft', '45+ ft'];
-const numberOfSlides = ['0 Slide', '1 Slide', '2 Slides', '3+ Slides'];
+const numberOfSlides = ['0 Slide', '1 Slide', '2 Slides','3 Slides', '3+ Slides'];
 
 // optional: parent theke onApply & onClear as props nibo
 const FilterSidebar = ({ filters, setFilters, onApply, onClear }) => {
@@ -321,14 +321,17 @@ const FilterSidebar = ({ filters, setFilters, onApply, onClear }) => {
         <AccordionDetails sx={{ px: 0 }}>
           <Slider
             min={0} max={500} step={10}
-            value={[filters.minPrice, filters.maxPrice]}
+            value={[
+              filters.minPrice,
+              filters.maxPrice ?? 500
+            ]}
             onChange={handlePrice}
             valueLabelDisplay="off"
             sx={{ color: 'teal', mb: 1 }}
           />
           <Box sx={{ display: 'flex', justifyContent: 'space-between', fontSize: 14 }}>
             <span>${filters.minPrice}</span>
-            <span>${filters.maxPrice}</span>
+            <span>{filters.maxPrice !== null ? `$${filters.maxPrice}` : '$500'}</span>
           </Box>
         </AccordionDetails>
       </Accordion>
@@ -342,7 +345,7 @@ const FilterSidebar = ({ filters, setFilters, onApply, onClear }) => {
         </AccordionSummary>
         <AccordionDetails sx={{ px: 0 }}>
           <Stack direction="row" spacing={1} mb={1}>
-            {[0,1,2,3,4].map((num) => (
+            {[0, 1, 2, 3, 4].map((num) => (
               <Button
                 key={num}
                 variant={filters.minRating === num ? 'contained' : 'outlined'}
@@ -461,7 +464,7 @@ const FilterSidebar = ({ filters, setFilters, onApply, onClear }) => {
         ))}
       </FormGroup>
 
-      <Stack direction="row" spacing={1} sx={{ mt: 2, mb:6 }}>
+      <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 6 }}>
         <Button size="small" variant="outlined" onClick={onClear}>Clear</Button>
         <Button size="small" variant="contained" sx={{ bgcolor: 'teal' }} onClick={onApply}>Apply</Button>
       </Stack>

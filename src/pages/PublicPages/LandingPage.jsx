@@ -1,6 +1,6 @@
 
 import Banner from '../../components/common/Banner'
-import bgImg1 from '../../assets/images/BG_images/bg5.png'
+import bgImg1 from '../../assets/images/BG_images/bg6.png'
 import { useGetUserQuery } from '../../redux/api/authApi';
 import { Link } from 'react-router-dom';
 import MintButton from '../../components/common/MintButton';
@@ -33,7 +33,7 @@ export default function LandingPage() {
   if (!userData) {
     button2 = (
       <Link>
-        <TealButton text="Sign In"></TealButton>
+        <TealButton text="Host Your Land"></TealButton>
       </Link>
     );
   }
@@ -45,8 +45,8 @@ export default function LandingPage() {
       <div>
         <Banner
           backgroundImg={bgImg1}
-          heading={userData ? (role === "traveler" ? "Escape The Crowds" : "Share Your Land") : "Park. Explore. Repeat."}
-          subheading={userData ? (role === "traveler" ? "Private land, untamed nature, and space to breathe." : "Welcome explorers. Build community. Earn effortlessly.") : "Hidden spots. Endless freedom. Off-grid your way."}
+          // heading={userData ? (role === "traveler" ? "Escape The Crowds" : "Share Your Land") : "Park. Explore. Repeat."}
+          // subheading={userData ? (role === "traveler" ? "Private land, untamed nature, and space to breathe." : "Welcome explorers. Build community. Earn effortlessly.") : "Hidden spots. Endless freedom. Off-grid your way."}
           button1={
             userData ?
               (role === "traveler" ?
@@ -59,7 +59,7 @@ export default function LandingPage() {
                 </Link>)
               :
               <Link>
-                <MintButton text="Sign Up"></MintButton>
+                <MintButton text="Find Your Spot"></MintButton>
               </Link>
           }
 
@@ -70,7 +70,7 @@ export default function LandingPage() {
 
 
       {/* Form */}
-      {role !== 'landowner' && (
+      {/* {role !== 'landowner' && (
         <div>
           <Box className=" md:w-[70%] w-[96%] -mt-24 mx-auto  relative z-10">
             <Box
@@ -101,7 +101,7 @@ export default function LandingPage() {
           </Box>
         </div>
       )
-      }
+      } */}
 
       {/* /////////// */}
       {/* Section 2 */}

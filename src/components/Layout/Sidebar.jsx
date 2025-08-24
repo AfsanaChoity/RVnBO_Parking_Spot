@@ -46,7 +46,7 @@ export default function Sidebar() {
   // Traveler menu
   const travelerMenu = [
     { key: '/traveler/dashboard', icon: <GoStack size={22} />, label: <Link to="/traveler/dashboard">Dashboard</Link> },
-    { key: '/traveler/bookings', icon: <IoBriefcaseOutline size={22} />, label: <Link to="/traveler/bookings">My Bookings</Link> },
+    // { key: '/traveler/bookings', icon: <IoBriefcaseOutline size={22} />, label: <Link to="/traveler/bookings">My Bookings</Link> },
     { key: '/traveler/saved-spots', icon: <IoBookmarkOutline size={22} />, label: <Link to="/traveler/saved-spots">Saved Spots</Link> },
     {
       key: '/traveler/profile',
@@ -67,7 +67,7 @@ export default function Sidebar() {
       key: '/traveler/logout',
       icon: <FiLogOut size={22} />,
       label: <span onClick={handleLogout}>Logout</span>,
-      isLogout: true,
+      // isLogout: true,
     },
   ];
 
@@ -96,7 +96,7 @@ export default function Sidebar() {
       key: '/landowner/logout',
       icon: <FiLogOut size={22} />,
       label: <span onClick={handleLogout}>Logout</span>,
-      isLogout: true,
+      // isLogout: true,
     },
   ];
 

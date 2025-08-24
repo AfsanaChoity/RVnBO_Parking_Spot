@@ -21,7 +21,7 @@ import HowItWorkPage from "../pages/PublicPages/HowItWorkPage";
 import DiscoverSpot from "../pages/PublicPages/DiscoverSpot";
 
 // Traveler Pages
-import Dashboard from "../pages/TravelerPages/Dashboard";
+import TravelerDashboard from "../pages/TravelerPages/TravelerDashboard";
 
 // Landowner Pages
 // import LandownerDashboard from "../pages/LandownerPages/Dashboard";
@@ -31,6 +31,7 @@ import TravelerRoute from "./TravelerRoute";
 import LandownerRoute from "./LandownerRoute";
 import MyBookings from "../pages/TravelerPages/MyBookings";
 import SavedSpots from "../pages/TravelerPages/SavedSpots";
+import ProfileSetting from "../pages/TravelerPages/ProfileSetting";
 
 const router = createBrowserRouter([
 
@@ -67,21 +68,28 @@ const router = createBrowserRouter([
       path: "dashboard",
       element: <PrivateLayout />, 
       children: [
-        { index: true, element: <Dashboard /> },   
+        { index: true, element: <TravelerDashboard /> },   
       ],
     },
-    {
-      path: "bookings",
-      element: <PrivateLayout />,
-      children: [
-        { index: true, element: <MyBookings /> },  
-      ],
-    },
+    // {
+    //   path: "bookings",
+    //   element: <PrivateLayout />,
+    //   children: [
+    //     { index: true, element: <MyBookings /> },  
+    //   ],
+    // },
     {
       path: "saved-spots",
       element: <PrivateLayout />,
       children: [
         { index: true, element: <SavedSpots/> },  
+      ],
+    },
+    {
+      path: "profile",
+      element: <PrivateLayout />,
+      children: [
+        { index: true, element: <ProfileSetting/> },  
       ],
     },
   ],

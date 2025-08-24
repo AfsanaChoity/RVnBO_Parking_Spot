@@ -38,7 +38,7 @@ const landownerNav = [
 // user menu items
 const travelerMenu = [
   { label: 'Dashboard', path: '/traveler/dashboard' },
-  { label: 'My Bookings', path: '/traveler/bookings' },
+  // { label: 'My Bookings', path: '/traveler/bookings' },
   { label: 'Saved Spot', path: '/traveler/saved-spots' },
   { label: 'Profile Settings', path: '/traveler/profile' },
   { label: 'Logout', path: '/logout', isLogout: true },

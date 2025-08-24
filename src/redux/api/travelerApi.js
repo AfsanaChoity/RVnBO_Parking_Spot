@@ -7,7 +7,7 @@ const travelerApi = baseApi.injectEndpoints({
         url: `traveler/save/${spotId}`,
         method: "POST",
       }),
-      invalidatesTags: ["SavedSpots"], // ensures saved list refreshes
+      invalidatesTags: ["SavedSpots"],
     }),
 
     unsaveSpot: builder.mutation({
@@ -15,11 +15,10 @@ const travelerApi = baseApi.injectEndpoints({
         url: `traveler/unsave/${spotId}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["SavedSpots"], // ensures sync
+      invalidatesTags: ["SavedSpots"],
       async onQueryStarted(spotId, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
-          // Optimistically update cache so UI feels instant
           dispatch(
             travelerApi.util.updateQueryData(
               "getAllSavedSpots",
@@ -44,8 +43,42 @@ const travelerApi = baseApi.injectEndpoints({
         url: "traveler/saved-lands",
         method: "GET",
       }),
-      providesTags: ["SavedSpots"], // so invalidatesTags works
+      providesTags: ["SavedSpots"],
     }),
+
+    getBookingSpots: builder.query({
+      query: () => ({
+        url: "dashboard/my-bookings",
+        method: "GET",
+
+      }),
+      providesTags: ["BookingSpots"],
+    }),
+
+
+    updateTravelerProfile: builder.mutation({
+      query: (body) => ({
+        url: "dashboard/update-profile",
+        method: "PATCH",
+        body,
+        headers: { "Content-Type": "application/json" },
+      }),
+      invalidatesTags: ["User"],
+    }),
+
+
+    changePassword: builder.mutation({
+      query: ({ currentPassword, newPassword, confirmPassword }) => ({
+        url: "dashboard/change-password",
+        method: "PUT", 
+        body: { currentPassword, newPassword, confirmPassword },
+        headers: { "Content-Type": "application/json" },
+      }),
+    }),
+
+
+
+
   }),
 });
 
@@ -53,4 +86,7 @@ export const {
   useSaveSpotMutation,
   useUnsaveSpotMutation,
   useGetAllSavedSpotsQuery,
+  useGetBookingSpotsQuery,
+  useUpdateTravelerProfileMutation,
+  useChangePasswordMutation,
 } = travelerApi;

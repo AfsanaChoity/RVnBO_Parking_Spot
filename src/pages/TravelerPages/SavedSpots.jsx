@@ -29,7 +29,7 @@ export default function SavedSpots() {
   }
 
   const displaySavedSpots = savedSpots?.savedLands || [];
-  console.log(displaySavedSpots)
+  
 
   if (displaySavedSpots.length === 0) {
     return (

@@ -24,7 +24,7 @@ import DiscoverSpot from "../pages/PublicPages/DiscoverSpot";
 import TravelerDashboard from "../pages/TravelerPages/TravelerDashboard";
 
 // Landowner Pages
-// import LandownerDashboard from "../pages/LandownerPages/Dashboard";
+
 
 // Private Routes
 import TravelerRoute from "./TravelerRoute";
@@ -32,8 +32,10 @@ import LandownerRoute from "./LandownerRoute";
 import MyBookings from "../pages/TravelerPages/MyBookings";
 import SavedSpots from "../pages/TravelerPages/SavedSpots";
 import ProfileSetting from "../pages/TravelerPages/ProfileSetting";
-import LandownerOverview from "../pages/LandownerPages/LandownerOverview";
 import HostProfile from "../pages/LandownerPages/HostProfile";
+import MyEarning from "../pages/LandownerPages/MyEarning";
+import HostOverview from "../pages/LandownerPages/HostOverview";
+import MySpots from "../pages/LandownerPages/MySpots";
 
 const router = createBrowserRouter([
 
@@ -107,7 +109,7 @@ const router = createBrowserRouter([
         path: "overview",
         element: <PrivateLayout />, 
         children: [
-          { index: true, element: <LandownerOverview /> },
+          { index: true, element: <HostOverview /> },
         ],
       },
       {
@@ -115,6 +117,20 @@ const router = createBrowserRouter([
         element: <PrivateLayout />, 
         children: [
           { index: true, element: <HostProfile /> },
+        ],
+      },
+      {
+        path: "earnings",
+        element: <PrivateLayout />, 
+        children: [
+          { index: true, element: <MyEarning/> },
+        ],
+      },
+      {
+        path: "spots",
+        element: <PrivateLayout />, 
+        children: [
+          { index: true, element: <MySpots/> },
         ],
       },
     ],

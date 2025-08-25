@@ -2,7 +2,33 @@ import { baseApi } from "./baseApi";
 
 const landownerApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    
+
+
+    getOverviewData: builder.query({
+      query: () => ({
+        url: "dashboard/overview",
+        method: "GET",
+      }),
+      providesTags: ["OverviewData"],
+    }),
+
+
+    getAllEarning: builder.query({
+      query: () => ({
+        url: "dashboard/earnings",
+        method: "GET",
+      }),
+      providesTags: ["Earnings"],
+    }),
+
+    getAllTransaction: builder.query({
+      query: () => ({
+        url: "dashboard/transactions",
+        method: "GET",
+      }),
+      providesTags: ["Transaction"],
+    }),
+
 
     updateHostProfile: builder.mutation({
       query: (body) => ({
@@ -18,7 +44,7 @@ const landownerApi = baseApi.injectEndpoints({
     changeHostPassword: builder.mutation({
       query: ({ currentPassword, newPassword, confirmPassword }) => ({
         url: "dashboard/change-password",
-        method: "PUT", 
+        method: "PUT",
         body: { currentPassword, newPassword, confirmPassword },
         headers: { "Content-Type": "application/json" },
       }),
@@ -31,8 +57,10 @@ const landownerApi = baseApi.injectEndpoints({
 });
 
 export const {
-  
- useUpdateHostProfileMutation,
- useChangeHostPasswordMutation,
- 
+  useGetOverviewDataQuery,
+  useGetAllEarningQuery,
+  useGetAllTransactionQuery,
+  useUpdateHostProfileMutation,
+  useChangeHostPasswordMutation,
+
 } = landownerApi;

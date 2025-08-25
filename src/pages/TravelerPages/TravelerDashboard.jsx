@@ -9,13 +9,16 @@ import DashboardFlexBox from '../../components/Shared/DashboardFlexBox';
 import { ChevronRight } from '@mui/icons-material';
 import LoadingComponent from "../../components/common/LoadingComponent";
 import { useGetBookingSpotsQuery } from "../../redux/api/travelerApi";
+import { useGetUserQuery } from "../../redux/api/authApi";
 
 export default function TravelerDashboard() {
-  const [showAll, setShowAll] = useState(false); // State to toggle between showing all bookings or only 10
-  const { data, error, isLoading } = useGetBookingSpotsQuery(); // Fetching the data
+  const [showAll, setShowAll] = useState(false); 
+  const { data, error, isLoading } = useGetBookingSpotsQuery(); 
+
+  const { data: userData, error: userError, isLoading: userIsLoading } = useGetUserQuery();
 
   const handleViewToggleClick = () => {
-    setShowAll(!showAll); // Toggle between showing all bookings or only 10
+    setShowAll(!showAll); 
   };
 
   // Handle loading state
@@ -28,10 +31,20 @@ export default function TravelerDashboard() {
     return <div>Error fetching booking spots.</div>;
   }
 
+  if(userIsLoading) {
+    return <div><LoadingComponent/></div>;
+  }
+
+  if(userError) {
+    return <div>{userError}</div>
+  }
+
+  
+
   return (
     <div>
       <div>
-        <HeadingSmall text="Hello, Esther Howard"></HeadingSmall>
+        <HeadingSmall text={`Hello, ${userData?.user?.name}`}></HeadingSmall>
       </div>
 
       <div className="mt-4 mb-10">

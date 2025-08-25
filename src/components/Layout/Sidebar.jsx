@@ -64,7 +64,7 @@ export default function Sidebar() {
       ),
     },
     {
-      key: '/traveler/logout',
+      key: '/logout',
       icon: <FiLogOut size={22} />,
       label: <span onClick={handleLogout}>Logout</span>,
       // isLogout: true,
@@ -73,16 +73,16 @@ export default function Sidebar() {
 
   // Landowner menu
   const landownerMenu = [
-    { key: '/landowner/dashboard', icon: <GoStack size={22} />, label: <Link to="/landowner/dashboard">Overview</Link> },
-    { key: '/landowner/listings', icon: <MdOutlineStore size={22} />, label: <Link to="/landowner/listings">My Listings</Link> },
-    { key: '/landowner/reviews', icon: <MdOutlineStar size={22} />, label: <Link to="/landowner/reviews">Reviews</Link> },
-    { key: '/landowner/earnings', icon: <MdOutlineAttachMoney size={22} />, label: <Link to="/landowner/earnings">Earnings</Link> },
+    { key: '/host/overview', icon: <GoStack size={22} />, label: <Link to="/host/overview">Overview</Link> },
+    { key: '/host/spots', icon: <MdOutlineStore size={22} />, label: <Link to="/host/spots">Spot Lists</Link> },
+    { key: '/host/earnings', icon: <MdOutlineAttachMoney size={22} />, label: <Link to="/host/earnings">My Earnings</Link> },
+    { key: '/host/guest-reviews', icon: <MdOutlineStar size={22} />, label: <Link to="/host/guest-reviews">Guest Reviews</Link> },
     {
-      key: '/landowner/profile',
+      key: '/host/profile',
       icon: <CiSettings size={22} />,
       label: (
         <Link
-          to="/landowner/profile"
+          to="/host/profile"
           onClick={() => {
             localStorage.removeItem('profileTab');
             sessionStorage.removeItem('profileFirstOpen');
@@ -93,7 +93,7 @@ export default function Sidebar() {
       ),
     },
     {
-      key: '/landowner/logout',
+      key: '/logout',
       icon: <FiLogOut size={22} />,
       label: <span onClick={handleLogout}>Logout</span>,
       // isLogout: true,

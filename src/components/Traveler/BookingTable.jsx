@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import HeadingSmall from "../common/HeadingSmall";
 
 const BookingTable = ({ spot }) => {
@@ -42,20 +42,20 @@ const BookingTable = ({ spot }) => {
                     <div className="flex items-center gap-3">
                       <div className="flex-shrink-0">
                         <img
-                          src={booking.land.image || "/placeholder.svg"}
-                          alt={booking.land.spot}
+                          src={booking?.land?.image?.[0] || "/placeholder.svg"}
+                          alt={booking?.land?.spot}
                           className="w-12 h-12 md:w-14 md:h-14 rounded-lg object-cover border border-gray-200"
                         />
                       </div>
                       <div className="min-w-0 flex-1">
                         <h3 className="font-semibold text-gray-900 text-sm md:text-base truncate">
-                          {booking.land.spot}
+                          {booking?.land?.spot}
                         </h3>
                         <div className="flex items-center gap-2 mt-1">
                           <div className="w-4 h-4 rounded-full border border-gray-300 flex items-center justify-center">
                             <div className="w-2 h-2 rounded-full bg-gray-400"></div>
                           </div>
-                          <span className="text-xs md:text-sm text-gray-600 truncate">{booking.land.location}</span>
+                          <span className="text-xs md:text-sm text-gray-600 truncate">{booking?.land?.location}</span>
                         </div>
                       </div>
                     </div>

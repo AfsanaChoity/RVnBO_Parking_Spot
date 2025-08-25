@@ -1,0 +1,172 @@
+.custom-tabs .ant-tabs-tab {
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: #333333 !important;
+}
+
+.custom-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #468F9D !important; /* Yellow active tab */
+}
+
+.custom-tabs .ant-tabs-ink-bar {
+  background-color: #468F9D !important; /* Yellow underline */
+}
+
+.custom-tabs .ant-tabs-nav::before {
+  border-bottom: none !important; /* Remove default bottom border */
+}
+
+.custom-placeholder::placeholder {
+  font-size: 16px !important;
+  color: #5C5C5C !important; /* Dark golden/yellow tone */
+  opacity: 0.8 !important; /* Ensure it's visible */
+}
+
+.custom-placeholder {
+  font-family: 'Inter', sans-serif !important;
+}
+
+/* For password input fields */
+.ant-input-password input::placeholder {
+ font-size: 20px !important;
+  color: #5C5C5C !important; /* Dark golden/yellow tone */
+  opacity: 0.8 !important; /* Ensure it's visible */
+}
+
+/* //////////////// */
+/* Existing styles */
+.custom-placeholder .ant-input::placeholder {
+  color: #999;
+}
+
+.custom-tabs .ant-tabs-tab {
+  color: #666;
+  font-weight: 500;
+}
+
+.custom-tabs .ant-tabs-tab-active {
+  color: #468f9d !important;
+}
+
+.custom-tabs .ant-tabs-ink-bar {
+  background-color: #468f9d;
+}
+
+/* Mobile navigation styles */
+.mobile-tab-nav {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.nav-button {
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.nav-button:hover:not(:disabled) {
+  background-color: #468f9d;
+  color: white;
+}
+
+.nav-button:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.tab-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.tab-indicator.active {
+  background-color: #468f9d;
+}
+
+.tab-indicator.inactive {
+  background-color: #d1d5db;
+}
+
+/* Responsive Tab Styles */
+.responsive-tabs .ant-tabs-nav {
+  margin-bottom: 16px;
+}
+
+.responsive-tabs .ant-tabs-tab {
+  padding: 8px 12px !important;
+  font-size: 14px !important;
+  margin: 0 4px !important;
+}
+
+/* Mobile specific styles */
+@media (max-width: 640px) {
+  .responsive-tabs .ant-tabs-tab {
+    padding: 6px 8px !important;
+    font-size: 12px !important;
+    margin: 0 2px !important;
+    min-width: auto !important;
+  }
+
+  .responsive-tabs .ant-tabs-nav-wrap {
+    justify-content: center;
+  }
+
+  .responsive-tabs .ant-tabs-nav-list {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .responsive-tabs .ant-tabs-tab-btn {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .desktop-tabs {
+    display: none;
+  }
+
+  .mobile-tab-nav {
+    display: flex;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+  .responsive-tabs .ant-tabs-tab {
+    padding: 4px 6px !important;
+    font-size: 11px !important;
+    margin: 0 1px !important;
+  }
+
+  .responsive-tabs .ant-tabs-tab-btn {
+    padding: 0 !important;
+  }
+}
+
+/* Tablet styles */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .responsive-tabs .ant-tabs-tab {
+    padding: 10px 16px !important;
+    font-size: 15px !important;
+    margin: 0 6px !important;
+  }
+}
+
+@media (min-width: 641px) {
+  .desktop-tabs {
+    display: block;
+  }
+
+  .mobile-tab-nav {
+    display: none;
+  }
+}

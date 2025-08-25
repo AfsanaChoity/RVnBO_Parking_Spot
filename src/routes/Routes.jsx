@@ -32,6 +32,8 @@ import LandownerRoute from "./LandownerRoute";
 import MyBookings from "../pages/TravelerPages/MyBookings";
 import SavedSpots from "../pages/TravelerPages/SavedSpots";
 import ProfileSetting from "../pages/TravelerPages/ProfileSetting";
+import LandownerOverview from "../pages/LandownerPages/LandownerOverview";
+import HostProfile from "../pages/LandownerPages/HostProfile";
 
 const router = createBrowserRouter([
 
@@ -93,23 +95,30 @@ const router = createBrowserRouter([
       ],
     },
   ],
-}
+},
 
 
   // Landowner Routes (Protected)
-  // {
-  //   path: "/landowner",
-  //   element: <LandownerRoute />, // ✅ check landowner role
-  //   children: [
-  //     {
-  //       path: "dashboard",
-  //       element: <PrivateLayout />, // ✅ reuse same PrivateLayout or make LandownerLayout
-  //       children: [
-  //         { path: "", element: <LandownerDashboard /> },
-  //       ],
-  //     },
-  //   ],
-  // },
+  {
+    path: "/host",
+    element: <LandownerRoute />, 
+    children: [
+      {
+        path: "overview",
+        element: <PrivateLayout />, 
+        children: [
+          { index: true, element: <LandownerOverview /> },
+        ],
+      },
+      {
+        path: "profile",
+        element: <PrivateLayout />, 
+        children: [
+          { index: true, element: <HostProfile /> },
+        ],
+      },
+    ],
+  },
 
 ]);
 

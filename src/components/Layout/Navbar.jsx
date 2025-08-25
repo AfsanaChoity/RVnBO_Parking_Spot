@@ -47,9 +47,9 @@ const travelerMenu = [
 const landownerMenu = [
   { label: 'Overview', path: '/host/overview' },
   { label: 'Spot Lists', path: '/host/spots' },
-  { label: 'Reviews', path: '/host/reviews' },
-  { label: 'Earnings', path: '/host/earnings' },
-  { label: 'Profile Settings', path: '/settings/profile' },
+  { label: 'My Earnings', path: '/host/earnings' },
+  { label: 'Guest Reviews', path: '/host/guest-reviews' },
+  { label: 'Profile Settings', path: '/host/profile' },
   { label: 'Logout', path: '/logout', isLogout: true },
 ];
 

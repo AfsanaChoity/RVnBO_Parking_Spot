@@ -41,7 +41,7 @@ export default function RoleSelectionPage() {
                     </Link>
 
                     <Link to="/auth/signup" onClick={() => handleRoleSelection("landowner")}>
-                        <MintButton text="Land Owner" type="Submit"></MintButton>
+                        <MintButton text="Host" type="Submit"></MintButton>
                     </Link>
                 </div>
 

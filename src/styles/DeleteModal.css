@@ -1,0 +1,14 @@
+/* DeleteModal.css */
+
+.custom-delete-modal .ant-modal {
+  width: 300px;
+  max-width: 90%; /* ensures modal fits small screens */
+  padding: 16px;
+  border-radius: 8px;
+}
+
+@media (max-width: 480px) {
+  .custom-delete-modal .ant-modal {
+    width: 90% !important; /* override default */
+  }
+}

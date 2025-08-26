@@ -12,6 +12,47 @@ const landownerApi = baseApi.injectEndpoints({
       providesTags: ["OverviewData"],
     }),
 
+    getSpotList: builder.query({
+      query: () => ({
+        url: "landowner/lands",
+        method: "GET",
+      }),
+      providesTags: [{ type: "SpotList", id: "LIST" }],
+    }),
+
+    // Create Spot
+    createSpot: builder.mutation({
+      query: (spotData) => ({
+        url: "landowner/addland",
+        method: "POST",
+        body: spotData,
+        
+      }),
+      invalidatesTags: [{ type: "SpotList", id: "LIST" }],
+    }),
+
+    // Edit Spot
+    updateSpot: builder.mutation({
+        query: ({ spotId, data }) => ({
+          url: `landowner/updateland/${spotId}`,
+          method: "PATCH",
+          body: data,
+        }),
+         invalidatesTags: [{ type: 'SpotList', id: 'LIST' }],
+    }),
+
+
+    // Delete Spot
+    deleteSpot: builder.mutation({
+      query: (spotId) => ({
+        url: `landowner/deleteland/${spotId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: [{ type: "SpotList", id: "LIST" }],
+      
+    }),
+
+
 
     getAllEarning: builder.query({
       query: () => ({
@@ -58,6 +99,10 @@ const landownerApi = baseApi.injectEndpoints({
 
 export const {
   useGetOverviewDataQuery,
+  useGetSpotListQuery,
+  useCreateSpotMutation,
+  useUpdateSpotMutation,
+  useDeleteSpotMutation,
   useGetAllEarningQuery,
   useGetAllTransactionQuery,
   useUpdateHostProfileMutation,

@@ -16,7 +16,7 @@ export default function PrivateLayout() {
           <Sidebar></Sidebar>
         </div>
         {/* Main content area */}
-        <div className='md:bg-gray-100 p-8 w-full'>
+        <div className=' p-8 w-full'>
           <Outlet />
         </div>
 

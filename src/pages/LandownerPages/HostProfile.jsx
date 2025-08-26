@@ -142,7 +142,6 @@ export default function HostProfile() {
     try {
       await updateHostProfile(payload).unwrap();
       toast.success("Profile updated successfully.");
-      // Clear preview & file input so same file can be chosen again later
       setImageDataUrl(null);
       if (fileInputRef.current) fileInputRef.current.value = "";
     } catch (err) {
@@ -191,8 +190,8 @@ export default function HostProfile() {
   if (userError) return <div className="text-red-600">Failed to load user.</div>;
 
   return (
-    <>
-      <div className="rounded-[8px] bg-white shadow-lg p-3 sm:p-6">
+    <div className="">
+      <div className="rounded-[8px] bg-gray-50 shadow-lg p-3 sm:p-6">
         {/* Avatar and name */}
         <div className="flex flex-col items-center">
           <div className="relative">
@@ -315,7 +314,7 @@ export default function HostProfile() {
                   />
                 </div>
 
-                <div className="flex justify-center text-center pt-4">
+                <div className="flex justify-center text-center py-16">
                   <TealButton
                     text={isUpdatingProfile ? "Saving..." : "Save Change"}
                     disabled={isUpdatingProfile}
@@ -354,7 +353,7 @@ export default function HostProfile() {
                     />
                   </div>
                 ))}
-                <div className="flex justify-center text-center pt-16">
+                <div className="flex justify-center text-center py-16">
                   <TealButton
                     text={isChangingPassword ? "Saving..." : "Save Change"}
                     disabled={isChangingPassword}
@@ -366,6 +365,6 @@ export default function HostProfile() {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 }

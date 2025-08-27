@@ -18,6 +18,7 @@ import LoadingComponent from '../../components/common/LoadingComponent';
 import HostingSection from '../../components/Shared/HostingSection';
 import SocialProofSection from '../../components/Shared/SocialProofSection';
 import Heading from '../../components/common/Heading';
+import { useGetSpotListQuery } from '../../redux/api/landownerApi';
 
 export default function LandingPage() {
 
@@ -25,7 +26,9 @@ export default function LandingPage() {
   const role = userData?.user?.role;
 
   const { data: spotData, error: spotError, isLoading: spotLoading } = useGetAllSpotsQuery();
-  // console.log(spotData.lands)
+
+  const{ data: hostLands, error: landError, isLoading: isLandLoading} = useGetSpotListQuery();
+ 
 
 
 
@@ -37,6 +40,8 @@ export default function LandingPage() {
       </Link>
     );
   }
+
+
 
   return (
     <div>
@@ -154,19 +159,19 @@ export default function LandingPage() {
           {role === 'landowner' && (
           <div className='text-center mt-10 mb-20'>
           <div className='mb-16'>
-            <Heading text="Gallery of Example Spots"/>
+            <Heading text="Gallery of Your Lands"/>
           </div>
-            {spotLoading ? (
+            {isLandLoading ? (
               <LoadingComponent />
-            ) : spotData?.lands?.length > 0 ? (
+            ) : hostLands?.lands?.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-4">
-                {spotData.lands.slice(0, 4).map((spot) => (
-                  <ExampleSpotsCard key={spot._id} spot={spot} />
+                {hostLands.lands.slice(0, 4).map((land) => (
+                  <ExampleSpotsCard key={land._id} land={land} />
                 ))}
               </div>
             ) : (
               <div className="text-center">
-                <h2 className="text-2xl md:text-4xl">No Spots Found</h2>
+                <h2 className="text-2xl md:text-4xl">You haven't started hosting yet...</h2>
               </div>
             )}
           </div>

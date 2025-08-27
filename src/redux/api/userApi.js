@@ -37,37 +37,6 @@ const userApi = baseApi.injectEndpoints({
             },
         }),
 
-        // search spots by location
-        // searchSpotByLocation: builder.query({
-        //     query: (location) => ({
-        //         url: `global/search?location=${encodeURIComponent(location)}`,
-        //         method: 'GET',
-        //     }),
-        // }),
-
-
-        // filterSpots: builder.query({
-        //     query: (filters) => {
-        //         const params = new URLSearchParams();
-
-        //         // Append filters only if they are defined
-        //         if (filters?.minPrice) params.append('minPrice', filters.minPrice);
-        //         if (filters?.maxPrice) params.append('maxPrice', filters.maxPrice);
-        //         if (filters?.site_types?.length) params.append('site_types', filters.site_types.join(','));
-        //         if (filters?.rv_type?.length) params.append('rv_type', filters.rv_type.join(','));
-        //         if (filters?.minRating) params.append('minRating', filters.minRating);
-        //         if (filters?.amenities?.length) params.append('amenities', filters.amenities.join(','));
-        //         if (filters?.site_length) params.append('site_length', filters.site_length);
-        //         if (filters?.max_slide) params.append('max_slide', filters.max_slide);
-
-        //         return {
-        //             url: `global/filter?${params.toString()}`,
-        //             method: 'GET',
-        //         };
-        //     },
-        // }),
-
-
         // contact with admin
         contactAdmin: builder.mutation({
             query: (data) => ({
@@ -77,6 +46,29 @@ const userApi = baseApi.injectEndpoints({
             }),
         }),
 
+        // About Us
+        getAboutUs: builder.query({
+            query: () => ({
+                url: "global/about-us",
+                method: "GET",
+            }),
+        }),
+
+        // Privacy Policy
+        getPrivacyPolicy: builder.query({
+            query: () => ({
+                url: "global/privacy-policy",
+                method: "GET",
+            }),
+        }),
+
+        // Terms & Conditions
+        getTermsConditions: builder.query({
+            query: () => ({
+                url: "global/terms-conditions",
+                method: "GET",
+            }),
+        }),
 
 
     })
@@ -84,9 +76,10 @@ const userApi = baseApi.injectEndpoints({
 
 export const {
     useGetAllSpotsQuery,
-    // useSearchSpotByLocationQuery,
     useSearchSpotsQuery,
-    useFilterSpotsQuery,
     useContactAdminMutation,
+    useGetAboutUsQuery,
+    useGetPrivacyPolicyQuery,
+    useGetTermsConditionsQuery,
 
 } = userApi;

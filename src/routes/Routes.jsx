@@ -36,6 +36,11 @@ import HostProfile from "../pages/LandownerPages/HostProfile";
 import MyEarning from "../pages/LandownerPages/MyEarning";
 import HostOverview from "../pages/LandownerPages/HostOverview";
 import MySpots from "../pages/LandownerPages/MySpots";
+import AboutUs from "../pages/PublicPages/AboutUs";
+import PrivacyPolicy from "../pages/PublicPages/PrivacyPolicy";
+import TermsConditions from "../pages/PublicPages/TermsConditions";
+import PrivateRoute from "./PrivateRoute";
+import SpotDetails from "../pages/CommonPages/SpotDetails";
 
 const router = createBrowserRouter([
 
@@ -48,6 +53,19 @@ const router = createBrowserRouter([
       { path: "/contact", element: <ContactUs /> },
       { path: "/how-it-works", element: <HowItWorkPage /> },
       { path: "/spots", element: <DiscoverSpot /> },
+      { path: "/about-us", element: <AboutUs /> },
+      { path: "/privacy-policy", element: <PrivacyPolicy /> },
+      { path: "/terms-conditions", element: <TermsConditions /> },
+
+      // Private route
+      {
+        element: <PrivateRoute />,   
+        children: [
+          { path: "/details/:id", element: <SpotDetails /> },
+        ],
+      },
+
+
     ],
   },
 
@@ -63,74 +81,77 @@ const router = createBrowserRouter([
   { path: "/auth/reset-password", element: <ResetPassword /> },
   { path: "/auth/reset/success", element: <PasswordResetSuccess /> },
 
+
+
+
   // Traveler Routes (Protected)
   {
-  path: "/traveler",
-  element: <TravelerRoute />, 
-  children: [
-    {
-      path: "dashboard",
-      element: <PrivateLayout />, 
-      children: [
-        { index: true, element: <TravelerDashboard /> },   
-      ],
-    },
-    // {
-    //   path: "bookings",
-    //   element: <PrivateLayout />,
-    //   children: [
-    //     { index: true, element: <MyBookings /> },  
-    //   ],
-    // },
-    {
-      path: "saved-spots",
-      element: <PrivateLayout />,
-      children: [
-        { index: true, element: <SavedSpots/> },  
-      ],
-    },
-    {
-      path: "profile",
-      element: <PrivateLayout />,
-      children: [
-        { index: true, element: <ProfileSetting/> },  
-      ],
-    },
-  ],
-},
+    path: "/traveler",
+    element: <TravelerRoute />,
+    children: [
+      {
+        path: "dashboard",
+        element: <PrivateLayout />,
+        children: [
+          { index: true, element: <TravelerDashboard /> },
+        ],
+      },
+      // {
+      //   path: "bookings",
+      //   element: <PrivateLayout />,
+      //   children: [
+      //     { index: true, element: <MyBookings /> },  
+      //   ],
+      // },
+      {
+        path: "saved-spots",
+        element: <PrivateLayout />,
+        children: [
+          { index: true, element: <SavedSpots /> },
+        ],
+      },
+      {
+        path: "profile",
+        element: <PrivateLayout />,
+        children: [
+          { index: true, element: <ProfileSetting /> },
+        ],
+      },
+    ],
+  },
 
 
   // Landowner Routes (Protected)
   {
     path: "/host",
-    element: <LandownerRoute />, 
+    element: <LandownerRoute />,
     children: [
       {
         path: "overview",
-        element: <PrivateLayout />, 
+        element: <PrivateLayout />,
         children: [
           { index: true, element: <HostOverview /> },
         ],
       },
       {
         path: "profile",
-        element: <PrivateLayout />, 
+        element: <PrivateLayout />,
         children: [
           { index: true, element: <HostProfile /> },
         ],
       },
       {
         path: "earnings",
-        element: <PrivateLayout />, 
+        element: <PrivateLayout />,
         children: [
-          { index: true, element: <MyEarning/> },
+          { index: true, element: <MyEarning /> },
         ],
       },
       {
         path: "spots",
-        element: <PrivateLayout />, 
+        element: <PrivateLayout />,
         children: [
-          { index: true, element: <MySpots/> },
+          { index: true, element: <MySpots /> },
         ],
       },
     ],

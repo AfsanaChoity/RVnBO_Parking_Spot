@@ -22,6 +22,7 @@
     "axios": "^1.11.0",
     "date-fns": "^2.30.0",
     "dayjs": "^1.11.13",
+    "lightgallery": "^2.9.0-beta.1",
     "lucide-react": "^0.540.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

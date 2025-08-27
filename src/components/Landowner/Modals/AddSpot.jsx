@@ -13,24 +13,24 @@ export default function AddSpot({ isOpen, onClose }) {
         rvSizeLimit: "",
         slideOuts: "",
         amenities: {
-            wifi: false,
-            water: false,
-            electricity: false,
-            sewage: false,
-            firepit: false,
+            "Wi-Fi": false,
+            Water: false,
+            Electricity: false,
+            "Sewage Hookups": false,
+            Firepit: false,
         },
         rvTypes: {
-            classA: false,
-            classB: false,
-            classC: false,
-            fifthWheel: false,
-            travelTrailer: false,
+            "Class A": false,
+            "Class B": false,
+            "Class C": false,
+            "5th Wheel": false,
+            "Towable": false,
         },
         siteTypes: {
-            boondocking: false,
-            rvStorage: false,
-            fullHookups: false,
-            partialHookups: false,
+            Boondocking: false,
+            "RV Storage": false,
+            "Full Hookups": false,
+            "Some Hookups": false,
         },
         pricePerNight: "",
         overview: "",
@@ -79,7 +79,7 @@ export default function AddSpot({ isOpen, onClose }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-         if (uploadedFiles.length === 0) {
+        if (uploadedFiles.length === 0) {
             toast.error("Please add at least one image before submitting.");
             return;
         }
@@ -89,7 +89,7 @@ export default function AddSpot({ isOpen, onClose }) {
             return;
         }
 
-       
+
 
         // Convert uploaded files to Base64
         const base64Images = await Promise.all(uploadedFiles.map(f => getBase64(f)));
@@ -130,24 +130,24 @@ export default function AddSpot({ isOpen, onClose }) {
                 rvSizeLimit: "",
                 slideOuts: "",
                 amenities: {
-                    wifi: false,
-                    water: false,
-                    electricity: false,
-                    sewage: false,
-                    firepit: false,
+                    "Wi-Fi": false,
+                    Water: false,
+                    Electricity: false,
+                    "Sewage Hookups": false,
+                    Firepit: false,
                 },
                 rvTypes: {
-                    classA: false,
-                    classB: false,
-                    classC: false,
-                    fifthWheel: false,
-                    travelTrailer: false,
+                    "Class A": false,
+                    "Class B": false,
+                    "Class C": false,
+                    "5th Wheel": false,
+                    "Towable": false,
                 },
                 siteTypes: {
-                    boondocking: false,
-                    rvStorage: false,
-                    fullHookups: false,
-                    partialHookups: false,
+                    Boondocking: false,
+                    "RV Storage": false,
+                    "Full Hookups": false,
+                    "Some Hookups": false,
                 },
                 pricePerNight: "",
                 overview: "",
@@ -247,7 +247,7 @@ export default function AddSpot({ isOpen, onClose }) {
                                 onChange={handleFileUpload}
                                 className="hidden"
                                 id="photo-upload"
-                               
+
                             />
                             <label htmlFor="photo-upload" className="cursor-pointer flex flex-col items-center">
                                 <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-3">
@@ -289,10 +289,10 @@ export default function AddSpot({ isOpen, onClose }) {
                             required
                         >
                             <option value="">Select maximum length</option>
-                            <option value="small">25 ft</option>
-                            <option value="medium">35 ft</option>
-                            <option value="large">45 ft</option>
-                            <option value="xlarge">45+ ft</option>
+                            <option value="25 ft">25 ft</option>
+                            <option value="35 ft">35 ft</option>
+                            <option value="45 ft">45 ft</option>
+                            <option value="45+ ft">45+ ft</option>
                         </select>
                     </div>
 
@@ -319,11 +319,11 @@ export default function AddSpot({ isOpen, onClose }) {
                         <label className="block text-base font-semibold text-gray-800 mb-3">Amenities</label>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                             {Object.entries({
-                                wifi: "Wi-Fi",
-                                water: "Water",
-                                electricity: "Electricity",
-                                sewer: "Sewage Hookups",
-                                firepit: "Firepit",
+                                "Wi-Fi": "Wi-Fi",
+                                Water: "Water",
+                                Electricity: "Electricity",
+                                "Sewage Hookups": "Sewage Hookups",
+                                Firepit: "Firepit",
                             }).map(([key, label]) => (
                                 <label key={key} className="flex items-center">
                                     <input
@@ -343,11 +343,11 @@ export default function AddSpot({ isOpen, onClose }) {
                         <label className="block text-base font-semibold text-gray-800 mb-3">Allowed RV Types</label>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                             {Object.entries({
-                                classA: "Class A",
-                                classB: "Class B",
-                                classC: "Class C",
-                                fifthWheel: "5th Wheel",
-                                travelTrailer: "Towable",
+                                "Class A": "Class A",
+                                "Class B": "Class B",
+                                "Class C": "Class C",
+                                "5th Wheel": "5th Wheel",
+                                "Towable": "Towable",
                             }).map(([key, label]) => (
                                 <label key={key} className="flex items-center">
                                     <input
@@ -367,10 +367,10 @@ export default function AddSpot({ isOpen, onClose }) {
                         <label className="block text-base font-semibold text-gray-800 mb-3">Site Type</label>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                             {Object.entries({
-                                boondocking: "Boondocking",
-                                rvStorage: "RV Storage",
-                                fullHookups: "Full Hookups",
-                                partialHookups: "Some Hookups",
+                                "Boondocking": "Boondocking",
+                                "RV Storage": "RV Storage",
+                                "Full Hookups": "Full Hookups",
+                                "Some Hookups": "Some Hookups",
                             }).map(([key, label]) => (
                                 <label key={key} className="flex items-center">
                                     <input

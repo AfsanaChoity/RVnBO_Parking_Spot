@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { X, Upload } from "lucide-react";
-import TealButton from "../../common/TealButton";
 import toast from "react-hot-toast";
 import { useUpdateSpotMutation } from "../../../redux/api/landownerApi";
 import { Button } from "antd";
 
 export default function EditSpot({ isOpen, onClose, spot }) {
-    
+
     const [formData, setFormData] = useState({
         spotName: "",
         address: "",
@@ -15,24 +14,24 @@ export default function EditSpot({ isOpen, onClose, spot }) {
         rvSizeLimit: "",
         slideOuts: "",
         amenities: {
-            wifi: false,
-            water: false,
-            electricity: false,
-            sewage: false,
-            firepit: false,
+            "Wi-Fi": false,
+            Water: false,
+            Electricity: false,
+            "Sewage Hookups": false,
+            Firepit: false,
         },
         rvTypes: {
-            classA: false,
-            classB: false,
-            classC: false,
-            fifthWheel: false,
-            travelTrailer: false,
+            "Class A": false,
+            "Class B": false,
+            "Class C": false,
+            "5th Wheel": false,
+            "Towable": false,
         },
         siteTypes: {
-            boondocking: false,
-            rvStorage: false,
-            fullHookups: false,
-            partialHookups: false,
+            Boondocking: false,
+            "RV Storage": false,
+            "Full Hookups": false,
+            "Some Hookups": false,
         },
         pricePerNight: "",
         overview: "",
@@ -76,85 +75,85 @@ export default function EditSpot({ isOpen, onClose, spot }) {
         setUploadedFiles(prev => prev.filter((_, i) => i !== index));
     };
 
-   const handleSubmit = async (e) => {
-    e.preventDefault();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-    const base64Images = uploadedFiles.length > 0
-        ? await Promise.all(uploadedFiles.map(f => getBase64(f)))
-        : spot.image; // Retain existing images if no new images are uploaded
+        const base64Images = uploadedFiles.length > 0
+            ? await Promise.all(uploadedFiles.map(f => getBase64(f)))
+            : spot.image;
 
-    const spotData = {
-        location: formData.address,
-        gps_coordinates: {
-            latitude: parseFloat(formData.latitude),
-            longitude: parseFloat(formData.longitude),
-        },
-        spot: formData.spotName,
-        image: base64Images,
-        amenities: Object.entries(formData.amenities)
-            .filter(([_, value]) => value)
-            .map(([key]) => key),
-        rv_type: Object.entries(formData.rvTypes)
-            .filter(([_, value]) => value)
-            .map(([key]) => key),
-        max_slide: formData.slideOuts ? [`${formData.slideOuts}`] : [],
-        site_types: Object.entries(formData.siteTypes)
-            .filter(([_, value]) => value)
-            .map(([key]) => key),
-        site_length: formData.rvSizeLimit ? [`${formData.rvSizeLimit}`] : [],
-        description: formData.overview,
-        isAvailable: formData.availability,
-        price: formData.pricePerNight,
-    };
+        const spotData = {
+            location: formData.address,
+            gps_coordinates: {
+                latitude: parseFloat(formData.latitude),
+                longitude: parseFloat(formData.longitude),
+            },
+            spot: formData.spotName,
+            image: base64Images,
+            amenities: Object.entries(formData.amenities)
+                .filter(([_, value]) => value)
+                .map(([key]) => key),
+            rv_type: Object.entries(formData.rvTypes)
+                .filter(([_, value]) => value)
+                .map(([key]) => key),
+            max_slide: formData.slideOuts ? [`${formData.slideOuts}`] : [],
+            site_types: Object.entries(formData.siteTypes)
+                .filter(([_, value]) => value)
+                .map(([key]) => key),
+            site_length: formData.rvSizeLimit ? [`${formData.rvSizeLimit}`] : [],
+            description: formData.overview,
+            isAvailable: formData.availability,
+            price: formData.pricePerNight,
+        };
 
-    try {
-        if (!spot._id) {
-            toast.error("Spot ID is missing.");
-            return;
+        try {
+            if (!spot._id) {
+                toast.error("Spot ID is missing.");
+                return;
+            }
+
+            const updatedSpot = await updateSpot({ spotId: spot._id, data: spotData }).unwrap();
+
+            toast.success("Spot updated successfully!");
+            onClose?.(updatedSpot); // Pass updated spot back to the parent component
+
+            // Reset form after success
+            setFormData({
+                spotName: "",
+                address: "",
+                latitude: "",
+                longitude: "",
+                rvSizeLimit: "",
+                slideOuts: "",
+                amenities: {
+                    "Wi-Fi": false,
+                    Water: false,
+                    Electricity: false,
+                    "Sewage Hookups": false,
+                    Firepit: false,
+                },
+                rvTypes: {
+                    "Class A": false,
+                    "Class B": false,
+                    "Class C": false,
+                    "5th Wheel": false,
+                    "Towable": false,
+                },
+                siteTypes: {
+                    Boondocking: false,
+                    "RV Storage": false,
+                    "Full Hookups": false,
+                    "Some Hookups": false,
+                },
+                pricePerNight: "",
+                overview: "",
+                availability: true,
+            });
+            setUploadedFiles([]);
+        } catch (err) {
+            toast.error(err?.data?.message || "Error updating spot");
         }
-
-        const updatedSpot = await updateSpot({ spotId: spot._id, data: spotData }).unwrap();
-
-        toast.success("Spot updated successfully!");
-        onClose?.(updatedSpot); // Pass updated spot back to the parent component
-
-        // Reset form after success
-        setFormData({
-            spotName: "",
-            address: "",
-            latitude: "",
-            longitude: "",
-            rvSizeLimit: "",
-            slideOuts: "",
-            amenities: {
-                wifi: false,
-                water: false,
-                electricity: false,
-                sewage: false,
-                firepit: false,
-            },
-            rvTypes: {
-                classA: false,
-                classB: false,
-                classC: false,
-                fifthWheel: false,
-                travelTrailer: false,
-            },
-            siteTypes: {
-                boondocking: false,
-                rvStorage: false,
-                fullHookups: false,
-                partialHookups: false,
-            },
-            pricePerNight: "",
-            overview: "",
-            availability: true,
-        });
-        setUploadedFiles([]);
-    } catch (err) {
-        toast.error(err?.data?.message || "Error updating spot");
-    }
-};
+    };
 
 
 
@@ -169,24 +168,24 @@ export default function EditSpot({ isOpen, onClose, spot }) {
                 rvSizeLimit: spot.site_length[0],
                 slideOuts: spot.max_slide[0],
                 amenities: {
-                    wifi: spot.amenities.includes("wifi"),
-                    water: spot.amenities.includes("water"),
-                    electricity: spot.amenities.includes("electricity"),
-                    sewage: spot.amenities.includes("sewage"),
-                    firepit: spot.amenities.includes("firepit"),
+                    "Wi-Fi": spot.amenities.includes("Wi-Fi"),
+                    Water: spot.amenities.includes("Water"),
+                    Electricity: spot.amenities.includes("Electricity"),
+                    "Sewage Hookups": spot.amenities.includes("Sewage Hookups"),
+                    Firepit: spot.amenities.includes("Firepit"),
                 },
                 rvTypes: {
-                    classA: spot.rv_type.includes("classA"),
-                    classB: spot.rv_type.includes("classB"),
-                    classC: spot.rv_type.includes("classC"),
-                    fifthWheel: spot.rv_type.includes("fifthWheel"),
-                    travelTrailer: spot.rv_type.includes("travelTrailer"),
+                    "Class A": spot.rv_type.includes("Class A"),
+                    "Class B": spot.rv_type.includes("Class B"),
+                    "Class C": spot.rv_type.includes("Class C"),
+                    "5th Wheel": spot.rv_type.includes("5th Wheel"),
+                    Towable: spot.rv_type.includes("Towable"),
                 },
                 siteTypes: {
-                    boondocking: spot.site_types.includes("boondocking"),
-                    rvStorage: spot.site_types.includes("rvStorage"),
-                    fullHookups: spot.site_types.includes("fullHookups"),
-                    partialHookups: spot.site_types.includes("partialHookups"),
+                    Boondocking: spot.site_types.includes("Boondocking"),
+                    "RV Storage": spot.site_types.includes("RV Storage"),
+                    "Full Hookups": spot.site_types.includes("Full Hookups"),
+                    "Some Hookups": spot.site_types.includes("Some Hookups"),
                 },
                 pricePerNight: spot.price,
                 overview: spot.description,
@@ -313,10 +312,10 @@ export default function EditSpot({ isOpen, onClose, spot }) {
                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                         >
                             <option value="">Select maximum length</option>
-                            <option value="small">25 ft</option>
-                            <option value="medium">35 ft</option>
-                            <option value="large">45 ft</option>
-                            <option value="xlarge">45+ ft</option>
+                            <option value="25 ft">25 ft</option>
+                            <option value="35 ft">35 ft</option>
+                            <option value="45 ft">45 ft</option>
+                            <option value="45+ ft">45+ ft</option>
                         </select>
                     </div>
 
@@ -342,11 +341,11 @@ export default function EditSpot({ isOpen, onClose, spot }) {
                         <label className="block text-base font-semibold text-gray-800 mb-3">Amenities</label>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                             {Object.entries({
-                                wifi: "Wi-Fi",
-                                water: "Water",
-                                electricity: "Electricity",
-                                sewer: "Sewage Hookups",
-                                firepit: "Firepit",
+                                "Wi-Fi": "Wi-Fi",
+                                "Water": "Water",
+                                "Electricity": "Electricity",
+                                "Sewage Hookups": "Sewage Hookups",
+                                "Firepit": "Firepit",
                             }).map(([key, label]) => (
                                 <label key={key} className="flex items-center">
                                     <input
@@ -366,11 +365,11 @@ export default function EditSpot({ isOpen, onClose, spot }) {
                         <label className="block text-base font-semibold text-gray-800 mb-3">Allowed RV Types</label>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                             {Object.entries({
-                                classA: "Class A",
-                                classB: "Class B",
-                                classC: "Class C",
-                                fifthWheel: "5th Wheel",
-                                travelTrailer: "Towable",
+                                "Class A": "Class A",
+                                "Class B": "Class B",
+                                "Class C": "Class C",
+                                "5th Wheel": "5th Wheel",
+                                "Towable": "Towable",
                             }).map(([key, label]) => (
                                 <label key={key} className="flex items-center">
                                     <input
@@ -390,10 +389,10 @@ export default function EditSpot({ isOpen, onClose, spot }) {
                         <label className="block text-base font-semibold text-gray-800 mb-3">Site Type</label>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                             {Object.entries({
-                                boondocking: "Boondocking",
-                                rvStorage: "RV Storage",
-                                fullHookups: "Full Hookups",
-                                partialHookups: "Some Hookups",
+                                "Boondocking": "Boondocking",
+                                "RV Storage": "RV Storage",
+                                "Full Hookups": "Full Hookups",
+                                "Some Hookups": "Some Hookups",
                             }).map(([key, label]) => (
                                 <label key={key} className="flex items-center">
                                     <input

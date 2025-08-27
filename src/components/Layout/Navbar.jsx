@@ -31,7 +31,7 @@ const publicNav = [
 const landownerNav = [
   { label: 'Explore', path: '/' },
   { label: 'How It Works', path: '/how-it-works' },
-  { label: 'Start Hosting', path: '/host/start' },
+  { label: 'Start Hosting', path: '/host/spots' },
   { label: 'Contact Us', path: '/contact' },
 ];
 

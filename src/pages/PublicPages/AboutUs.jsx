@@ -1,0 +1,39 @@
+
+import toast from 'react-hot-toast';
+import Heading from '../../components/common/Heading'
+import SubHeading from '../../components/common/SubHeading'
+import { useGetAboutUsQuery } from '../../redux/api/userApi'
+import { useEffect } from 'react';
+import LoadingComponent from '../../components/common/LoadingComponent';
+
+export default function AboutUs() {
+    const { data, error, isLoading, isError } = useGetAboutUsQuery();
+    
+    
+    useEffect(() => {
+    const id = "about-us-error";
+    if (isError) {
+      toast.error(error?.data?.message || "Failed to load About Us", { id });
+    } else {
+      toast.dismiss(id);
+    }
+  }, [isError, error]);
+
+  if(isLoading) {
+    return <div> <LoadingComponent/> </div>
+  }
+
+  return (
+    <div>
+        {/* Header */}
+        <div className='my-10'>
+            <Heading text= "About Us"/>
+        </div>
+
+        {/* Text */}
+        <div className='mb-20'>
+            <SubHeading text={data?.data?.text}/>
+        </div>
+    </div>
+  )
+}

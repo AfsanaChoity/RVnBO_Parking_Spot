@@ -4,23 +4,24 @@ import { Link } from "react-router-dom"
 
 
 const AMENITY_ICONS = {
-  wifi: <Wifi className="w-4 h-4 text-blue-500" />,
-  water: <Droplets className="w-4 h-4 text-blue-500" />,
-  electric: <Zap className="w-4 h-4 text-yellow-500" />,
-  "sewage hookups": <Droplets className="w-4 h-4 text-gray-500" />, // reuse droplets or any sewer icon
-  firepit: <Flame className="w-4 h-4 text-orange-500" />,
+  "Wi-Fi": <Wifi className="w-4 h-4 text-blue-500" />,
+  Water: <Droplets className="w-4 h-4 text-blue-500" />,
+  Electricity: <Zap className="w-4 h-4 text-yellow-500" />,
+  "Sewage Hookups": <Droplets className="w-4 h-4 text-gray-500" />, 
+  Firepit: <Flame className="w-4 h-4 text-orange-500" />,
 };
 
 
-export default function ExampleSpotsCard({ spot }) {
-  const { image, spot: spotName, location, amenities, price } = spot;
+export default function ExampleSpotsCard({ land }) {
+  const { image, spot: spotName, location, amenities, price } = land;
+  console.log(land)
   
   return (
      <div className=" rounded-lg shadow-md overflow-hidden border border-gray-200">
       {/* Image */}
       <div className="md:h-88 h-68 overflow-hidden">
         <img
-          src={image}
+          src={image[0]}
           alt={spotName}
           className="w-full h-full object-cover object-bottom-left "
         />
@@ -39,12 +40,16 @@ export default function ExampleSpotsCard({ spot }) {
 
         {/* Amenities */}
         <div className="flex items-center gap-6 mb-4">
-          {amenities?.map((amenity, i) => (
+          {
+            (amenities?.length === 0) ? (<p>No Amenities</p>) :
+            amenities?.map((amenity, i) => (
             <div key={i} className="flex items-center gap-1">
-              {AMENITY_ICONS[amenity.toLowerCase()]}
+              {AMENITY_ICONS[amenity]}
               <span className="text-sm text-gray-700">{amenity}</span>
             </div>
-          ))}
+          ))
+          }
+          
         </div>
 
         {/* Price */}

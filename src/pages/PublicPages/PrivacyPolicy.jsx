@@ -24,7 +24,7 @@ export default function PrivacyPolicy() {
   }
 
   return (
-    <div>
+    <div className='px-4'>
         {/* Header */}
         <div className='my-10'>
             <Heading text= "Privacy Policy"/>

@@ -24,7 +24,7 @@ export default function AboutUs() {
   }
 
   return (
-    <div>
+    <div className='px-4'>
         {/* Header */}
         <div className='my-10'>
             <Heading text= "About Us"/>

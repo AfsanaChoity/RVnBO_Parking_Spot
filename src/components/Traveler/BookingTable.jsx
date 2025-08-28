@@ -7,6 +7,7 @@ const BookingTable = ({ spot }) => {
     return <div  className="text-center"><HeadingSmall text="No bookings found"></HeadingSmall></div>;
   }
 
+
   return (
     <div className="mt-10">
       <div className="overflow-x-auto">
@@ -73,7 +74,7 @@ const BookingTable = ({ spot }) => {
 
                   {/* Status Column */}
                   <div className="col-span-2 text-center">
-                    <Link to={`/traveler/booking/details/${booking?.id}`}
+                    <Link to={`/details/${booking?.land?._id}`}
                       className="text-[#8AC197] hover:text-green-800 text-xs md:text-sm font-medium transition-colors"
                     >
                       View Details

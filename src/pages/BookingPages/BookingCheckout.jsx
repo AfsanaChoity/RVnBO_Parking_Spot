@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { MapPin, Calendar, Shield } from "lucide-react";
-import { Divider, Radio } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
 import BookingCheckoutForm from "../../components/Booking/BookingCheckoutForm";
@@ -19,7 +18,6 @@ function getRatingText(rating) {
 
 export default function BookingCheckout() {
     const [paymentOption, setPaymentOption] = useState("full");
-    const [phoneNumber, setPhoneNumber] = useState("");
     const [checkInDate, setCheckInDate] = useState(null);
     const [checkOutDate, setCheckOutDate] = useState(null);
     const [nights, setNights] = useState(0);
@@ -29,8 +27,8 @@ export default function BookingCheckout() {
 
     // Fetch check-in and check-out dates from localStorage, if available
     useEffect(() => {
-        const storedCheckIn = localStorage.getItem("checkInDate");
-        const storedCheckOut = localStorage.getItem("checkOutDate");
+        const storedCheckIn = localStorage.getItem("checkIn");
+        const storedCheckOut = localStorage.getItem("checkOut");
 
         // If check-in and check-out dates are not found in localStorage, set today's date as default
         if (storedCheckIn && storedCheckOut) {
@@ -46,13 +44,13 @@ export default function BookingCheckout() {
     // Handle check-in date change
     const handleCheckInChange = (date) => {
         setCheckInDate(date);
-        localStorage.setItem("checkInDate", date.format()); // Store in localStorage
+        localStorage.setItem("checkIn", date.format()); // Store in localStorage
     };
 
     // Handle check-out date change
     const handleCheckOutChange = (date) => {
         setCheckOutDate(date);
-        localStorage.setItem("checkOutDate", date.format()); // Store in localStorage
+        localStorage.setItem("checkOut", date.format()); // Store in localStorage
     };
 
     // Calculate the number of nights whenever check-in or check-out date changes
@@ -171,7 +169,7 @@ export default function BookingCheckout() {
                                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Personal Information</h3>
                                 <div className="space-y-4">
                                     <div>
-                                        <BookingCheckoutForm />
+                                        <BookingCheckoutForm landId={spotDetails?.land?._id}/>
                                     </div>
                                 </div>
                             </div>

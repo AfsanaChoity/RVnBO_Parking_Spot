@@ -21,7 +21,7 @@ export default function TravelerRoute() {
 
   if (userData?.user?.role !== "traveler") {
     
-    return <Navigate to="/landowner/overview" replace />;
+    return <Navigate to="/host/overview" replace />;
   }
 
   return <Outlet />;

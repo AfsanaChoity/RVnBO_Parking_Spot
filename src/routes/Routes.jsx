@@ -42,6 +42,7 @@ import TermsConditions from "../pages/PublicPages/TermsConditions";
 import PrivateRoute from "./PrivateRoute";
 import SpotDetails from "../pages/CommonPages/SpotDetails";
 import ReviewsTable from "../pages/LandownerPages/ReviewsTable";
+import BookingCheckout from "../pages/BookingPages/BookingCheckout";
 
 const router = createBrowserRouter([
 
@@ -66,6 +67,12 @@ const router = createBrowserRouter([
         ],
       },
 
+       {
+        element: <TravelerRoute />,   
+        children: [
+          { path: "/booking-checkout", element: <BookingCheckout/> },
+        ],
+      },
 
     ],
   },

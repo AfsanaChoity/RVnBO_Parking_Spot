@@ -88,7 +88,7 @@ export default function SpotDetails() {
 
                                 {
                                     (role === 'traveler') &&
-                                    <Link to="/booking">
+                                    <Link to="/booking-checkout" state={{ spotDetails }}>
                                         <MintButton text="Book Now"></MintButton>
                                     </Link>
                                 }

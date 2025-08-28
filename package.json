@@ -32,6 +32,7 @@
     "react-redux": "^9.2.0",
     "react-router": "^7.8.0",
     "react-router-dom": "^7.8.1",
+    "rebass": "^4.0.7",
     "redux-persist": "^6.0.0",
     "tailwindcss": "^4.1.11"
   },

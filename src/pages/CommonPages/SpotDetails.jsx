@@ -1,4 +1,4 @@
-
+import { MapPin, Droplets, Flame, Zap, DollarSign, Wifi } from "lucide-react"
 import { useGetUserQuery } from "../../redux/api/authApi"
 import { useGetSpotDetailsQuery } from "../../redux/api/privateApi";
 import { Divider, IconButton } from '@mui/material';
@@ -12,6 +12,7 @@ import ImageGallery from "../../components/common/ImageGallary";
 import star from '../../assets/icons/star.png'
 import GoogleMap from "../../components/Shared/GoogleMap";
 import HeadingSmall from "../../components/common/HeadingSmall";
+import GuestReview from "../../components/Shared/GuestReview";
 
 function getRatingText(rating) {
     if (!rating || rating === 0) return "No Rating";
@@ -22,13 +23,20 @@ function getRatingText(rating) {
     return "Excellent";
 }
 
+const AMENITY_ICONS = {
+    "Wi-Fi": <Wifi className="w-6 h-6 text-blue-500" />,
+    Water: <Droplets className="w-6 h-6 text-blue-500" />,
+    Electricity: <Zap className="w-6 h-6 text-yellow-500" />,
+    "Sewage Hookups": <Droplets className="w-6 h-6 text-gray-500" />,
+    Firepit: <Flame className="w-6 h-6 text-orange-500" />,
+};
 
 export default function SpotDetails() {
     const { id: spotId } = useParams();
     const { data: userData, error: userError, isLoading: isUserLoading } = useGetUserQuery();
     const { data: spotDetails, error: spotError, isLoading: isSpotLoading } = useGetSpotDetailsQuery(spotId);
 
-    console.log(spotDetails)
+    console.log(spotDetails?.land?._id)
 
     if (userError) {
         return <div className="my-10 text-center"> <Heading text="No User Found"></Heading></div>
@@ -151,15 +159,61 @@ export default function SpotDetails() {
                                 </div>
                             </div>
 
-                            {/* Bottom Border */}
-                            <div className='mt-10 mb-10'>
-                                <hr className="mt-10 mb-10 " />
-                                <Divider />
-                            </div>
 
-                            
+
+
                         </div>
                     </section>
+
+                    {/* Amenities */}
+                    <section className="mt-10">
+                        <div className="mb-6">
+                            <HeadingSmall text="Amenities" />
+                        </div>
+                        <div className="flex flex-col md:flex-row gap-6 mb-4">
+                            {
+                                (spotDetails?.land?.amenities?.length === 0) ? (<p>No Amenities</p>) :
+                                    spotDetails?.land?.amenities?.map((amenity, i) => (
+                                        <div key={i} className="flex items-center gap-1 ">
+                                            {AMENITY_ICONS[amenity]}
+                                            <span className="text-xl text-gray-700 ">{amenity}</span>
+                                        </div>
+                                    ))
+                            }
+
+                        </div>
+
+                        {/* RV types */}
+                        <div className="mt-10">
+                            <HeadingSmall text="RV Types Allowed" />
+                            <div className="flex flex-wrap gap-4 mt-4">
+                                {spotDetails?.land?.rv_type?.map((rvType, index) => (
+                                    <div key={index} className="px-4 py-2 border border-teal-800 rounded-full text-teal-900 text-sm">
+                                        {rvType}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Site type */}
+                        <div>
+                            <div className="mt-10">
+                                <HeadingSmall text="Site Type" />
+                                <div className="flex flex-wrap gap-4 mt-4">
+                                    {spotDetails?.land?.site_types?.map((siteType, index) => (
+                                        <div key={index} className="px-4 py-2 border border-teal-800 rounded-full text-teal-900 text-sm">
+                                            {siteType}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    {/* Bottom Border */}
+                    <div className='mt-10 mb-10'>
+                        <hr className="mt-10 mb-10 " />
+                        <Divider />
+                    </div>
 
 
                     {/* Map */}
@@ -174,6 +228,19 @@ export default function SpotDetails() {
                 </div>
             </div>
 
+
+            {/* Review */}
+            <section>
+                <div className="mt-10 mb-10">
+                    <GuestReview
+                        role={role}
+                        ratingsAndReviews={spotDetails?.land?.ratingsAndReviews || []}
+                        averageRating={spotDetails?.land?.averageRating || 0}
+                        totalRatings={spotDetails?.land?.totalRatings || 0}
+                        landId = {spotDetails?.land?._id}
+                    />
+                </div>
+            </section>
 
         </div>
     )

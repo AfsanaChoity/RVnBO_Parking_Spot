@@ -41,6 +41,7 @@ import PrivacyPolicy from "../pages/PublicPages/PrivacyPolicy";
 import TermsConditions from "../pages/PublicPages/TermsConditions";
 import PrivateRoute from "./PrivateRoute";
 import SpotDetails from "../pages/CommonPages/SpotDetails";
+import ReviewsTable from "../pages/LandownerPages/ReviewsTable";
 
 const router = createBrowserRouter([
 
@@ -147,6 +148,15 @@ const router = createBrowserRouter([
           { index: true, element: <MyEarning /> },
         ],
       },
+
+      {
+        path: "guest-reviews",
+        element: <PrivateLayout />,
+        children: [
+          { index: true, element: <ReviewsTable /> },
+        ],
+      },
+
       {
         path: "spots",
         element: <PrivateLayout />,

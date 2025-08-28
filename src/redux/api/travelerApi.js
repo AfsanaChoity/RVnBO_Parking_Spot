@@ -70,12 +70,25 @@ const travelerApi = baseApi.injectEndpoints({
     changePassword: builder.mutation({
       query: ({ currentPassword, newPassword, confirmPassword }) => ({
         url: "dashboard/change-password",
-        method: "PUT", 
+        method: "PUT",
         body: { currentPassword, newPassword, confirmPassword },
         headers: { "Content-Type": "application/json" },
       }),
     }),
 
+
+    // give review
+    submitReview: builder.mutation({
+      query: ({ reviewText, rating, landId }) => ({
+        url: `/traveler/rating/${landId}`, 
+        method: "POST",
+        body: {
+          review: reviewText,
+          rating: rating,
+        },
+      }),
+      invalidatesTags: ["Reviews"],
+    }),
 
 
 
@@ -89,4 +102,5 @@ export const {
   useGetBookingSpotsQuery,
   useUpdateTravelerProfileMutation,
   useChangePasswordMutation,
+  useSubmitReviewMutation,
 } = travelerApi;

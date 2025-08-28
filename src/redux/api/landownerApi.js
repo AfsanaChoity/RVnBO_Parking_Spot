@@ -62,6 +62,14 @@ const landownerApi = baseApi.injectEndpoints({
       providesTags: ["Earnings"],
     }),
 
+    getAllReviews: builder.query({
+      query: () => ({
+        url: "dashboard/all-reviews",
+        method: "GET",
+      }),
+      providesTags: ["Reviews"],
+    }),
+
     getAllTransaction: builder.query({
       query: () => ({
         url: "dashboard/transactions",
@@ -104,6 +112,7 @@ export const {
   useUpdateSpotMutation,
   useDeleteSpotMutation,
   useGetAllEarningQuery,
+  useGetAllReviewsQuery,
   useGetAllTransactionQuery,
   useUpdateHostProfileMutation,
   useChangeHostPasswordMutation,

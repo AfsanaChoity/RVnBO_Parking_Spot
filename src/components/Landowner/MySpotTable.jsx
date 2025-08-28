@@ -11,6 +11,7 @@ export default function MySpotTable({ spots }) {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [selectedSpot, setSelectedSpot] = useState(null);
 
+
   const [deleteSpot, { isLoading: isDeleting }] = useDeleteSpotMutation();
 
   if (spots.length === 0)
@@ -103,8 +104,8 @@ export default function MySpotTable({ spots }) {
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
-                    <Link to="/landowner/details"
-                      onClick={() => handleView(spot.id)}
+                    <Link to={`/details/${spot?._id}`}
+                      
                       className="p-1.5 cursor-pointer text-gray-600 hover:text-green-600 hover:bg-green-50 rounded transition-colors"
                       title="View"
                     >

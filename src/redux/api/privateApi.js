@@ -6,12 +6,11 @@ const privateApi = baseApi.injectEndpoints({
         // View Spot Details
         getSpotDetails: builder.query({
             query: (spotId) => ({
-                url: `lands/land-details/${spotId}`,    
+                url: `lands/land-details/${spotId}`,
                 method: "GET",
             }),
             providesTags: (result, error, id) => [{ type: "Spot", id }],
         }),
-
 
 
 
@@ -21,7 +20,9 @@ const privateApi = baseApi.injectEndpoints({
 
 export const {
 
-useGetSpotDetailsQuery,
+    useGetSpotDetailsQuery,
+    useGetMessagesQuery,
+    useSendMessageMutation,
 
 
 } = privateApi;

@@ -41,6 +41,7 @@ import passwordResetReducer from './slices/passwordResetSlice';
 import { baseApi } from './api/baseApi';
 import { setupListeners } from '@reduxjs/toolkit/query';
 
+
 // Redux Persist configuration
 const persistConfig = {
   key: 'root',
@@ -58,6 +59,7 @@ export const store = configureStore({
     userRole: persistedUserRoleReducer,
     [baseApi.reducerPath]: baseApi.reducer,
     passwordReset: passwordResetReducer,
+    // messages: messageReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

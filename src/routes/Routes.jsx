@@ -43,6 +43,7 @@ import PrivateRoute from "./PrivateRoute";
 import SpotDetails from "../pages/CommonPages/SpotDetails";
 import ReviewsTable from "../pages/LandownerPages/ReviewsTable";
 import BookingCheckout from "../pages/BookingPages/BookingCheckout";
+import ChatInbox from "../pages/CommonPages/ChatInbox";
 
 const router = createBrowserRouter([
 
@@ -64,6 +65,7 @@ const router = createBrowserRouter([
         element: <PrivateRoute />,   
         children: [
           { path: "/details/:id", element: <SpotDetails /> },
+          { path: "/inbox", element: <ChatInbox /> },
         ],
       },
 
@@ -71,6 +73,8 @@ const router = createBrowserRouter([
         element: <TravelerRoute />,   
         children: [
           { path: "/booking-checkout", element: <BookingCheckout/> },
+          
+          
         ],
       },
 

@@ -11,22 +11,37 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { FaCar } from 'react-icons/fa';
 import dayjs from 'dayjs';
+import { useEffect } from 'react';
 
 const SpotSearchForm = ({ location, setLocation, checkIn, setCheckIn, checkOut, setCheckOut, useLocalStorageDates = true }) => {
+
+   useEffect(() => {
+    if (!useLocalStorageDates) return;
+    const todayISO = dayjs().toDate().toISOString();
+    if (!localStorage.getItem('checkIn')) {
+      localStorage.setItem('checkIn', todayISO);
+    }
+    if (!localStorage.getItem('checkOut')) {
+      localStorage.setItem('checkOut', todayISO);
+    }
+  }, [useLocalStorageDates]);
 
   // Initialize safe checkIn/checkOut from localStorage if available
   const safeCheckIn = checkIn || (useLocalStorageDates && localStorage.getItem('checkIn') ? dayjs(localStorage.getItem('checkIn')) : dayjs());
   const safeCheckOut = checkOut || (useLocalStorageDates && localStorage.getItem('checkOut') ? dayjs(localStorage.getItem('checkOut')) : dayjs());
 
   const handleCheckInChange = (newDate) => {
+    if (!newDate) return;
     setCheckIn(newDate);
-    if (newDate) localStorage.setItem('checkIn', newDate.toISOString());
+    localStorage.setItem('checkIn', newDate.toISOString()); // ✅ always save
   };
 
   const handleCheckOutChange = (newDate) => {
+    if (!newDate) return;
     setCheckOut(newDate);
-    if (newDate) localStorage.setItem('checkOut', newDate.toISOString());
+    localStorage.setItem('checkOut', newDate.toISOString()); // ✅ always save
   };
+
 
   // Calculate nights safely
   const nights = safeCheckOut && safeCheckIn ? safeCheckOut.diff(safeCheckIn, 'day') : 0;
@@ -77,6 +92,7 @@ const SpotSearchForm = ({ location, setLocation, checkIn, setCheckIn, checkOut, 
               label="Check In"
               value={safeCheckIn}
               onChange={handleCheckInChange}
+              onAccept={handleCheckInChange}
               slotProps={{ textField: { fullWidth: true } }}
             />
           </Grid>
@@ -87,6 +103,7 @@ const SpotSearchForm = ({ location, setLocation, checkIn, setCheckIn, checkOut, 
               label="Check Out"
               value={safeCheckOut}
               onChange={handleCheckOutChange}
+              onAccept={handleCheckOutChange}
               slotProps={{ textField: { fullWidth: true } }}
             />
           </Grid>

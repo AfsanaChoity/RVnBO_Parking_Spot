@@ -47,6 +47,12 @@ const BookingCheckoutForm = ({ landId }) => {
             return;
         }
 
+        const storedCheckIn = localStorage.getItem("checkIn");
+        const storedCheckOut = localStorage.getItem("checkOut");
+
+        const finalCheckInDate = storedCheckIn || checkInDate; 
+        const finalCheckOutDate = storedCheckOut || checkOutDate; 
+
         // Format dates as YYYY-MM-DD before sending
         const formatDate = (date) => {
             const d = new Date(date);
@@ -63,8 +69,8 @@ const BookingCheckoutForm = ({ landId }) => {
             postcode: values.postcode,
             phoneNumber: values.phone, // include country code if needed
             gender: values.gender,
-            checkIn: formatDate(checkInDate),   // ✅ YYYY-MM-DD
-            checkOut: formatDate(checkOutDate), // ✅ YYYY-MM-DD
+            checkIn: formatDate(finalCheckInDate),   // ✅ YYYY-MM-DD
+            checkOut: formatDate(finalCheckOutDate), // ✅ YYYY-MM-DD
         };
 
         try {
@@ -79,6 +85,7 @@ const BookingCheckoutForm = ({ landId }) => {
         }
     };
 
+    
 
     return (
         <div>
@@ -177,6 +184,7 @@ const BookingCheckoutForm = ({ landId }) => {
                     <Button
                         type="primary"
                         htmlType="submit"
+                        // onClick={onFinish}
                         style={{
                             backgroundColor: "#468F9D",
                             fontWeight: "600",

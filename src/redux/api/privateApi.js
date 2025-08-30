@@ -12,7 +12,14 @@ const privateApi = baseApi.injectEndpoints({
             providesTags: (result, error, id) => [{ type: "Spot", id }],
         }),
 
-
+        // get All chat users
+        getAllChatUsers: builder.query({
+            query: () => ({
+                url: "message/users",
+                method: "GET",
+            }),
+            providesTags: ["ChatUsers"],
+        }),
 
 
     })
@@ -21,9 +28,7 @@ const privateApi = baseApi.injectEndpoints({
 export const {
 
     useGetSpotDetailsQuery,
-    useGetMessagesQuery,
-    useSendMessageMutation,
-
+    useGetAllChatUsersQuery,
 
 } = privateApi;
 

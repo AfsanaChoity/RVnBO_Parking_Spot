@@ -44,6 +44,7 @@ import SpotDetails from "../pages/CommonPages/SpotDetails";
 import ReviewsTable from "../pages/LandownerPages/ReviewsTable";
 import BookingCheckout from "../pages/BookingPages/BookingCheckout";
 import ChatInbox from "../pages/CommonPages/ChatInbox";
+import { ChatLayout } from "../pages/ChattingPage/ChatLayout";
 
 const router = createBrowserRouter([
 
@@ -65,7 +66,7 @@ const router = createBrowserRouter([
         element: <PrivateRoute />,   
         children: [
           { path: "/details/:id", element: <SpotDetails /> },
-          { path: "/inbox", element: <ChatInbox /> },
+          { path: "/inbox", element: <ChatLayout/> },
         ],
       },
 

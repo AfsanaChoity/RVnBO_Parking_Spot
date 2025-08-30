@@ -45,6 +45,7 @@ import ReviewsTable from "../pages/LandownerPages/ReviewsTable";
 import BookingCheckout from "../pages/BookingPages/BookingCheckout";
 import ChatInbox from "../pages/CommonPages/ChatInbox";
 import { ChatLayout } from "../pages/ChattingPage/ChatLayout";
+import BookingConfirm from "../pages/BookingPages/BookingConfirm";
 
 const router = createBrowserRouter([
 
@@ -74,6 +75,7 @@ const router = createBrowserRouter([
         element: <TravelerRoute />,   
         children: [
           { path: "/booking-checkout", element: <BookingCheckout/> },
+          { path: "/booking-confirm", element: <BookingConfirm /> },
           
           
         ],

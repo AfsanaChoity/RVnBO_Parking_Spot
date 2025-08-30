@@ -4,7 +4,7 @@ import { io } from "socket.io-client";
 export const useSocket = (token) => {
   const socketRef = useRef(null);
   const backendUrl = "http://10.10.20.73:5000";
-  console.log("Backend URL:", backendUrl);
+  // console.log("Backend URL:", backendUrl);
 
   useEffect(() => {
     if (!token) {

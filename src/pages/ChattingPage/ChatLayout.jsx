@@ -1,10 +1,9 @@
-
 import { useSocket } from "../../socket/Hooks/useSocket";
 import { useEffect, useState } from "react";
-import  ChatSidebar  from "../../components/Chat/ChatSidebar";
-import  ChatWindow  from "../../components/Chat/ChatWindow";
+import { ChatSidebar } from "../../components/Chat/ChatSidebar";
+import { ChatWindow } from "../../components/Chat/ChatWindow";
 import { useGetAllChatUsersQuery } from "../../redux/api/privateApi";
-// import { api } from "./utils/api";
+import LoadingComponent from "../../components/common/LoadingComponent";
 
 export const ChatLayout = () => {
   const [selectedUser, setSelectedUser] = useState(null);
@@ -14,19 +13,29 @@ export const ChatLayout = () => {
   const token = localStorage.getItem("user-token");
   const socket = useSocket(token);
 
-  const {data: chatUsers, error, isLoading} = useGetAllChatUsersQuery();
+  const { data: chatUsers, error, isLoading } = useGetAllChatUsersQuery();
 
-  console.log(chatUsers)
+  // console.log(chatUsers?.data[0]?._id)
 
-  // useEffect(() => {
-  //   fetchUsers();
-  // }, []);
+
+  // Always call hooks before returns
+  useEffect(() => {
+    if (chatUsers && chatUsers.data) {
+      setUsers(chatUsers.data);
+      if (chatUsers.data.length > 0 && !selectedUser) {
+        setSelectedUser(chatUsers.data[0]);
+      }
+    }
+  }, [chatUsers, selectedUser]);
+
+  // console.log(users[0]?._id)
+
 
   useEffect(() => {
     if (!socket) return;
 
     socket.on("connection", () => {
-      // console.log("Socket connected!");
+      console.log("Socket connected!");
     });
 
     // find all users list
@@ -38,13 +47,13 @@ export const ChatLayout = () => {
 
     // find online users list
     socket.on("online_users", (onlineUsers) => {
-      // console.log("online_users: ", onlineUsers);
+       console.log("online_users: ", onlineUsers);
       setOnlineUsers(onlineUsers);
     });
 
     // Will call disconnect when exiting the browser tab or closing the browser
     socket.on("disconnect", () => {
-      // console.log("Socket disconnected!");
+       console.log("Socket disconnected!");
     });
 
     return () => {
@@ -54,45 +63,42 @@ export const ChatLayout = () => {
     };
   }, [socket]);
 
-  // const fetchUsers = async () => {
-  //   try {
-  //     const response = await api.get("/users");
-  //     setUsers(response.data.data.users || []);
-
-  //     // Auto-select first user if none selected
-  //     if (response.data.length > 0 && !selectedUser) {
-  //       setSelectedUser(response.data[0]);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching users:", error);
-  //   }
-  // };
-
   const handleUserSelect = (userId) => {
-    const user = users.find((u) => u.id === userId);
+    const user = users.find((u) => u._id === userId);
     if (user) {
       setSelectedUser(user);
     }
   };
 
-  // console.log("Selected User:", selectedUser);
-
-  // users list update when online Users change
+  // users list update when online users change
   useEffect(() => {
     setUsers((prevUser) =>
       prevUser.map((user) => ({
         ...user,
-        isOnline: onlineUsers.includes(user.id),
+        isOnline: onlineUsers.includes(user._id),
       }))
     );
   }, [onlineUsers]);
 
-  // console.log("Users with online status: ", users);
+  // Now move the error and loading conditional rendering here
+  if (error) {
+    return (
+      <div className="text-red-500 text-2xl text-center"> Something went wrong</div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div>
+        <LoadingComponent />
+      </div>
+    );
+  }
 
   return (
-    <div className="h-screen flex bg-gray-950">
+    <div className="h-screen flex bg-gray-100">
       <ChatSidebar
-        selectedUserId={selectedUser?.id}
+        selectedUserId={selectedUser?._id}
         onUserSelect={handleUserSelect}
         users={users}
       />
@@ -100,14 +106,12 @@ export const ChatLayout = () => {
       {selectedUser ? (
         <ChatWindow selectedUser={selectedUser} socket={socket} />
       ) : (
-        <div className="flex-1 flex items-center justify-center bg-gray-950">
+        <div className="flex-1 flex items-center justify-center">
           <div className="text-center text-gray-400">
             <div className="w-24 h-24 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
               💬
             </div>
-            <h2 className="text-xl font-semibold mb-2">
-              Welcome to Chat
-            </h2>
+            <h2 className="text-xl font-semibold mb-2">Welcome to Chat</h2>
             <p>Select a conversation to start messaging</p>
           </div>
         </div>

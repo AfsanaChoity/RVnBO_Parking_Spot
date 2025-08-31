@@ -82,7 +82,7 @@ export default function SpotDetails() {
 
                         {/* Price & button */}
                         <div className='flex flex-col space-y-2 items-end'>
-                            <p className='font-bold text-[32px] text-[#468F9D]'>$ 2349 <span className=' text-[20px]'>/night</span></p>
+                            <p className='font-bold text-[32px] text-[#468F9D]'>${spotDetails?.land?.price} <span className=' text-[20px]'>/night</span></p>
 
                             <div className='flex'>
 

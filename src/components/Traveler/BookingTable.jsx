@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 import HeadingSmall from "../common/HeadingSmall";
 
-const BookingTable = ({ spot }) => {
+const BookingTable = ({ spots }) => {
   
-  if (!spot || spot.length === 0) {
+  if (!spots || spots.length === 0) {
     return <div  className="text-center"><HeadingSmall text="No bookings found"></HeadingSmall></div>;
   }
 
+  console.log(spots)
 
   return (
     <div className="mt-10">
@@ -15,31 +16,37 @@ const BookingTable = ({ spot }) => {
           {/* Table Header */}
           <div className="bg-gray-50 px-4 md:px-6 py-3 border-b border-gray-200 ">
             <div className="grid grid-cols-12 gap-4 items-center">
-              <div className="col-span-5 ">
-                <span className="text-sm font-medium text-gray-700">Spot</span>
+              <div className="col-span-4 ">
+                <span className="text-sm  text-gray-700 font-semibold">Spot</span>
               </div>
-              <div className="col-span-2">
-                <span className="text-sm font-medium text-gray-700">Price</span>
+              <div className="col-span-1">
+                <span className="text-sm font-semibold text-gray-700">Price</span>
               </div>
-              <div className="col-span-3  text-center">
-                <span className="text-sm font-medium text-gray-700">Booking Date</span>
+              <div className="col-span-2  text-center">
+                <span className="text-sm font-semibold text-gray-700">Booking Date</span>
               </div>
-              <div className="col-span-2 text-center">
-                <span className="text-sm font-medium text-gray-700">Spot Details</span>
+              <div className="col-span-2  text-center">
+                <span className="text-sm font-semibold text-gray-700">Check In</span>
+              </div>
+              <div className="col-span-2  text-center">
+                <span className="text-sm font-semibold text-gray-700">Check Out</span>
+              </div>
+              <div className="col-span-1 text-center">
+                <span className="text-sm font-semibold text-gray-700">Details</span>
               </div>
             </div>
           </div>
 
           {/* Table Body */}
           <div className="divide-y divide-gray-200">
-            {spot.map((booking, index) => (
+            {spots.map((booking, index) => (
               <div
                 key={booking.id}
                 className={`px-4 md:px-6 py-4 hover:bg-gray-50 transition-colors bg-[#fff]`}
               >
                 <div className="grid grid-cols-12 gap-4 items-center">
                   {/* Place Column */}
-                  <div className="col-span-5 ">
+                  <div className="col-span-4 ">
                     <div className="flex items-center gap-3">
                       <div className="flex-shrink-0">
                         <img
@@ -63,21 +70,29 @@ const BookingTable = ({ spot }) => {
                   </div>
 
                   {/* Price Column */}
-                  <div className="col-span-2">
+                  <div className="col-span-1">
                     <span className="text-sm font-medium text-gray-700">{booking.price || "N/A"}$</span>
                   </div>
 
                   {/* Booking Date Column */}
-                  <div className="col-span-3 text-center">
-                    <span className="text-xs md:text-sm text-gray-600">{new Date(booking.bookingDate).toLocaleString()}</span>
+                  <div className="col-span-2 text-center">
+                    <span className="text-xs md:text-sm text-gray-600">{booking?.bookingDate}</span>
+                  </div>
+                  {/* Check In Date Column */}
+                  <div className="col-span-2 text-center">
+                    <span className="text-xs md:text-sm text-gray-600">{booking?.checkIn}</span>
+                  </div>
+                  {/* Check Out Date Column */}
+                  <div className="col-span-2 text-center">
+                    <span className="text-xs md:text-sm text-gray-600">{booking?.checkOut}</span>
                   </div>
 
                   {/* Status Column */}
-                  <div className="col-span-2 text-center">
+                  <div className="col-span-1 text-center">
                     <Link to={`/details/${booking?.land?._id}`}
                       className="text-[#8AC197] hover:text-green-800 text-xs md:text-sm font-medium transition-colors"
                     >
-                      View Details
+                      View
                     </Link>
                   </div>
                 </div>

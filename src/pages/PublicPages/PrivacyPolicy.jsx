@@ -1,7 +1,6 @@
 
 import toast from 'react-hot-toast';
 import Heading from '../../components/common/Heading'
-import SubHeading from '../../components/common/SubHeading'
 import { useGetPrivacyPolicyQuery } from '../../redux/api/userApi'
 import { useEffect } from 'react';
 import LoadingComponent from '../../components/common/LoadingComponent';

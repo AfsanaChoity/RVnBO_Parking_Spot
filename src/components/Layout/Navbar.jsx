@@ -38,7 +38,7 @@ const landownerNav = [
 // user menu items
 const travelerMenu = [
   { label: 'Dashboard', path: '/traveler/dashboard' },
-  // { label: 'My Bookings', path: '/traveler/bookings' },
+  { label: 'My Bookings', path: '/traveler/bookings' },
   { label: 'Saved Spot', path: '/traveler/saved-spots' },
   { label: 'Profile Settings', path: '/traveler/profile' },
   { label: 'Logout', path: '/logout', isLogout: true },
@@ -213,7 +213,7 @@ function Navbar({ unread = 4 }) {
                   </Badge> */}
                   <Link to="/inbox"><MailIcon /></Link>
                 </IconButton>
-                <Tooltip title="Open settings">
+                <Tooltip title={userData?.user?.name || 'Open settings'}>
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar alt="User avatar">
                       {userData?.user?.image ? (

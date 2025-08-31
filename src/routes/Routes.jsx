@@ -111,13 +111,13 @@ const router = createBrowserRouter([
           { index: true, element: <TravelerDashboard /> },
         ],
       },
-      // {
-      //   path: "bookings",
-      //   element: <PrivateLayout />,
-      //   children: [
-      //     { index: true, element: <MyBookings /> },  
-      //   ],
-      // },
+      {
+        path: "bookings",
+        element: <PrivateLayout />,
+        children: [
+          { index: true, element: <MyBookings /> },  
+        ],
+      },
       {
         path: "saved-spots",
         element: <PrivateLayout />,

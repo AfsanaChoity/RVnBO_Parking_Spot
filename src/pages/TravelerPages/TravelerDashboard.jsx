@@ -17,6 +17,8 @@ export default function TravelerDashboard() {
 
   const { data: userData, error: userError, isLoading: userIsLoading } = useGetUserQuery();
 
+  
+
   const handleViewToggleClick = () => {
     setShowAll(!showAll); 
   };
@@ -74,7 +76,7 @@ export default function TravelerDashboard() {
       {/* Booking Table */}
       <div>
         {/* Pass the fetched spot data and the showAll state to BookingTable */}
-        <BookingTable spot={showAll ? data?.bookings : data?.bookings.slice(0, 10)} />
+        <BookingTable spots={showAll ? data?.bookings.slice(0,10) : data?.bookings.slice(0, 4)} />
 
         <div className="md:hidden text-center mt-2 text-xs text-gray-500">Swipe left to see more columns →</div>
       </div>

@@ -26,7 +26,7 @@ const Footer = () => {
           <div className=" flex flex-col space-y-3 lg:space-y-6 text-white text-center text-sm">
 
             <Link to="/about-us">About Us</Link>
-            <p>Features</p>
+            <Link to="/spots">Features</Link>
             <Link to="/privacy-policy">Privacy Policy</Link>
             {/* <p>Works</p> */}
             {/* <p>Hosting</p> */}
@@ -39,7 +39,7 @@ const Footer = () => {
           <h1 className="text-xl font-bold text-white flex justify-center mb-4">Help</h1>
           <div className=" flex flex-col space-y-3 lg:space-y-6 text-white text-center text-sm">
 
-            <p>Customer Support</p>
+            <Link to="/contact">Customer Support</Link>
             <Link to="/terms-conditions">Terms & Conditions</Link>
             {/* <Link to="/privacy-policy">Privacy Policy</Link> */}
             <Link to="/how-it-works">FAQ</Link>
@@ -53,10 +53,10 @@ const Footer = () => {
           
             {/* Social Links */}
             <div className="flex  gap-4 text-white text-lg justify-center">
-              <a href="#"><FaFacebookF /></a>
-              <a href="#"><FaTwitter /></a>
-              <a href="#"><FaInstagram /></a>
-              <a href="#"><FaLinkedinIn /></a>
+              <a href="https://www.facebook.com/" target='_blank'><FaFacebookF /></a>
+              <a href="https://x.com/" target='_blank'><FaTwitter /></a>
+              <a href="https://www.instagram.com/" target='_blank'><FaInstagram /></a>
+              <a href="https://www.linkedin.com/" target='_blank'><FaLinkedinIn /></a>
             </div>
 
             {/* Button */}

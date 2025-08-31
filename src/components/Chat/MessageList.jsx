@@ -14,6 +14,9 @@ export const MessageList = ({ messages = [], selectedUser }) => {
     selectedUser?.id ||
     "";
 
+    console.log(messages)
+
+    
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -96,7 +99,7 @@ export const MessageList = ({ messages = [], selectedUser }) => {
         <div key={date}>
           {/* Date Header */}
           <div className="flex justify-center mb-4">
-            <span className="bg-gray-800 text-gray-400 text-xs px-3 py-1 rounded-full">
+            <span className="bg-gray-200 text-gray-700 text-xs px-3 py-1 rounded-full">
               {formatDateHeader(date)}
             </span>
           </div>

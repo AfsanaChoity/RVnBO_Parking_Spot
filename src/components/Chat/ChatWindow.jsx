@@ -15,12 +15,7 @@ export const ChatWindow = ({ selectedUser, socket }) => {
   const { data: userData } = useGetUserQuery();
 
   // Initial history
-  const {
-    data: messagesData,
-    isLoading: messagesIsLoading,
-  } = useGetChatMessagesByUserIdQuery(selectedUser._id, {
-    skip: !selectedUser?._id,
-  });
+  const { data: messagesData, isLoading: messagesIsLoading} = useGetChatMessagesByUserIdQuery(selectedUser._id, {skip: !selectedUser?._id});
 
   // Seed local state from server history
   useEffect(() => {
@@ -126,7 +121,7 @@ export const ChatWindow = ({ selectedUser, socket }) => {
                     ? formatLastSeen(selectedUser.lastSeen)
                     : "Offline"}
                 {isTyping && selectedUser.isOnline && (
-                  <span className="text-purple-400"> • typing...</span>
+                  <span className="text-[#468F9D]"> • typing...</span>
                 )}
               </p>
             </div>

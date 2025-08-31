@@ -7,10 +7,10 @@ import { useEffect } from 'react';
 import LoadingComponent from '../../components/common/LoadingComponent';
 
 export default function AboutUs() {
-    const { data, error, isLoading, isError } = useGetAboutUsQuery();
-    
-    
-    useEffect(() => {
+  const { data, error, isLoading, isError } = useGetAboutUsQuery();
+  const content = data?.data?.text;
+
+  useEffect(() => {
     const id = "about-us-error";
     if (isError) {
       toast.error(error?.data?.message || "Failed to load About Us", { id });
@@ -19,21 +19,26 @@ export default function AboutUs() {
     }
   }, [isError, error]);
 
-  if(isLoading) {
-    return <div> <LoadingComponent/> </div>
+  if (isLoading) {
+    return <div> <LoadingComponent /> </div>
   }
 
   return (
     <div className='px-4'>
-        {/* Header */}
-        <div className='my-10'>
-            <Heading text= "About Us"/>
-        </div>
+      {/* Header */}
+      <div className='my-10'>
+        <Heading text="About Us" />
+      </div>
 
-        {/* Text */}
-        <div className='mb-20'>
-            <SubHeading text={data?.data?.text}/>
-        </div>
+      {/* Text */}
+      <div className='mb-20'>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: content || 'No about available.',
+          }}
+          className="text-justify mt-5"
+        ></div>
+      </div>
     </div>
   )
 }

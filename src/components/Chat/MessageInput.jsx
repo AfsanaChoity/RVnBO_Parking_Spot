@@ -8,7 +8,8 @@ export const MessageInput = ({ onSendMessage, disabled = false }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (message.trim() && !disabled) {
-      onSendMessage(message.trim());
+      // onSendMessage(message.trim());
+      onSendMessage({ text: message.trim(), image: null });
       setMessage("");
     }
   };

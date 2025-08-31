@@ -17,7 +17,7 @@ export default function ExampleSpotsCard({ land }) {
   console.log(land)
   
   return (
-     <div className=" rounded-lg shadow-md overflow-hidden border border-gray-200">
+     <div className="rounded-lg shadow-md overflow-hidden border border-gray-200">
       {/* Image */}
       <div className="md:h-88 h-68 overflow-hidden">
         <img

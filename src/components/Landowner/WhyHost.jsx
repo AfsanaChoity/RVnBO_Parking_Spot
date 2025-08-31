@@ -29,7 +29,7 @@ export default function WhyHost() {
   ]
 
   return (
-    <div className=" p-6 my-20 md:px-20">
+    <div className=" container mx-auto p-6 my-20 md:px-10">
       {/* Main Heading */}
       
       <div className="text-center mb-20">

@@ -8,7 +8,7 @@ import pic6 from '../../assets/images/BG_images/img6.jpg'
 
 export default function ExploreStays() {
   return (
-    <div className=''>
+    <div className=' container mx-auto'>
         <div className="  mt-20 mb-20">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Left Section */}
@@ -38,7 +38,7 @@ export default function ExploreStays() {
                     <h2 className="text-xl font-semibold mb-2 text-white mt-4">Find Your Perfect Stay</h2>
                     <p className="text-white font-2xl ">The Road less traveled has a spot waiting for you. </p>
                   </div>
-                  <Link to="/discover-spots" className=" text-white px-4 py-2 rounded-full w-fit self-end mb-2" style={{ backgroundColor: '#8AC197' }}>Explore More</Link>
+                  <Link to="/spots" className=" text-white px-4 py-2 rounded-full w-fit self-end mb-2" style={{ backgroundColor: '#8AC197' }}>Explore More</Link>
                 </div>
               </div>
             </div>

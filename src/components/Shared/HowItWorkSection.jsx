@@ -10,7 +10,7 @@ export default function HowItWorkSection({ role }) {
   
   
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-10 px-4">
+    <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-10 px-4">
       {/* 1. Listing / Searching */}
       <WorkFlexBox
         icon={role === 'landowner' ? <LuClipboardList /> : <FaSearchLocation />}

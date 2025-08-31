@@ -44,7 +44,7 @@ export default function Banner({ backgroundImg, heading, subheading, button1='',
     <div className={`${containerClassName}`}>
       {/* Background Section */}
       <div
-        className="relative min-h-screen flex items-center px-4 justify-center text-white"
+        className="relative min-h-screen flex items-center px-4 justify-center text-white bg-cover bg-center"
         style={{
           backgroundImage: `url(${backgroundImg})`,
           backgroundSize: '100% 100%',  

@@ -103,10 +103,12 @@ function Navbar({ unread = 4 }) {
 };
 
   return (
-    <AppBar position="static" sx={{ bgcolor: '#468F9D' }}>
+    <div>
+      <AppBar position="static" sx={{ bgcolor: '#468F9D' }}>
       <Container maxWidth={false} disableGutters>
         {/* 3-column layout: [left | center | right] */}
-        <Toolbar
+        <div className=''>
+          <Toolbar
           disableGutters
           sx={{
             display: 'grid',
@@ -226,6 +228,7 @@ function Navbar({ unread = 4 }) {
             )}
           </Box>
         </Toolbar>
+        </div>
 
         {/* MOBILE NAV MENU (role-based) */}
         <Menu
@@ -275,6 +278,7 @@ function Navbar({ unread = 4 }) {
         </Menu>
       </Container>
     </AppBar>
+    </div>
   );
 }
 

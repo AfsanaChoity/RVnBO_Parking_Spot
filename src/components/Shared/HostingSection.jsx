@@ -5,14 +5,14 @@ export default function HostingSection({ role }) {
   return (
     <>
        <div
-        className="container mx-auto px-4 h-[700px] bg-cover bg-center flex items-end justify-start "
+        className=" px-4 h-[700px] bg-cover bg-center flex items-end justify-start "
         style={{
           backgroundImage: `url(${bgImg})`,
         }}
       >
         {/* Styled Button */}
         <div
-          className=" bg-[#468F9D] flex flex-col items-start justify-center gap-[10px] text-white text-lg font-semibold w-[513px]  rounded-3xl p-6 md:p-10 mb-10"
+          className="md:ml-20 bg-[#468F9D] flex flex-col items-start justify-center gap-[10px] text-white text-lg font-semibold w-[513px]  rounded-3xl p-6 md:p-10 mb-10"
 
         >
           <h2 className='text-left text-xl'> Join a Movement. Welcome Fellow Travelers.</h2>

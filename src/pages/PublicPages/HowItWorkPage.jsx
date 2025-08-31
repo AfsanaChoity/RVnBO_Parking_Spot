@@ -16,7 +16,7 @@ export default function HowItWorkPage() {
     const role = userData?.user?.role;
 
     return (
-        <div className='container mx-auto mb-20'>
+        <div className=' mb-20'>
 
             {/* Banner */}
             <div>
@@ -32,15 +32,15 @@ export default function HowItWorkPage() {
                     }
                     button1={
                         role === "traveler" ? (
-                            <Link>
+                            <Link to="/spots">
                                 <MintButton text="Start Exploring" />
                             </Link>
                         ) : role === "landowner" ? (
-                            <Link>
+                            <Link to="/host/spots">
                                 <MintButton text="Start Hosting Now" />
                             </Link>
                         ) : (
-                            <Link>
+                            <Link to="/onboarding/role">
                                 <MintButton text="It's Free To Join" />
                             </Link>
                         )
@@ -75,7 +75,7 @@ export default function HowItWorkPage() {
                         heading="One Click to Adventure"
                         subheading="Discover unique RV spots, plan your stay, and enjoy nature like never before — all with just a few clicks."
                         button1={
-                            <Link> <TealButton text="Find RV Spot Now"></TealButton></Link>
+                            <Link to="/spots"> <TealButton text="Find RV Spot Now"></TealButton></Link>
                         }
                     >
 

@@ -1,84 +1,109 @@
-import { MoreVertical, Phone, Video } from "lucide-react";
+
 import { useEffect, useState } from "react";
-import { Avatar as MuiAvatar } from "@mui/material"; // Import Material UI Avatar
+import { Avatar as MuiAvatar } from "@mui/material";
 import { MessageInput } from "./MessageInput";
 import { MessageList } from "./MessageList";
 import { useGetUserQuery } from "../../redux/api/authApi";
-import { useGetChatMessagesByUserIdQuery } from "../../redux/api/privateApi"; // RTK Query Hook
+import { useGetChatMessagesByUserIdQuery } from "../../redux/api/privateApi";
 import LoadingComponent from "../common/LoadingComponent";
 
 export const ChatWindow = ({ selectedUser, socket }) => {
   const [isTyping, setIsTyping] = useState(false);
-
-  
-  // Fetch current user data
-  const { data: userData, error: userError, isLoading: userIsLoading } = useGetUserQuery();
-
-  // console.log(userData)
-  // Fetch messages using RTK Query
-  const { data: messagesData, error: messagesError, isLoading: messagesIsLoading } = useGetChatMessagesByUserIdQuery(selectedUser._id, {
-    skip: !selectedUser._id, // Avoid fetching messages if no selected user
-  });
-
-  // console.log(messagesData?.data)
-
   const [messages, setMessages] = useState([]);
 
-  // Update messages when new data is fetched
+  // Current authed user (sender)
+  const { data: userData } = useGetUserQuery();
+
+  // Initial history
+  const {
+    data: messagesData,
+    isLoading: messagesIsLoading,
+  } = useGetChatMessagesByUserIdQuery(selectedUser._id, {
+    skip: !selectedUser?._id,
+  });
+
+  // Seed local state from server history
   useEffect(() => {
-    if (messagesData) {
-      setMessages(messagesData?.data || []);
+    if (messagesData?.data) {
+      setMessages(messagesData.data);
     }
-  }, [messagesData]);
+  }, [messagesData?.data]);
 
   useEffect(() => {
-    if (!socket) return;
+    if (!socket || !selectedUser?._id) return;
 
-    socket.on("connect", () => {
-      console.log("Socket connected!");
-    });
+    const onReceive = (message) => {
+      // Only append if this message belongs to this open DM thread
+      // (either I received it from selectedUser, or I sent it to selectedUser)
+      const myId = userData?.data?._id;
+      const isForThisThread =
+        (message.senderId === selectedUser._id && message.receiverId === myId) ||
+        (message.receiverId === selectedUser._id && message.senderId === myId);
 
-    // Listen for new messages
-    socket.on("receive_message", (message) => {
-      if (message.senderId === selectedUser.id) {
-        setMessages((prev) => [...prev, message]);
+      // if (isForThisThread) {
+      //   setMessages((prev) => [...prev, message]);
+      // }
+
+      if (isForThisThread) {
+        setMessages((prev) => {
+          // de-dup by _id (helps when sender gets both message_sent and receive_message)
+          if (prev.some(m => m._id === message._id)) return prev;
+          return [...prev, message];
+        });
       }
-    });
+    };
 
-    // Listen for message confirmation
-    socket.on("message_sent", (message) => {
-      setMessages((prev) => [...prev, message]);
-    });
+    // const onSent = (message) => {
+    //   // Optimistically reflect my own sent message
+    //   setMessages((prev) => [...prev, message]);
+    // };
 
-    // Listen for typing indicators
-    socket.on("user_typing", (userId) => {
-      if (userId === selectedUser.id) {
-        setIsTyping(true);
-      }
-    });
+    const onSent = (message) => {
+      setMessages((prev) => (prev.some(m => m._id === message._id) ? prev : [...prev, message]));
+    };
 
-    socket.on("user_stopped_typing", (userId) => {
-      if (userId === selectedUser.id) {
-        setIsTyping(false);
-      }
-    });
+    const onTyping = (userId) => {
+      if (userId === selectedUser._id) setIsTyping(true);
+    };
+
+    const onStopTyping = (userId) => {
+      if (userId === selectedUser._id) setIsTyping(false);
+    };
+
+    socket.on("connect", () => console.log("Socket connected!"));
+    socket.on("receive_message", onReceive);
+    socket.on("message_sent", onSent);
+    socket.on("user_typing", onTyping);
+    socket.on("user_stopped_typing", onStopTyping);
 
     return () => {
-      socket.off("receive_message");
-      socket.off("message_sent");
-      socket.off("user_typing");
-      socket.off("user_stopped_typing");
+      socket.off("receive_message", onReceive);
+      socket.off("message_sent", onSent);
+      socket.off("user_typing", onTyping);
+      socket.off("user_stopped_typing", onStopTyping);
     };
-  }, [socket, selectedUser.id]);
+  }, [socket, selectedUser?._id, userData?.data?._id]);
 
   const formatLastSeen = (lastSeen) => {
     const now = new Date();
     const diff = now.getTime() - new Date(lastSeen).getTime();
     const minutes = Math.floor(diff / 60000);
-
     if (minutes < 1) return "Active now";
     if (minutes < 60) return `Active ${minutes}m ago`;
     return `Last seen ${new Date(lastSeen).toLocaleString()}`;
+  };
+
+  // IMPORTANT: send fields the server actually expects
+  // Expect MessageInput to call onSendMessage({ text, image })
+  const handleSendMessage = ({ text, image }) => {
+    const payload = {
+      receiverId: selectedUser._id,
+      // include senderId if your backend needs it explicitly
+      senderId: userData?.data?._id,
+      text: text || "",
+      image: image || null,
+    };
+    socket.emit("send_message", payload);
   };
 
   return (
@@ -87,15 +112,10 @@ export const ChatWindow = ({ selectedUser, socket }) => {
       <div className="p-4 border-b border-gray-400 ">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            {/* Material UI Avatar */}
             <MuiAvatar
               src={selectedUser.image}
               alt={selectedUser.name}
-              sx={{
-                width: 40,
-                height: 40,
-                border: "2px solid #fff", // Optional: border for the avatar
-              }}
+              sx={{ width: 40, height: 40, border: "2px solid #fff" }}
             />
             <div>
               <h2 className="font-semibold">{selectedUser.name}</h2>
@@ -103,16 +123,14 @@ export const ChatWindow = ({ selectedUser, socket }) => {
                 {selectedUser.isOnline
                   ? "Online"
                   : selectedUser.lastSeen
-                  ? formatLastSeen(selectedUser.lastSeen)
-                  : "Offline"}
+                    ? formatLastSeen(selectedUser.lastSeen)
+                    : "Offline"}
                 {isTyping && selectedUser.isOnline && (
                   <span className="text-purple-400"> • typing...</span>
                 )}
               </p>
             </div>
           </div>
-
-          
         </div>
       </div>
 
@@ -122,12 +140,12 @@ export const ChatWindow = ({ selectedUser, socket }) => {
           <LoadingComponent />
         </div>
       ) : (
-         <MessageList messages={messagesData?.data} selectedUser ={selectedUser}/>
-        
+        // Use local state that includes socket-appended messages
+        <MessageList messages={messages} selectedUser={selectedUser} />
       )}
 
       {/* Message Input */}
-      <MessageInput onSendMessage={(content) => socket.emit("send_message", { receiverId: selectedUser._id, content })} />
+      <MessageInput onSendMessage={handleSendMessage} />
     </div>
   );
 };

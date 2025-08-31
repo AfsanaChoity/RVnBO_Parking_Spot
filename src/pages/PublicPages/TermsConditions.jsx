@@ -6,11 +6,12 @@ import { useGetTermsConditionsQuery } from '../../redux/api/userApi'
 import { useEffect } from 'react';
 import LoadingComponent from '../../components/common/LoadingComponent';
 
-export default function PrivacyPolicy() {
-    const { data, error, isLoading, isError } = useGetTermsConditionsQuery();
-    
-    
-    useEffect(() => {
+export default function TermsConditions() {
+  const { data, error, isLoading, isError } = useGetTermsConditionsQuery();
+  const content = data?.data?.text;
+
+
+  useEffect(() => {
     const id = "terms-error";
     if (isError) {
       toast.error(error?.data?.message || "Failed to load Terms & Conditions", { id });
@@ -19,21 +20,26 @@ export default function PrivacyPolicy() {
     }
   }, [isError, error]);
 
-  if(isLoading) {
-    return <div> <LoadingComponent/> </div>
+  if (isLoading) {
+    return <div> <LoadingComponent /> </div>
   }
 
   return (
     <div className='px-4'>
-        {/* Header */}
-        <div className='my-10'>
-            <Heading text= "Terms & Conditions"/>
-        </div>
+      {/* Header */}
+      <div className='my-10'>
+        <Heading text="Terms & Conditions" />
+      </div>
 
-        {/* Text */}
-        <div className='mb-20'>
-            <SubHeading text={data?.data?.text}/>
-        </div>
+      {/* Text */}
+      <div className='mb-20'>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: content || 'No Terms & Conditions available.',
+          }}
+          className="text-justify mt-5"
+        ></div>
+      </div>
     </div>
   )
 }

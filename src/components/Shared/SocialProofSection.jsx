@@ -9,20 +9,20 @@ import { Link } from "react-router-dom"
 
 export default function SocialProofSection() {
     return (
-        <div>
+        <div className="container mx-auto">
             <div className='text-center mb-20 flex flex-col gap-8'>
 
                 <Heading text="Join The Revolution"></Heading>
                 <SubHeading text="Adventurers and landowners redefining travel together"></SubHeading>
 
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-4 mb-10 lg:mb-20">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-16  mb-10 lg:mb-20">
 
                 {/* Card 1 */}
                 <div className="lg:flex lg:gap-4">
                     <img src={people1} alt="Logo" className="lg:w-[50%] w-[100%] h-84  object-cover rounded" />
 
-                    <div className="flex flex-col justify-between lg:w-[40%]">
+                    <div className="flex flex-col justify-between lg:w-[50%]">
 
                         <div className=''>
                             {/* Star Row */}
@@ -47,7 +47,7 @@ export default function SocialProofSection() {
                 <div className="lg:flex lg:gap-4">
                     <img src={people2} alt="Logo" className="lg:w-[50%] w-[100%] h-84  object-cover rounded" />
 
-                    <div className="lg:w-[40%] flex flex-col justify-between">
+                    <div className="lg:w-[50%] flex flex-col justify-between">
                         <div>
                             {/* Star Row */}
                             <div className="flex gap-1 mb-2 mt-4 md:mt-0" style={{ Color: '#1E91B6' }}>

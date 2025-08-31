@@ -6,7 +6,7 @@ import Sidebar from "./Sidebar";
 export default function PrivateLayout() {
   return (
     
-    <div className='container mx-auto '>
+    <div className=''>
       <div className=''>
         <Navbar></Navbar>
       </div>

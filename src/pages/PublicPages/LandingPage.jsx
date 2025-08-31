@@ -35,7 +35,7 @@ export default function LandingPage() {
   let button2;
   if (!userData) {
     button2 = (
-      <Link>
+      <Link to="/onboarding/role">
         <TealButton text="Host Your Land"></TealButton>
       </Link>
     );
@@ -55,15 +55,15 @@ export default function LandingPage() {
           button1={
             userData ?
               (role === "traveler" ?
-                <Link>
+                <Link to="/spots">
                   <MintButton text="Browse Stays"></MintButton>
                 </Link>
                 :
-                <Link>
+                <Link to="/host/spots">
                   <MintButton text="List Your Spot"></MintButton>
                 </Link>)
               :
-              <Link>
+              <Link to="/spots">
                 <MintButton text="Find Your Spot"></MintButton>
               </Link>
           }
@@ -157,7 +157,7 @@ export default function LandingPage() {
         
 
           {role === 'landowner' && (
-          <div className='text-center mt-10 mb-20'>
+          <div className='container mx-auto text-center mt-10 mb-20'>
           <div className='mb-16'>
             <Heading text="Gallery of Your Lands"/>
           </div>

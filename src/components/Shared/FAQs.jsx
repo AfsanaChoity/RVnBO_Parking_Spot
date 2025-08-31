@@ -74,7 +74,8 @@ export default function FAQs({ role }) {
       : faqsPublic;
 
   return (
-    <Box sx={{ width: '100%', mx: 'auto', mt: 4 }}>
+    <div className='container mx-auto'>
+      <Box sx={{ width: '100%', mx: 'auto', mt: 4 }}>
       {faqs.map((faq, index) => (
         <Accordion
           key={index}
@@ -105,5 +106,6 @@ export default function FAQs({ role }) {
         </Accordion>
       ))}
     </Box>
+    </div>
   );
 }

@@ -37,7 +37,7 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="container mx-auto pt-20">
+    <div className=" pt-20">
       {/* Header Section */}
       <div className="flex flex-col lg:flex-row gap-10 lg:items-center px-4">
         <div className="lg:w-2/5">

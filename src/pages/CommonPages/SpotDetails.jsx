@@ -36,7 +36,7 @@ export default function SpotDetails() {
     const { data: userData, error: userError, isLoading: isUserLoading } = useGetUserQuery();
     const { data: spotDetails, error: spotError, isLoading: isSpotLoading } = useGetSpotDetailsQuery(spotId);
 
-    console.log(spotDetails?.land?.owner?._id)
+    console.log(spotDetails?.land?.owner)
 
     if (userError) {
         return <div className="my-10 text-center"> <Heading text="No User Found"></Heading></div>
@@ -121,7 +121,7 @@ export default function SpotDetails() {
                                 <div>
                                     {role === 'traveler' && (
                                         <Link to="/inbox"
-                                            state={{ ownerId: spotDetails?.land?.owner?._id }}>
+                                            state={{ landowner: spotDetails?.land?.owner}}>
                                             <TealButton text="Chat with Owner" />
                                         </Link>
                                     )}

@@ -14,9 +14,9 @@ export const MessageList = ({ messages = [], selectedUser }) => {
     selectedUser?.id ||
     "";
 
-    console.log(messages)
+  // console.log(messages)
 
-    
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -114,7 +114,19 @@ export const MessageList = ({ messages = [], selectedUser }) => {
               const showAvatar =
                 !next || String(next.senderId) !== String(message.senderId);
 
-              const text = message.text ?? message.content ?? "";
+              // const text = message.text ?? message.content ?? "";
+              // text + images normalize
+              const text = (message.text ?? message.content ?? "").trim();
+
+              const images = Array.isArray(message.image)
+                ? message.image.filter(Boolean)
+                : message.image
+                  ? [message.image]
+                  : message.mediaUrl
+                    ? [message.mediaUrl]
+                    : [];
+
+              const hasImages = images.length > 0;
 
               return (
                 <div
@@ -138,10 +150,9 @@ export const MessageList = ({ messages = [], selectedUser }) => {
                   </div>
 
                   <div className={`flex flex-col ${isOwn ? "items-end" : "items-start"}`}>
-                    <div
-                      className={`chat-bubble ${
-                        isOwn ? "chat-bubble-sent" : "chat-bubble-received"
-                      }`}
+                    {/* <div
+                      className={`chat-bubble ${isOwn ? "chat-bubble-sent" : "chat-bubble-received"
+                        }`}
                     >
                       {message.type === "IMAGE" && message.mediaUrl ? (
                         <div className="space-y-2">
@@ -155,12 +166,27 @@ export const MessageList = ({ messages = [], selectedUser }) => {
                       ) : (
                         <p>{text}</p>
                       )}
+                    </div> */}
+
+                    <div className={`chat-bubble ${isOwn ? "chat-bubble-sent" : "chat-bubble-received"}`}>
+                      {hasImages && (
+                        <div className="flex flex-wrap gap-2">
+                          {images.map((src, i) => (
+                            <img
+                              key={i}
+                              src={src}
+                              alt="Shared"
+                              className="max-w-[220px] md:max-w-[260px] rounded-lg border border-gray-300"
+                            />
+                          ))}
+                        </div>
+                      )}
+                      {text && <p className={`${hasImages ? "mt-2" : ""} text-sm break-words`}>{text}</p>}
                     </div>
 
                     <span
-                      className={`text-xs text-gray-400 mt-1 ${
-                        isOwn ? "text-right" : "text-left"
-                      }`}
+                      className={`text-xs text-gray-400 mt-1 ${isOwn ? "text-right" : "text-left"
+                        }`}
                     >
                       {formatTime(message.createdAt)}
                     </span>

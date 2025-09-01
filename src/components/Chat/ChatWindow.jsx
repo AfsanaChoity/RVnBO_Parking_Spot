@@ -14,8 +14,10 @@ export const ChatWindow = ({ selectedUser, socket }) => {
   // Current authed user (sender)
   const { data: userData } = useGetUserQuery();
 
+  
+
   // Initial history
-  const { data: messagesData, isLoading: messagesIsLoading} = useGetChatMessagesByUserIdQuery(selectedUser._id, {skip: !selectedUser?._id});
+  const { data: messagesData, isLoading: messagesIsLoading } = useGetChatMessagesByUserIdQuery(selectedUser._id, { skip: !selectedUser?._id });
 
   // Seed local state from server history
   useEffect(() => {
@@ -28,30 +30,19 @@ export const ChatWindow = ({ selectedUser, socket }) => {
     if (!socket || !selectedUser?._id) return;
 
     const onReceive = (message) => {
-      // Only append if this message belongs to this open DM thread
-      // (either I received it from selectedUser, or I sent it to selectedUser)
-      const myId = userData?.data?._id;
-      const isForThisThread =
-        (message.senderId === selectedUser._id && message.receiverId === myId) ||
-        (message.receiverId === selectedUser._id && message.senderId === myId);
 
-      // if (isForThisThread) {
-      //   setMessages((prev) => [...prev, message]);
-      // }
+      
 
-      if (isForThisThread) {
-        setMessages((prev) => {
-          // de-dup by _id (helps when sender gets both message_sent and receive_message)
-          if (prev.some(m => m._id === message._id)) return prev;
-          return [...prev, message];
-        });
-      }
+      setMessages((prev) => {
+
+        if (prev.some(m => m._id === message._id)) return prev;
+        return [...prev, message];
+      });
+
+      
     };
 
-    // const onSent = (message) => {
-    //   // Optimistically reflect my own sent message
-    //   setMessages((prev) => [...prev, message]);
-    // };
+
 
     const onSent = (message) => {
       setMessages((prev) => (prev.some(m => m._id === message._id) ? prev : [...prev, message]));
@@ -88,17 +79,26 @@ export const ChatWindow = ({ selectedUser, socket }) => {
     return `Last seen ${new Date(lastSeen).toLocaleString()}`;
   };
 
-  // IMPORTANT: send fields the server actually expects
+
+  //showing error 
+  useEffect(() => {
+    if (!socket) return;
+    const onErr = (e) => console.error("message_error:", e?.error);
+    socket.on("message_error", onErr);
+    return () => socket.off("message_error", onErr);
+  }, [socket]);
+
+  
   // Expect MessageInput to call onSendMessage({ text, image })
   const handleSendMessage = ({ text, image }) => {
     const payload = {
       receiverId: selectedUser._id,
-      // include senderId if your backend needs it explicitly
-      senderId: userData?.data?._id,
+      senderId: userData?.user?._id,
       text: text || "",
       image: image || null,
     };
     socket.emit("send_message", payload);
+    console.log("Emitted send_message:", payload)
   };
 
   return (

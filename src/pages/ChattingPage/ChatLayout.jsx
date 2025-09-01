@@ -129,17 +129,33 @@ import { ChatWindow } from "../../components/Chat/ChatWindow";
 import { useGetAllChatUsersQuery } from "../../redux/api/privateApi";
 import { useGetUserQuery } from "../../redux/api/authApi"; // ⬅️ import to get myId
 import LoadingComponent from "../../components/common/LoadingComponent";
+import { useLocation } from "react-router-dom";
 
 export const ChatLayout = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [users, setUsers] = useState([]);
   const [onlineUsers, setOnlineUsers] = useState([]);
 
+   const location = useLocation();
   const token = localStorage.getItem("user-token");
   const socket = useSocket(token);
 
   const { data: chatUsers, error, isLoading } = useGetAllChatUsersQuery();
   const { data: me } = useGetUserQuery(); // expected shape: { data: { _id, ... } }
+
+  const { landowner } = location.state || {};
+  console.log("Landowner:", landowner)
+
+  
+
+   useEffect(() => {
+    if (landowner) {
+      setSelectedUser(landowner);
+    }
+    
+  }, [landowner, chatUsers]);
+
+  console.log("selected user",selectedUser)
 
   useEffect(() => {
     if (chatUsers && chatUsers.data) {
@@ -149,6 +165,8 @@ export const ChatLayout = () => {
       }
     }
   }, [chatUsers, selectedUser]);
+
+  
 
   useEffect(() => {
     if (!socket) return;
@@ -161,7 +179,7 @@ export const ChatLayout = () => {
 
     socket.on("users_list", (usersList) => setUsers(usersList));
     socket.on("online_users", (list) => {
-      console.log("online_users: ", list);
+      // console.log("online_users: ", list);
       setOnlineUsers(list);
     });
 

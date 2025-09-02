@@ -207,12 +207,14 @@ function Navbar({ unread = 4 }) {
               </>
             ) : (
               <>
-                <IconButton size="large" color="inherit" aria-label="inbox">
+                <Tooltip title="Inbox">
+                  <IconButton size="large" color="inherit" aria-label="inbox">
                   {/* <Badge badgeContent={unread} color="error">
                     <MailIcon />
                   </Badge> */}
                   <Link to="/inbox"><MailIcon /></Link>
                 </IconButton>
+                </Tooltip>
                 <Tooltip title={userData?.user?.name || 'Open settings'}>
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar alt="User avatar">

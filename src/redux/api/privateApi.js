@@ -9,7 +9,7 @@ const privateApi = baseApi.injectEndpoints({
                 url: `lands/land-details/${spotId}`,
                 method: "GET",
             }),
-            providesTags: (result, error, id) => [{ type: "Spot", id }],
+            providesTags: (result, error, id) => [{ type: "Spot", id }, "Reviews"],
         }),
 
         // get All chat users

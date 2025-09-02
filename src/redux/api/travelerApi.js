@@ -80,14 +80,19 @@ const travelerApi = baseApi.injectEndpoints({
     // give review
     submitReview: builder.mutation({
       query: ({ reviewText, rating, landId }) => ({
-        url: `/traveler/rating/${landId}`, 
+        url: `/traveler/rating/${landId}`,
         method: "POST",
         body: {
           review: reviewText,
           rating: rating,
         },
       }),
-      invalidatesTags: ["Reviews"],
+      
+      invalidatesTags: (result, error, { landId }) => [
+        { type: "Spot", id: landId },  
+        "Reviews", 
+      ],
+
     }),
 
 

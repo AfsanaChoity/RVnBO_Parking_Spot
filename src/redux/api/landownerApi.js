@@ -26,19 +26,23 @@ const landownerApi = baseApi.injectEndpoints({
         url: "landowner/addland",
         method: "POST",
         body: spotData,
-        
+
       }),
       invalidatesTags: [{ type: "SpotList", id: "LIST" }],
     }),
 
     // Edit Spot
     updateSpot: builder.mutation({
-        query: ({ spotId, data }) => ({
-          url: `landowner/updateland/${spotId}`,
-          method: "PATCH",
-          body: data,
-        }),
-         invalidatesTags: [{ type: 'SpotList', id: 'LIST' }],
+      query: ({ spotId, data }) => ({
+        url: `landowner/updateland/${spotId}`,
+        method: "PATCH",
+        body: data,
+      }),
+      //  invalidatesTags: [{ type: 'SpotList', id: 'LIST' }],
+      invalidatesTags: (result, error, { spotId }) => [
+        { type: "SpotList", id: "LIST" },
+        { type: "Spot", id: spotId },
+      ],
     }),
 
 
@@ -48,8 +52,12 @@ const landownerApi = baseApi.injectEndpoints({
         url: `landowner/deleteland/${spotId}`,
         method: "DELETE",
       }),
-      invalidatesTags: [{ type: "SpotList", id: "LIST" }],
-      
+      // invalidatesTags: [{ type: "SpotList", id: "LIST" }],
+      invalidatesTags: (result, error, spotId) => [
+        { type: "SpotList", id: "LIST" }, // To refetch the list of spots
+        { type: "Spot", id: spotId }, // To refetch the specific spot details
+      ],
+
     }),
 
 

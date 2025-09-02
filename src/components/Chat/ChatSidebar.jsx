@@ -106,7 +106,7 @@ export const ChatSidebar = ({ selectedUserId, onUserSelect, users }) => {
         </div>
 
         {/* Current User Profile */}
-        <div className="p-4 border-t border-gray-300">
+        <div className="hidden md:block p-4 border-t border-gray-300">
           <Link  to={path}>
             <div
               className="flex items-center gap-3 p-3 rounded-x cursor-pointer transition-colors"

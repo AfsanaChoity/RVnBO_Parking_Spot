@@ -6,8 +6,9 @@ import { MessageList } from "./MessageList";
 import { useGetUserQuery } from "../../redux/api/authApi";
 import { useGetChatMessagesByUserIdQuery } from "../../redux/api/privateApi";
 import LoadingComponent from "../common/LoadingComponent";
+import { ArrowLeft } from "lucide-react";
 
-export const ChatWindow = ({ selectedUser, socket }) => {
+export const ChatWindow = ({ selectedUser, socket, handleBackToSidebar }) => {
   const [isTyping, setIsTyping] = useState(false);
   const [messages, setMessages] = useState([]);
 
@@ -111,7 +112,16 @@ export const ChatWindow = ({ selectedUser, socket }) => {
     <div className="flex-1 flex flex-col h-full ">
       {/* Chat Header */}
       <div className="p-4 border-b border-gray-400 ">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center ">
+          {/* Back button for mobile */}
+          <button
+            onClick={handleBackToSidebar}
+            className="md:hidden p-1 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer"
+          >
+            <ArrowLeft className="w-5 h-5 text-gray-600" />
+          </button>
+
+
           <div className="flex items-center gap-3">
             <MuiAvatar
               src={selectedUser.image}

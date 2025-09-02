@@ -1,7 +1,8 @@
+import { Link } from "react-router-dom"
 
 export default function SpotBookingTable({ bookingDetails }) {
     
-    console.log(bookingDetails)
+    // console.log(bookingDetails)
 
   
 
@@ -23,7 +24,7 @@ export default function SpotBookingTable({ bookingDetails }) {
 
           {/* Table Body */}
           <tbody>
-            {bookingDetails.map((booking, index) => (
+            {bookingDetails?.map((booking, index) => (
               <tr
                 key={booking.id}
                 className={`border-b border-gray-200 hover:bg-gray-50 transition-colors ${
@@ -31,7 +32,7 @@ export default function SpotBookingTable({ bookingDetails }) {
                 }`}
               >
                 {/* Guest Name */}
-                <td className="px-6 py-4 text-sm text-gray-900">{booking.travelerName}</td>
+                <td className="px-6 py-4 text-sm text-gray-900">{booking.traveler?.name}</td>
 
                 {/* Spot Name */}
                 <td className="px-6 py-4 text-sm text-gray-900">{booking.spotName}</td>
@@ -46,7 +47,7 @@ export default function SpotBookingTable({ bookingDetails }) {
                     {/* Chat Option */}
                  <td className="px-6 py-4 text-center">
                  
-                  <span className="text-[#0a697c]">Message</span>
+                  <Link to="/inbox" state={{traveler: booking?.traveler}}><span className="text-[#0a697c]">Message</span></Link>
                 </td>
               </tr>
             ))}

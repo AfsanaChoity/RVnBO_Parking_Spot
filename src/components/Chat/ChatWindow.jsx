@@ -14,10 +14,10 @@ export const ChatWindow = ({ selectedUser, socket }) => {
   // Current authed user (sender)
   const { data: userData } = useGetUserQuery();
 
-  
+
 
   // Initial history
-  const { data: messagesData, isLoading: messagesIsLoading } = useGetChatMessagesByUserIdQuery(selectedUser._id, { skip: !selectedUser?._id });
+  const { data: messagesData, isLoading: messagesIsLoading, refetch } = useGetChatMessagesByUserIdQuery(selectedUser._id);
 
   // Seed local state from server history
   useEffect(() => {
@@ -27,11 +27,17 @@ export const ChatWindow = ({ selectedUser, socket }) => {
   }, [messagesData?.data]);
 
   useEffect(() => {
+    if (selectedUser?._id) {
+      refetch();
+    }
+  }, [selectedUser, refetch]);
+
+  useEffect(() => {
     if (!socket || !selectedUser?._id) return;
 
     const onReceive = (message) => {
 
-      
+
 
       setMessages((prev) => {
 
@@ -39,7 +45,7 @@ export const ChatWindow = ({ selectedUser, socket }) => {
         return [...prev, message];
       });
 
-      
+
     };
 
 
@@ -88,7 +94,7 @@ export const ChatWindow = ({ selectedUser, socket }) => {
     return () => socket.off("message_error", onErr);
   }, [socket]);
 
-  
+
   // Expect MessageInput to call onSendMessage({ text, image })
   const handleSendMessage = ({ text, image }) => {
     const payload = {

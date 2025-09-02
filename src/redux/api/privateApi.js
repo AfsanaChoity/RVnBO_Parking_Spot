@@ -19,6 +19,7 @@ const privateApi = baseApi.injectEndpoints({
                 method: "GET",
             }),
             providesTags: ["ChatUsers"],
+            
         }),
 
         // get chat messages by user id

@@ -238,7 +238,10 @@ export default function EditSpot({ isOpen, onClose, spot }) {
                     </div>
 
                     {/* Latitude and Longitude */}
+                    <label className="block text-base font-semibold text-gray-800 mb-2">GPS Location</label>
+
                     <div className="grid grid-cols-2 gap-4">
+
                         <div>
                             <input
                                 type="number"

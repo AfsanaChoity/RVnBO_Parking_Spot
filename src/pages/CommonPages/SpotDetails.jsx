@@ -14,6 +14,7 @@ import GoogleMap from "../../components/Shared/GoogleMap";
 import HeadingSmall from "../../components/common/HeadingSmall";
 import GuestReview from "../../components/Shared/GuestReview";
 
+
 function getRatingText(rating) {
     if (!rating || rating === 0) return "No Rating";
     if (rating < 2) return "Poor";
@@ -34,9 +35,10 @@ const AMENITY_ICONS = {
 export default function SpotDetails() {
     const { id: spotId } = useParams();
     const { data: userData, error: userError, isLoading: isUserLoading } = useGetUserQuery();
-    const { data: spotDetails, error: spotError, isLoading: isSpotLoading } = useGetSpotDetailsQuery(spotId);
+    const { data: spotDetails, error: spotError, isLoading: isSpotLoading } = useGetSpotDetailsQuery(spotId, { pollingInterval: 100 });
 
-    console.log(spotDetails?.land?.owner)
+    console.log(spotDetails?.land)
+
 
     if (userError) {
         return <div className="my-10 text-center"> <Heading text="No User Found"></Heading></div>
@@ -121,7 +123,7 @@ export default function SpotDetails() {
                                 <div>
                                     {role === 'traveler' && (
                                         <Link to="/inbox"
-                                            state={{ landowner: spotDetails?.land?.owner}}>
+                                            state={{ landowner: spotDetails?.land?.owner }}>
                                             <TealButton text="Chat with Owner" />
                                         </Link>
                                     )}
@@ -209,6 +211,18 @@ export default function SpotDetails() {
                                 </div>
                             </div>
                         </div>
+
+                        {/* Max Slide out */}
+                        <div className="mt-10">
+                            <HeadingSmall text="Maximum Slide-Outs Allowed" />
+                            <div className="mt-4 inline-block bg-teal-100 text-teal-800 font-semibold px-6 py-3 rounded-xl shadow-md text-lg">
+                                {spotDetails?.land?.max_slide?.[0] || "N/A"}
+                            </div>
+                            <p className="mt-2 text-gray-600 text-sm">
+                                Number of slide-outs your RV can comfortably expand at this spot
+                            </p>
+                        </div>
+
                     </section>
                     {/* Bottom Border */}
                     <div className='mt-10 mb-10'>

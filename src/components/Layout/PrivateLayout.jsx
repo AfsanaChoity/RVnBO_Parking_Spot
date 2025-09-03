@@ -1,12 +1,18 @@
 import { Outlet } from "react-router";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
+import ScrollToTop from "../common/ScrollToTop";
 
 
 export default function PrivateLayout() {
   return (
     
     <div className=''>
+
+      {/* Scroll to top when route changes */}
+      <ScrollToTop />
+
+      {/* Navbar at the top */}
       <div className=''>
         <Navbar></Navbar>
       </div>

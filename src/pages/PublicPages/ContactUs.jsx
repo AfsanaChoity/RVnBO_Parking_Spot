@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FaPaperPlane } from "react-icons/fa";
 import GoogleMap from "../../components/Shared/GoogleMap";
-
+import { LoadingButton } from "@mui/lab";
 import toast from "react-hot-toast";
 import { useContactAdminMutation } from "../../redux/api/userApi";
 
@@ -37,9 +37,9 @@ const ContactUs = () => {
   };
 
   return (
-    <div className=" pt-20">
+    <div className=" pt-20  ">
       {/* Header Section */}
-      <div className="flex flex-col lg:flex-row gap-10 lg:items-center px-4">
+      <div className="flex flex-col lg:flex-row gap-10 lg:items-center px-4 lg:px-10">
         <div className="lg:w-2/5">
           <h2 className=" font-medium text-[#004D6E]">Who we are</h2>
           <h3 className="text-2xl lg:text-4xl text-gray-700 mt-2 font-semibold">
@@ -50,9 +50,9 @@ const ContactUs = () => {
             Customer Success Team to inquire about speaking events, advertising
             rates, or just say hello.
           </p>
-          <button className="mt-6 px-6 py-2 bg-[#8AC197] cursor-pointer font-semibold text-white rounded-lg hover:bg-teal-600 transition duration-300">
+          {/* <button className="mt-6 px-6 py-2 bg-[#8AC197] cursor-pointer font-semibold text-white rounded-lg hover:bg-teal-600 transition duration-300">
             Email Support
-          </button>
+          </button> */}
         </div>
 
         {/* Contact Form Section */}
@@ -94,21 +94,46 @@ const ContactUs = () => {
               className="w-full p-4 mb-6 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
               required
             />
-            <button
+            {/* <button
               type="submit"
               disabled={isLoading}
               className="w-full px-6 py-2 bg-[#468F9D] text-white rounded-lg flex items-center justify-center gap-2 hover:bg-teal-600 transition duration-300"
             >
               Send Message
               <FaPaperPlane />
-            </button>
+            </button> */}
+
+            <LoadingButton
+              type="submit"
+              fullWidth
+              loading={isLoading}
+
+              loadingPosition="end"
+              endIcon={<FaPaperPlane />}
+              variant="contained"
+              sx={{
+                backgroundColor: isLoading ? "#d3d3d3" : "#468F9D", 
+                "&:hover": {
+                  backgroundColor: isLoading ? "#d3d3d3" : "#0d9488",
+                },
+                color: "white",
+                borderRadius: "8px",
+                paddingY: "8px",
+                paddingX: "24px",
+                textTransform: "none",
+                fontWeight: "600",
+                fontSize: "18px",
+              }}
+            >
+              Send Message
+            </LoadingButton>
           </form>
         </div>
       </div>
 
       {/* Map Section */}
-      <div>
-        <h3 className="text-2xl font-semibold text-gray-900 mb-4">Find Us on the Map</h3>
+      <div className="mt-10">
+        <h3 className="text-2xl font-semibold text-gray-900 mb-4 pl-4 lg:pl-10">Find Us on the Map</h3>
         <div>
           <GoogleMap text="RVnBO.com" />
         </div>

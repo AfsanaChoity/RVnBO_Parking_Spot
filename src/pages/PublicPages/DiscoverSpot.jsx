@@ -299,7 +299,7 @@ export default function DiscoverSpot() {
   );
 
   return role !== "landowner" ? (
-    <div className='mt-8'>
+    <div className='mt-8 container mx-auto'>
       {/* Search Box */}
       <div className='flex justify-center'>
         <div className='flex flex-col gap-4 items-center md:border md:border-gray-300 py-8 md:rounded-2xl md:shadow-xl px-10'>

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { FaPaperPlane } from "react-icons/fa";
 import GoogleMap from "../../components/Shared/GoogleMap";
-import { LoadingButton } from "@mui/lab";
 import toast from "react-hot-toast";
 import { useContactAdminMutation } from "../../redux/api/userApi";
+import { Button } from '@mui/material';
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -103,7 +103,7 @@ const ContactUs = () => {
               <FaPaperPlane />
             </button> */}
 
-            <LoadingButton
+            <Button
               type="submit"
               fullWidth
               loading={isLoading}
@@ -126,7 +126,7 @@ const ContactUs = () => {
               }}
             >
               Send Message
-            </LoadingButton>
+            </Button>
           </form>
         </div>
       </div>

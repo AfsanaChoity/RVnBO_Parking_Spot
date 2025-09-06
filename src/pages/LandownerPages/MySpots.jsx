@@ -3,15 +3,36 @@ import { useState } from 'react'
 import HeadingSmall from '../../components/common/HeadingSmall';
 import MySpotTable from '../../components/Landowner/MySpotTable';
 import { Button } from 'antd';
-import { useGetSpotListQuery } from '../../redux/api/landownerApi';
+import { useCreateStripeAccountMutation, useGetSpotListQuery } from '../../redux/api/landownerApi';
 import LoadingComponent from '../../components/common/LoadingComponent';
 import AddSpot from '../../components/Landowner/Modals/AddSpot';
+import toast from 'react-hot-toast';
 
 export default function MySpots() {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [visibleCount, setVisibleCount] = useState(10);
 
   const{ data, error, isLoading} = useGetSpotListQuery();
+
+  const [createStripeAccount, {data: accountData, isLoading: isCreating, isError }] = useCreateStripeAccountMutation();
+
+
+  const handleCreateStripeAccount = () => {
+    createStripeAccount()
+      .unwrap()
+      .then((res) => {
+        
+        if (res?.url) {
+          window.location.href = res
+            .url;
+        }
+      })
+      .catch((err) => {
+        toast.error("Error creating Stripe account. Please try again.");
+        
+      });
+
+  };
 
 
   const handleShowMore = () => {
@@ -37,6 +58,18 @@ export default function MySpots() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
 
         <HeadingSmall text="My Spots"></HeadingSmall>
+         <div className='flex flex-col md:flex-row gap-4'>
+          <button
+
+          onClick={handleCreateStripeAccount}
+          disabled={isCreating}
+          className="flex items-center gap-2 border border-gray-300 hover:bg-gray-50 px-4 py-2 rounded-lg transition-colors duration-200 text-gray-700 font-medium cursor-pointer"
+        >
+          
+          <span>{isCreating ? "Creating..." : "Create Stripe Account"}</span>
+        </button>
+
+
         <button
 
           onClick={() => setIsAddModalOpen(true)}
@@ -45,6 +78,7 @@ export default function MySpots() {
           <Plus className="w-4 h-4" />
           <span>Add New Spot</span>
         </button>
+         </div>
       </div>
 
       {/* Listing Table */}

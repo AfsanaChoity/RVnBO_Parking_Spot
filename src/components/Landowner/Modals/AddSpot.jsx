@@ -309,7 +309,7 @@ export default function AddSpot({ isOpen, onClose }) {
                             <option value="0">0 Slide</option>
                             <option value="1">1 Slide</option>
                             <option value="2">2 Slides</option>
-                            <option value="3+">3 Slides</option>
+                            <option value="3">3 Slides</option>
                             <option value="3+">3+ Slides</option>
                         </select>
                     </div>

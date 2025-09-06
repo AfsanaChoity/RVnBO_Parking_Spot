@@ -20,6 +20,16 @@ const landownerApi = baseApi.injectEndpoints({
       providesTags: [{ type: "SpotList", id: "LIST" }],
     }),
 
+    //Create Stripe Account
+    createStripeAccount: builder.mutation({
+      query: () => ({
+        url: "payment/stripe_bank/create",
+        method: "POST",
+      }),
+      invalidatesTags: ["User"],
+    }),
+
+
     // Create Spot
     createSpot: builder.mutation({
       query: (spotData) => ({
@@ -116,6 +126,7 @@ const landownerApi = baseApi.injectEndpoints({
 export const {
   useGetOverviewDataQuery,
   useGetSpotListQuery,
+  useCreateStripeAccountMutation,
   useCreateSpotMutation,
   useUpdateSpotMutation,
   useDeleteSpotMutation,

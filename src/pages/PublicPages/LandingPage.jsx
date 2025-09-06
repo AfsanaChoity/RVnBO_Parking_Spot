@@ -50,8 +50,10 @@ export default function LandingPage() {
       <div>
         <Banner
           backgroundImg={bgImg1}
-          // heading={userData ? (role === "traveler" ? "Escape The Crowds" : "Share Your Land") : "Park. Explore. Repeat."}
-          // subheading={userData ? (role === "traveler" ? "Private land, untamed nature, and space to breathe." : "Welcome explorers. Build community. Earn effortlessly.") : "Hidden spots. Endless freedom. Off-grid your way."}
+          title="RVnBO:"
+          heading="Your Off-Grid Travel Adventure"
+          heading2={userData ? (role === "traveler" ? "Escape The Crowds" : "Share Your Land") : "Park. Explore. Repeat."}
+          subheading={userData ? (role === "traveler" ? "Private land, untamed nature, and space to breathe." : "Welcome explorers. Build community. Earn effortlessly.") : "Hidden spots. Endless freedom. Off-grid your way."}
           button1={
             userData ?
               (role === "traveler" ?

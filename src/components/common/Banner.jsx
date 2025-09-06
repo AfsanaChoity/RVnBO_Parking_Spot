@@ -39,7 +39,7 @@
 // }
 
 
-export default function Banner({ backgroundImg, heading, subheading, button1='',button2='', containerClassName = '', }) {
+export default function Banner({ backgroundImg,title, heading, heading2='', subheading, button1='',button2='', containerClassName = '', }) {
   return (
     <div className={`${containerClassName}`}>
       {/* Background Section */}
@@ -55,11 +55,20 @@ export default function Banner({ backgroundImg, heading, subheading, button1='',
         <div className="absolute inset-0 bg-black opacity-50 z-0"></div>
 
         {/* Content */}
-        <div className="relative z-10 mb-4 text-center md:px-[6%]">
-          <h1 className="text-5xl md:text-7xl font-bold mb-10">
+        <div className="relative z-10 mb-4 text-center md:px-[6%] mt-8">
+          <h1 className="text-4xl md:text-7xl font-bold mb-2">
+            {title}
+          </h1>
+
+          <h1 className="text-4xl md:text-7xl font-bold mb-10">
             {heading}
           </h1>
-          <p className="text-xl md:text-3xl mb-12">
+
+          <h2 className="text-3xl md:text-5xl font-bold mb-10 text-gray-300">
+            {heading2}
+          </h2>
+
+          <p className="text-xl md:text-3xl mb-12 text-gray-300">
             {subheading}
           </p>
          

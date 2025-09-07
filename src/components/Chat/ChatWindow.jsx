@@ -12,6 +12,8 @@ export const ChatWindow = ({ selectedUser, socket, handleBackToSidebar }) => {
   const [isTyping, setIsTyping] = useState(false);
   const [messages, setMessages] = useState([]);
 
+  console.log(selectedUser)
+
   // Current authed user (sender)
   const { data: userData } = useGetUserQuery();
 

@@ -9,7 +9,7 @@ const amenitiesList = ['Water', 'Electricity', 'Sewage Hookups', 'Firepit', 'Wi-
 const typeToSiteLists = ['Boondocking', 'RV Storage', 'Full Hookups', 'Some Hookups'];
 const typeToRV = ['Class A', 'Class B', 'Class C', '5th Wheel', 'Towable'];
 const lengthOptions = ['25 ft', '35 ft', '45 ft', '45+ ft'];
-const numberOfSlides = ['0 Slide', '1 Slide', '2 Slides','3 Slides', '3+ Slides'];
+const numberOfSlides = ['0', '1', '2','3', '3+'];
 
 // optional: parent theke onApply & onClear as props nibo
 const FilterSidebar = ({ filters, setFilters, onApply, onClear }) => {

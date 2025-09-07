@@ -4,16 +4,6 @@ import { Send, Image } from "lucide-react";
 import { Button as MuiButton } from "@mui/material";
 import toast from "react-hot-toast";
 
-// Utility to convert images to Base64
-// const getBase64 = (file) => {
-//   console.log("Converting file to Base64:", file);
-//   return new Promise((resolve, reject) => {
-//     const reader = new FileReader();
-//     reader.readAsDataURL(file);
-//     reader.onload = () => resolve(reader.result);
-//     reader.onerror = (error) => reject(error);
-//   });
-// };
 
 export const MessageInput = ({ onSendMessage, disabled = false }) => {
   const [message, setMessage] = useState("");
@@ -29,8 +19,9 @@ export const MessageInput = ({ onSendMessage, disabled = false }) => {
     try {
       // const base64Images = await Promise.all(files.map(f => getBase64(f)));
       setSelectedImages(prev => [...prev, ...files]);
+      fileInputRef.current.value = null;
     } catch (error) {
-      toast.error("Error converting images.");
+      toast.error("Error sending images.");
     }
   };
 

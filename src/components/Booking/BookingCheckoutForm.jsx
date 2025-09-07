@@ -42,16 +42,23 @@ const BookingCheckoutForm = ({ landId }) => {
     const [createBooking, { isLoading }] = useCreateBookingMutation();
 
     const onFinish = async (values) => {
+        
+
+        const storedCheckIn = localStorage.getItem("checkIn");
+        const storedCheckOut = localStorage.getItem("checkOut");
+
+        if (!storedCheckIn || !storedCheckOut) {
+            toast.error("Please select both Check-In and Check-Out dates before continuing!");
+            return; 
+        }
+
         if (!usPhoneRegex.test(values.phone)) {
             toast.error("Please enter a valid phone number");
             return;
         }
 
-        const storedCheckIn = localStorage.getItem("checkIn");
-        const storedCheckOut = localStorage.getItem("checkOut");
-
-        const finalCheckInDate = storedCheckIn || checkInDate; 
-        const finalCheckOutDate = storedCheckOut || checkOutDate; 
+        const finalCheckInDate = storedCheckIn || checkInDate;
+        const finalCheckOutDate = storedCheckOut || checkOutDate;
 
         // Format dates as YYYY-MM-DD before sending
         const formatDate = (date) => {
@@ -85,7 +92,7 @@ const BookingCheckoutForm = ({ landId }) => {
         }
     };
 
-    
+
 
     return (
         <div>

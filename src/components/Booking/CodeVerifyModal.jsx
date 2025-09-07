@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Modal, Button } from "antd";
 import { TextField } from "@mui/material";
-import { useVerifyBookingOtpMutation, usePaymentCheckoutMutation } from "../../redux/api/bookingApi"; 
+import { useVerifyBookingOtpMutation, usePaymentCheckoutMutation } from "../../redux/api/bookingApi";
 import toast from "react-hot-toast";
 
 const CodeVerifyModal = ({ open, onClose, bookingId }) => {
@@ -41,6 +41,11 @@ const CodeVerifyModal = ({ open, onClose, bookingId }) => {
       // 1️⃣ Verify OTP
       await verifyBookingOtp({ bookingId, code }).unwrap();
       toast.success("Booking verified successfully!");
+
+
+      // ✅ remove stored dates after verification
+      localStorage.removeItem("checkIn");
+      localStorage.removeItem("checkOut");
 
       // 2️⃣ Call payment checkout
       const paymentRes = await paymentCheckout(bookingId).unwrap();

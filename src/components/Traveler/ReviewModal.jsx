@@ -4,7 +4,7 @@ import { useSubmitReviewMutation } from "../../redux/api/travelerApi";
 import { toast } from "react-hot-toast";  // Import toast from react-hot-toast
 
 const { TextArea } = Input;
-const desc = ["Terrible", "Bad", "Normal", "Good", "Wonderful"];
+const desc = ["Poor", "Fair", "Good", "Very Good", "Excellent"];
 
 const ReviewModal = ({ open, onClose, landId }) => {
   const [rating, setRating] = useState(3);
@@ -22,7 +22,7 @@ const ReviewModal = ({ open, onClose, landId }) => {
     try {
       await submitReview({ reviewText, rating, landId }).unwrap();
       toast.success("Review submitted successfully");
-      onClose(); // Close modal on success
+      onClose(); 
     } catch (err) {
       toast.error("Failed to submit review");
     }

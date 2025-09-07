@@ -36,11 +36,12 @@ export default function BookingCheckout() {
     if (storedCheckIn && storedCheckOut) {
       setCheckInDate(norm(storedCheckIn));   // FIX
       setCheckOutDate(norm(storedCheckOut)); // FIX
-    } else {
-      const today = dayjs().startOf("day"); // FIX
-      setCheckInDate(today);
-      setCheckOutDate(today);
-    }
+    } 
+    // else {
+    //   const today = dayjs().startOf("day"); // FIX
+    //   setCheckInDate(today);
+    //   setCheckOutDate(today);
+    // }
   }, []);
 
   // Handle check-in date change (normalize, but keep storage format unchanged)
@@ -77,6 +78,9 @@ export default function BookingCheckout() {
     if (checkInDate && checkOutDate) {
       const duration = checkOutDate.startOf("day").diff(checkInDate.startOf("day"), "day"); // FIX
       setNights(Math.max(0, duration)); // FIX: never negative
+    }
+    else {
+      setNights(0);
     }
   }, [checkInDate, checkOutDate]);
 
@@ -158,7 +162,7 @@ export default function BookingCheckout() {
 
                 {/* Display the Number of Nights */}
                 <div className="inline-block bg-gray-100 px-3 py-1 rounded text-sm text-gray-700">
-                  {nights > 0 ? `${nights} Night${nights > 1 ? "s" : ""}` : "Select Dates"}
+                  {nights > 0 ? `${nights} Night${nights > 1 ? "s" : ""}` : "0 Night"}
                 </div>
               </div>
 

@@ -429,7 +429,7 @@ export default function AddSpot({ isOpen, onClose }) {
                     </div>
 
                     {/* Submit */}
-                    <TealButton text="Submit" type="submit" />
+                    <TealButton text={isLoading? "Submitting...":"Submit"} type="submit" />
                 </form>
             </div>
         </div>

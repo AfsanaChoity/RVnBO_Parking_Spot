@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import HeadingSmall from "../common/HeadingSmall";
+import { FaEye } from "react-icons/fa";
 
 const BookingTable = ({ spots }) => {
-  
+
   if (!spots || spots.length === 0) {
-    return <div  className="text-center"><HeadingSmall text="No bookings found"></HeadingSmall></div>;
+    return <div className="text-center"><HeadingSmall text="No bookings found"></HeadingSmall></div>;
   }
 
   console.log(spots)
@@ -22,14 +23,17 @@ const BookingTable = ({ spots }) => {
               <div className="col-span-1">
                 <span className="text-sm font-semibold text-gray-700">Price</span>
               </div>
-              <div className="col-span-2  text-center">
+              {/* <div className="col-span-2  text-center">
                 <span className="text-sm font-semibold text-gray-700">Booking Date</span>
-              </div>
+              </div> */}
               <div className="col-span-2  text-center">
                 <span className="text-sm font-semibold text-gray-700">Check In</span>
               </div>
               <div className="col-span-2  text-center">
                 <span className="text-sm font-semibold text-gray-700">Check Out</span>
+              </div>
+              <div className="col-span-2  text-center">
+                <span className="text-sm font-semibold text-gray-700">Status</span>
               </div>
               <div className="col-span-1 text-center">
                 <span className="text-sm font-semibold text-gray-700">Details</span>
@@ -75,9 +79,9 @@ const BookingTable = ({ spots }) => {
                   </div>
 
                   {/* Booking Date Column */}
-                  <div className="col-span-2 text-center">
+                  {/* <div className="col-span-2 text-center">
                     <span className="text-xs md:text-sm text-gray-600">{booking?.bookingDate}</span>
-                  </div>
+                  </div> */}
                   {/* Check In Date Column */}
                   <div className="col-span-2 text-center">
                     <span className="text-xs md:text-sm text-gray-600">{booking?.checkIn}</span>
@@ -87,12 +91,22 @@ const BookingTable = ({ spots }) => {
                     <span className="text-xs md:text-sm text-gray-600">{booking?.checkOut}</span>
                   </div>
 
+                  {/* Status */}
+                  <div className="col-span-2 text-center">
+                    <span className="text-xs md:text-sm text-gray-600">{
+                      (booking?.status === "completed") ? (<span className="text-green-600">Completed</span>) : (<span className="text-red-600">Cancelled</span>)
+                    }</span>
+                  </div>
+
                   {/* Status Column */}
                   <div className="col-span-1 text-center">
                     <Link to={`/details/${booking?.land?._id}`}
-                      className="text-[#8AC197] hover:text-green-800 text-xs md:text-sm font-medium transition-colors"
+                      className="inline-flex items-center justify-center
+               text-[#468F9D] hover:text-[#075e56]
+               transition-colors"
+                      title="View Details"
                     >
-                      View
+                      <FaEye className="w-5 h-5" />
                     </Link>
                   </div>
                 </div>

@@ -440,7 +440,7 @@ export default function EditSpot({ isOpen, onClose, spot }) {
                     <div className="flex items-center justify-end gap-3 pt-2">
                         <Button onClick={onClose}>Cancel</Button>
                         <Button type="primary" htmlType="submit" style={{ backgroundColor: "#468F9D", fontWeight: 600 }}>
-                            Save Changes
+                            {isLoading? "Saving..." : "Save Changes"}
                         </Button>
                     </div>
                 </form>

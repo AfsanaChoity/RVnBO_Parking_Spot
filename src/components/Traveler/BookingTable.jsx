@@ -94,7 +94,7 @@ const BookingTable = ({ spots }) => {
                   {/* Status */}
                   <div className="col-span-2 text-center">
                     <span className="text-xs md:text-sm text-gray-600">{
-                      (booking?.status === "completed") ? (<span className="text-green-600">Completed</span>) : (<span className="text-red-600">Cancelled</span>)
+                      (booking?.status === "completed") ? (<span className="text-green-600">Completed</span>) : (<span className="text-red-600">Canceled</span>)
                     }</span>
                   </div>
 
@@ -102,8 +102,8 @@ const BookingTable = ({ spots }) => {
                   <div className="col-span-1 text-center">
                     <Link to={`/details/${booking?.land?._id}`}
                       className="inline-flex items-center justify-center
-               text-[#468F9D] hover:text-[#075e56]
-               transition-colors"
+                    text-[#468F9D] hover:text-[#075e56]
+                      transition-colors"
                       title="View Details"
                     >
                       <FaEye className="w-5 h-5" />

@@ -63,12 +63,12 @@ export default function Sidebar() {
         </Link>
       ),
     },
-    {
-      key: '/logout',
-      icon: <FiLogOut size={22} />,
-      label: <span onClick={handleLogout}>Logout</span>,
-      // isLogout: true,
-    },
+    // {
+    //   key: '/logout',
+    //   icon: <FiLogOut size={22} />,
+    //   label: <span onClick={handleLogout}>Logout</span>,
+    //   // isLogout: true,
+    // },
   ];
 
   // Landowner menu
@@ -92,12 +92,12 @@ export default function Sidebar() {
         </Link>
       ),
     },
-    {
-      key: '/logout',
-      icon: <FiLogOut size={22} />,
-      label: <span onClick={handleLogout}>Logout</span>,
-      // isLogout: true,
-    },
+    // {
+    //   key: '/logout',
+    //   icon: <FiLogOut size={22} />,
+    //   label: <span onClick={handleLogout}>Logout</span>,
+    //   // isLogout: true,
+    // },
   ];
 
   const items = role === 'landowner' ? landownerMenu : travelerMenu;

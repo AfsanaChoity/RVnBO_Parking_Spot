@@ -132,7 +132,7 @@ export const ChatWindow = ({ selectedUser, socket, handleBackToSidebar }) => {
             />
             <div>
               <h2 className="font-semibold">{selectedUser.name}</h2>
-              <p className="text-sm text-gray-400">
+              {/* <p className="text-sm text-gray-400">
                 {selectedUser.isOnline
                   ? "Online"
                   : selectedUser.lastSeen
@@ -141,7 +141,7 @@ export const ChatWindow = ({ selectedUser, socket, handleBackToSidebar }) => {
                 {isTyping && selectedUser.isOnline && (
                   <span className="text-[#468F9D]"> • typing...</span>
                 )}
-              </p>
+              </p> */}
             </div>
           </div>
         </div>

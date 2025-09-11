@@ -8,7 +8,7 @@ import pic6 from '../../assets/images/BG_images/img6.jpg'
 
 export default function ExploreStays() {
   return (
-    <div className=' container mx-auto'>
+    <div className=' container mx-auto px-4 xl:px-0'>
         <div className="  mt-20 mb-20">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Left Section */}

@@ -47,7 +47,7 @@ export default function Banner({ backgroundImg,title, heading, heading2='', subh
         className="relative min-h-screen flex items-center px-4 justify-center text-white bg-cover bg-center"
         style={{
           backgroundImage: `url(${backgroundImg})`,
-          backgroundSize: '100% 100%',  
+          // backgroundSize: '100% 100%',  
           backgroundPosition: 'center center',  
         }}
       >

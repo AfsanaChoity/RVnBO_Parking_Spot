@@ -3,7 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const baseQuery = fetchBaseQuery({
 
   
-    baseUrl: 'http://10.10.20.73:5000/api/',
+    // baseUrl: 'http://10.10.20.73:5000/api/',
+    baseUrl: 'https://garyh-backend.onrender.com/api/',
     prepareHeaders: (headers) => {
         const token = localStorage.getItem('user-token');
         if (token) {
@@ -23,4 +24,4 @@ export const baseApi = createApi({
 
 
 
-export const imageUrl = 'https://backend.podlove.co'
+// export const imageUrl = 'https://backend.podlove.co'

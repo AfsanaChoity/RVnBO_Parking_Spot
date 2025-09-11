@@ -64,7 +64,7 @@ export default function TravelerDashboard() {
         <h2 className="md:text-xl font-semibold text-gray-900">Recent Bookings</h2>
         <button
           onClick={handleViewToggleClick} // Toggle the view
-          className="flex items-center gap-2 text-teal-600 hover:text-teal-700 transition-colors"
+          className="cursor-pointer flex items-center gap-2 text-teal-600 hover:text-teal-700 transition-colors"
         >
           <span className="text-sm md:text-base font-medium">
             {showAll ? 'View less' : 'View more'} {/* Toggle the button text */}

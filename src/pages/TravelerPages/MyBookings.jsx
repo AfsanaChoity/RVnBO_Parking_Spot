@@ -20,7 +20,7 @@ export default function MyBookings() {
         <HeadingSmall text="My Bookings"></HeadingSmall>
         <button
           onClick={handleViewToggleClick} // Toggle the view
-          className="flex items-center gap-2 text-teal-600 hover:text-teal-700 transition-colors"
+          className="cursor-pointer flex items-center gap-2 text-teal-600 hover:text-teal-700 transition-colors"
         >
           <span className="text-sm md:text-base font-medium">
             {showAll ? 'View less' : 'Show All'} {/* Toggle the button text */}

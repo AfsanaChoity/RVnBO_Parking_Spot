@@ -17,7 +17,7 @@ export default defineConfig({
     host: true,
     port: 3001,
     allowedHosts: [
-      'rvnbo-parking-spot.onrender.com',
+      'rvnbo.onrender.com',
       '.onrender.com'
     ]
   }

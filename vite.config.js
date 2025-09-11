@@ -8,11 +8,17 @@ export default defineConfig({
     tailwindcss(),
   ],
 
-  // base: process.env.VITE_BASE_PATH || "/garyh57-website",
-  // base: import.meta.env.VITE_BASE_PATH || '/RVnBO_Parking_Spot',
-
   server: {
     port: "3001",
-     host: "10.10.20.29",
+    host: true
   },
+  
+  preview: {
+    host: true,
+    port: Number(import.meta.env.PORT) || 3001,
+    allowedHosts: [
+      'rvnbo-parking-spot.onrender.com',
+      '.onrender.com'
+    ]
+  }
 })

@@ -8,10 +8,11 @@ export default defineConfig({
     tailwindcss(),
   ],
 
+  // base: process.env.VITE_BASE_PATH || "/garyh57-website",
+  base: import.meta.env.VITE_BASE_PATH || '/garyh57-website',
+
   server: {
-    // host: "143.198.238.107",
     port: "3001",
      host: "10.10.20.29",
-    //  port: "3001",
   },
 })

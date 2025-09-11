@@ -15,7 +15,7 @@ export default defineConfig({
   
   preview: {
     host: true,
-    port: Number(import.meta.env.PORT) || 3001,
+    port: 3001,
     allowedHosts: [
       'rvnbo-parking-spot.onrender.com',
       '.onrender.com'

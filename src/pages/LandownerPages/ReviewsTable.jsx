@@ -5,14 +5,9 @@ import { useEffect } from "react"; // Import useEffect
 import LoadingComponent from "../../components/common/LoadingComponent";
 
 export default function ReviewsTable() {
-  const { data, isLoading, error, isError } = useGetAllReviewsQuery();
+  const { data, isLoading, error } = useGetAllReviewsQuery();
 
-  useEffect(() => {
-    if (isError) {
-      // Show the error message if data fetch fails
-      toast.error(error?.data?.message || "Failed to fetch reviews");
-    }
-  }, [isError, error]);
+  
 
   // Show loading spinner when fetching data
   if (isLoading) {
@@ -24,11 +19,11 @@ export default function ReviewsTable() {
   }
 
   // If there is an error, display the error message instead of the reviews
-  if (isError) {
+  if (error) {
     return (
       <div className="text-center py-10">
         <p className="font-semibold text-lg text-gray-600">
-          Something went wrong. Please try again later.
+          {error?.data?.message}
         </p>
       </div>
     );

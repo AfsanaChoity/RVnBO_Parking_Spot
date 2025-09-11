@@ -19,14 +19,14 @@ export default function HostOverview() {
   const { data: userData, error: userError, isLoading: userIsloading } = useGetUserQuery();
 
   const handleViewToggleClick = () => {
-    setShowAll(!showAll); 
+    setShowAll(!showAll);
   };
 
   if (isDataLoading) {
     return <div><LoadingComponent /></div>;
   }
 
-  
+
   if (dataError) {
     return <div>Error fetching booking spots.</div>;
   }
@@ -39,7 +39,7 @@ export default function HostOverview() {
     return <div>{userError}</div>
   }
 
-  
+
   return (
     <div>
       <div>
@@ -63,24 +63,27 @@ export default function HostOverview() {
 
 
       <div className='mt-10'>
-         <div className="flex items-center justify-between mb-6 mt-10">
-        <h2 className="md:text-xl font-semibold text-gray-900">ALL Bookings</h2>
-        <button
-          onClick={handleViewToggleClick} // Toggle the view
-          className="cursor-pointer flex items-center gap-2 text-teal-600 hover:text-teal-700 transition-colors"
-        >
-          <span className="text-sm md:text-base font-medium">
-            {showAll ? 'View less' : 'View more'} {/* Toggle the button text */}
-          </span>
-          <ChevronRight className={`w-4 h-4 transform ${showAll ? 'rotate-180' : ''}`} />
-        </button>
-      </div>
+        <div className="flex items-center justify-between mb-6 mt-10">
+          <h2 className="md:text-xl font-semibold text-gray-900">ALL Bookings</h2>
+          {
+            (overviewData?.bookingDetails.length > 7) &&
+            <button
+              onClick={handleViewToggleClick} // Toggle the view
+              className="cursor-pointer flex items-center gap-2 text-teal-600 hover:text-teal-700 transition-colors"
+            >
+              <span className="text-sm md:text-base font-medium">
+                {showAll ? 'View less' : 'View more'} {/* Toggle the button text */}
+              </span>
+              <ChevronRight className={`w-4 h-4 transform ${showAll ? 'rotate-180' : ''}`} />
+            </button>
+          }
+        </div>
 
         {/* Spot Booking Table */}
-       <div>
-    
-         <SpotBookingTable bookingDetails={showAll? overviewData?.bookingDetails : overviewData?.bookingDetails.slice(0,10)}></SpotBookingTable>
-       </div>
+        <div>
+
+          <SpotBookingTable bookingDetails={showAll ? overviewData?.bookingDetails : overviewData?.bookingDetails.slice(0, 7)}></SpotBookingTable>
+        </div>
       </div>
     </div>
   )

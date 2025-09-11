@@ -40,7 +40,9 @@ export default function MyEarning() {
             </div>
 
             <div className='mt-20'>
-                 <h2 className="md:text-xl font-semibold text-gray-900 mb-6">ALL Transactions</h2>
+                 <div className="mb-6">
+                    <h2 className="md:text-xl font-semibold text-gray-900">ALL Transactions</h2>
+                 </div>
                 <EarningTable></EarningTable>
             </div>
         </div>

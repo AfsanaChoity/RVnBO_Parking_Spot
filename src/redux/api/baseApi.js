@@ -4,7 +4,7 @@ const baseQuery = fetchBaseQuery({
 
   
     // baseUrl: 'http://10.10.20.73:5000/api/',
-    baseUrl: 'https://garyh-backend.onrender.com/api/',
+     baseUrl: 'https://garyh-backend.onrender.com/api/',
     prepareHeaders: (headers) => {
         const token = localStorage.getItem('user-token');
         if (token) {

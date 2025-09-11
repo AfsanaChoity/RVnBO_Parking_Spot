@@ -9,7 +9,7 @@ export default defineConfig({
   ],
 
   // base: process.env.VITE_BASE_PATH || "/garyh57-website",
-  base: import.meta.env.VITE_BASE_PATH || '/garyh57-website',
+  base: import.meta.env.VITE_BASE_PATH || '/RVnBO_Parking_Spot',
 
   server: {
     port: "3001",

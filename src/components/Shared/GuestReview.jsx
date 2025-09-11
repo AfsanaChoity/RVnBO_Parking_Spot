@@ -56,7 +56,7 @@ export default function GuestReview({ role, ratingsAndReviews, averageRating, to
             {/* Reviews List */}
             <div className="pt-6 space-y-6">
                 {visibleReviews.map((review) => (
-                    <div key={review.id} className="flex gap-4">
+                    <div key={review?._id} className="flex gap-4">
                         {/* Avatar */}
                         <div className="flex-shrink-0">
                             <img

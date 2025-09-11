@@ -12,7 +12,7 @@ export const ChatWindow = ({ selectedUser, socket, handleBackToSidebar }) => {
   const [isTyping, setIsTyping] = useState(false);
   const [messages, setMessages] = useState([]);
 
-  console.log(selectedUser)
+  
 
   // Current authed user (sender)
   const { data: userData } = useGetUserQuery();
@@ -107,7 +107,7 @@ export const ChatWindow = ({ selectedUser, socket, handleBackToSidebar }) => {
       image: image || null,
     };
     socket.emit("send_message", payload);
-    console.log("Emitted send_message:", payload)
+    // console.log("Emitted send_message:", payload)
   };
 
   return (

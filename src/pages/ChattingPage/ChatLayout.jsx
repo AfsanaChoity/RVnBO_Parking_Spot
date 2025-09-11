@@ -24,7 +24,7 @@ export const ChatLayout = () => {
   const { landowner } = location.state || {}
   const { traveler } = location.state || {}
 
-  console.log("Traveler:", traveler)
+  
 
   useEffect(() => {
     if (chatUsers && chatUsers.data) {

@@ -35,7 +35,7 @@ const AMENITY_ICONS = {
 export default function SpotDetails() {
     const { id: spotId } = useParams();
     const { data: userData, error: userError, isLoading: isUserLoading } = useGetUserQuery();
-    const { data: spotDetails, error: spotError, isLoading: isSpotLoading } = useGetSpotDetailsQuery(spotId, { pollingInterval: 100 });
+    const { data: spotDetails, error: spotError, isLoading: isSpotLoading } = useGetSpotDetailsQuery(spotId);
 
     console.log(spotDetails?.land)
 

@@ -1,6 +1,6 @@
 
 import Banner from '../../components/common/Banner'
-import bgImg1 from '../../assets/images/BG_images/bg1.png'    //bg6
+import bgImg1 from '../../assets/images/BG_images/bg6.png'    //bg6
 import { useGetUserQuery } from '../../redux/api/authApi';
 import { Link } from 'react-router-dom';
 import MintButton from '../../components/common/MintButton';
@@ -27,8 +27,8 @@ export default function LandingPage() {
 
   const { data: spotData, error: spotError, isLoading: spotLoading } = useGetAllSpotsQuery();
 
-  const{ data: hostLands, error: landError, isLoading: isLandLoading} = useGetSpotListQuery();
- 
+  const { data: hostLands, error: landError, isLoading: isLandLoading } = useGetSpotListQuery();
+
 
 
 
@@ -50,10 +50,10 @@ export default function LandingPage() {
       <div>
         <Banner
           backgroundImg={bgImg1}
-          title="RVnBO:"
-          heading="Your Off-Grid Travel Adventure"
-          // heading2={userData ? (role === "traveler" ? "Escape The Crowds" : "Share Your Land") : "Park. Explore. Repeat."}
-          subheading={userData ? (role === "traveler" ? "Private land, untamed nature, and space to breathe." : "Welcome explorers. Build community. Earn effortlessly.") : "Hidden spots. Endless freedom. Off-grid your way."}
+          // title="RVnBO:"
+          // heading="Your Off-Grid Travel Adventure"
+          heading2={userData ? (role === "traveler" ? "Park Somewhere Better" : "Host RV Travelers on Your Land") : "Connecting RV Travelers with Private Land—Anywhere"}
+          subheading={userData ? (role === "traveler" ? "Simple, direct, and already present in your brand — highly effective" : "Share your land, welcome respectful travelers, and earn on your terms") : "Join free — explore unique off-grid stays or list your land"}
           button1={
             userData ?
               (role === "traveler" ?
@@ -65,12 +65,16 @@ export default function LandingPage() {
                   <MintButton text="List Your Spot"></MintButton>
                 </Link>)
               :
-              <Link to="/spots">
-                <MintButton text="Find Your Spot"></MintButton>
+              // <Link to="/spots">
+              //   <MintButton text="Find Your Spot"></MintButton>
+              // </Link>
+              <Link to="/onboarding/role">
+                <MintButton text="Join for Free"></MintButton>
               </Link>
           }
 
-          button2={button2}
+        // button2={button2}
+        isHomePage = {true}
 
         />
       </div>
@@ -149,20 +153,20 @@ export default function LandingPage() {
       {/* section 4 */}
       <section>
         <div className='text-center mb-20'>
-          <Heading text="How It Works"/>
+          <Heading text="How It Works" />
           <HowItWorkSection role={role} />
         </div>
       </section>
 
       {/* Section 5 for landowner */}
       <section>
-        
 
-          {role === 'landowner' && (
+
+        {role === 'landowner' && (
           <div className='container mx-auto text-center mt-10 mb-20'>
-          <div className='mb-16'>
-            <Heading text="Gallery of Your Lands"/>
-          </div>
+            <div className='mb-16'>
+              <Heading text="Gallery of Your Lands" />
+            </div>
             {isLandLoading ? (
               <LoadingComponent />
             ) : hostLands?.lands?.length > 0 ? (
@@ -183,13 +187,13 @@ export default function LandingPage() {
 
       {/* Section 6 */}
       <section className='mb-20'>
-        <HostingSection role = {role}/>
+        <HostingSection role={role} />
       </section>
 
       {/* section 7 - social proof */}
-        <section>
-              <SocialProofSection/>
-        </section>
+      <section>
+        <SocialProofSection />
+      </section>
 
     </div>
   )

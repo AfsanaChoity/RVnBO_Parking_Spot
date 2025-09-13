@@ -124,7 +124,7 @@ export default function SpotDetails() {
                                     {role === 'traveler' && (
                                         <Link to="/inbox"
                                             state={{ landowner: spotDetails?.land?.owner }}>
-                                            <TealButton text="Chat with Owner" />
+                                            <TealButton text="Chat with Host" />
                                         </Link>
                                     )}
                                 </div>

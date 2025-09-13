@@ -103,9 +103,9 @@ function Navbar({ unread = 4 }) {
 };
 
   return (
-    <div>
+    <div className=''>
       <AppBar position="static" sx={{ bgcolor: '#468F9D' }}>
-      <Container maxWidth={false} disableGutters>
+      <Container maxWidth={false} disableGutters className="max-w-7xl mx-auto">
         {/* 3-column layout: [left | center | right] */}
         <div className=''>
           <Toolbar
@@ -203,7 +203,7 @@ function Navbar({ unread = 4 }) {
             {!userData ? (
               <>
                 <Link to="/auth/login"><GradientButton text="Log In" /></Link>
-                <Link to="/onboarding/role"><GradientButton text="Sign Up" /></Link>
+                {/* <Link to="/onboarding/role"><GradientButton text="Sign Up" /></Link> */}
               </>
             ) : (
               <>

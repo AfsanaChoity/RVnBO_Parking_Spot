@@ -50,8 +50,8 @@ export default function LandingPage() {
       <div>
         <Banner
           backgroundImg={bgImg1}
-          // title="RVnBO:"
-          // heading="Your Off-Grid Travel Adventure"
+          title="RVnBO:"
+          heading="Your Off-Grid Travel Adventure"
           heading2={userData ? (role === "traveler" ? "Park Somewhere Better" : "Host RV Travelers on Your Land") : "Connecting RV Travelers with Private Land—Anywhere"}
           subheading={userData ? (role === "traveler" ? "Simple, direct, and already present in your brand — highly effective" : "Share your land, welcome respectful travelers, and earn on your terms") : "Join free — explore unique off-grid stays or list your land"}
           button1={

@@ -8,8 +8,10 @@ export default function Banner({ backgroundImg,title, heading, heading2='', subh
         className="relative min-h-screen flex items-center px-4 justify-center text-white bg-cover bg-center"
         style={{
           backgroundImage: `url(${backgroundImg})`,
-          backgroundSize: isHomePage ? '100% 100%' : 'cover', 
-          backgroundPosition: 'center center',  
+          // backgroundSize: isHomePage ? '100% 100%' : 'cover', 
+          backgroundSize: isHomePage ? 'cover' : 'cover', 
+          backgroundPosition: isHomePage?'center bottom' : 'center center', 
+          backgroundRepeat: 'no-repeat', 
         }}
       >
         {/* Dark overlay */}
@@ -17,19 +19,19 @@ export default function Banner({ backgroundImg,title, heading, heading2='', subh
 
         {/* Content */}
         <div className="relative z-10 mb-4 text-center md:px-[6%] mt-8">
-          <h1 className="text-4xl md:text-7xl font-bold mb-2">
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-2 lg:mb-10">
             {title}
           </h1>
 
-          <h1 className="text-4xl md:text-7xl font-bold mb-10">
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-10 md:mb-20">
             {heading}
           </h1>
 
-          <h2 className="text-3xl md:text-5xl font-bold mb-10 text-gray-300">
+          <h2 className="text-3xl md:text-5xl font-medium mb-10 md:mb-14 text-gray-300">
             {heading2}
           </h2>
 
-          <p className="text-xl md:text-3xl mb-12 text-gray-300">
+          <p className="text-xl md:text-3xl mb-16 text-gray-300">
             {subheading}
           </p>
          

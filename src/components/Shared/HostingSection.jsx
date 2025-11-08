@@ -22,7 +22,7 @@ export default function HostingSection({ role }) {
 
           {/* Small Button Inside */}
          <div className='mt-8'>
-           <Link to={role === 'landowner' ? "/mylisting": "/onboarding/role"}> <MintButton text="Start Hosting"></MintButton></Link>
+           <Link to={role === 'landowner' ? "/mylisting": "/onboarding/role"}> <MintButton text="Start Hosting Free"></MintButton></Link>
          </div>
         </div>
       </div>

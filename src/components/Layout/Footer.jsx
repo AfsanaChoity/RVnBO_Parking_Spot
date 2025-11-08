@@ -2,7 +2,8 @@ import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from 'react-icons/f
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 import GradientButton from '../common/GradientButton';
-
+import { Divider } from 'antd';
+import { FaRegCopyright } from "react-icons/fa6";
 
 const Footer = () => {
 
@@ -27,6 +28,7 @@ const Footer = () => {
 
             <Link to="/about-us">About Us</Link>
             <Link to="/spots">Features</Link>
+            <p>Refunds</p>
             <Link to="/privacy-policy">Privacy Policy</Link>
             {/* <p>Works</p> */}
             {/* <p>Hosting</p> */}
@@ -41,7 +43,7 @@ const Footer = () => {
 
             <Link to="/contact">Customer Support</Link>
             <Link to="/terms-conditions">Terms & Conditions</Link>
-            {/* <Link to="/privacy-policy">Privacy Policy</Link> */}
+            <Link to="/contact">Contact Us</Link>
             <Link to="/how-it-works">FAQ</Link>
 
           </div>
@@ -50,23 +52,32 @@ const Footer = () => {
         {/* Column 4 */}
         <div className=' '>
           <h1 className="text-xl font-bold text-white flex justify-center mb-4">Socials</h1>
-          
-            {/* Social Links */}
-            <div className="flex  gap-4 text-white text-lg justify-center">
-              <a href="https://www.facebook.com/" target='_blank'><FaFacebookF /></a>
-              <a href="https://x.com/" target='_blank'><FaTwitter /></a>
-              <a href="https://www.instagram.com/" target='_blank'><FaInstagram /></a>
-              <a href="https://www.linkedin.com/" target='_blank'><FaLinkedinIn /></a>
-            </div>
 
-            {/* Button */}
-            <div className=' mt-10 flex justify-center'>
-              <Link to="/onboarding/role">
-                <GradientButton text="Join Us"></GradientButton>
-              </Link>
-            </div>
-        
+          {/* Social Links */}
+          <div className="flex  gap-4 text-white text-lg justify-center">
+            <a href="https://www.facebook.com/" target='_blank'><FaFacebookF /></a>
+            <a href="https://x.com/" target='_blank'><FaTwitter /></a>
+            <a href="https://www.instagram.com/" target='_blank'><FaInstagram /></a>
+            <a href="https://www.linkedin.com/" target='_blank'><FaLinkedinIn /></a>
+          </div>
+
+          {/* Button */}
+          <div className=' mt-10 flex justify-center'>
+            <Link to="/onboarding/role">
+              <GradientButton text="Join Us"></GradientButton>
+            </Link>
+          </div>
+
         </div>
+      </div>
+
+      <div className='pt-4'>
+        <Divider style={{ borderColor: '#ffffff' }} className=''>
+        <div className='flex items-center gap-1 text-white'>
+          <FaRegCopyright />
+          RVnBO
+        </div>
+      </Divider>
       </div>
 
     </footer>

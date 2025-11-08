@@ -62,7 +62,7 @@ export default function LandingPage() {
                 </Link>
                 :
                 <Link to="/host/spots">
-                  <MintButton text="List Your Spot"></MintButton>
+                  <MintButton text="List Your Spot Free"></MintButton>
                 </Link>)
               :
               // <Link to="/spots">

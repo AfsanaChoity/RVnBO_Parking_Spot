@@ -18,7 +18,7 @@ export default function TealButton({ text, type = "button", onClick, icon = null
                     borderRadius: 8,
                     textTransform: "none",
                     fontWeight: 500,
-                    fontSize: '1.5rem',
+                    fontSize: '1.2rem',
 
                     "&:hover": {
                         backgroundColor: "#26a69a",

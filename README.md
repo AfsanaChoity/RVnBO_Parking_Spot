@@ -1,12 +1,58 @@
-# React + Vite
+# RVnBo – RV Parking Spot Rental Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A platform connecting **landowners** and **travelers** where landowners can list RV parking spots, and travelers can search, book, and communicate in real time. Supports online payments via Stripe and features a responsive UI for desktop and mobile.  
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Demo
+[https://rvnbo.onrender.com/](https://rvnbo.onrender.com/)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 📝 Features
+- Landowners can list, manage, and update parking spots  
+- Travelers can search, browse, and book available spots  
+- Real-time chat between landowners and travelers using Socket.io  
+- Secure online payments via Stripe  
+- Responsive UI for desktop and mobile  
+- Persistent data storage with MongoDB  
+
+---
+
+## 🛠️ Tech Stack
+
+**Frontend:**  
+- React  
+- Ant Design (UI components)  
+- RTK Query (state management & API calls)  
+- Socket.io (real-time chat)  
+
+**Backend:**  
+- Node.js & Express.js  
+- MongoDB (database)  
+- Socket.io (real-time communication)  
+- Stripe (payments)  
+
+**Deployment:** Render  
+
+---
+
+## Functionality
+1. Landowners create and manage RV parking listings.  
+2. Travelers search for available spots by location and availability.  
+3. Bookings trigger secure online payment via Stripe.  
+4. Real-time chat allows communication between travelers and landowners.  
+5. All interactions are persistent and synced across devices.  
+
+---
+
+## Benefits
+- Facilitates RV travelers in finding safe and convenient parking spots  
+- Allows landowners to monetize unused land  
+- Real-time communication enhances user experience  
+- Secure online transactions build trust and convenience  
+- Fully responsive design ensures accessibility on all devices  
+
+---
+
+**License:** MIT License  
